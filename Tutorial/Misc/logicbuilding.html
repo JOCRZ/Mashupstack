@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic Building</title>
+</head>
+<body>
+
+    <script>
+        // function to clean the text
+function clean(w1, w2) {
+    // We use .trim() and .toLowerCase() directly on the strings
+    let l1 = w1.trim().toLowerCase();
+    let l2 = w2.trim().toLowerCase();
+
+    return [l1, l2]; // Return as an array
+}
+
+// function that checks anagram
+function anagramchecker(aw, bw) {
+    if (aw.length !== bw.length) {
+        console.log("The words are not Anagram (different lengths)");
+        return;
+    }
+
+    // Split into characters -> Sort alphabetically -> Join back into string
+    const sortaw = aw.split('').sort().join('');
+    const sortbw = bw.split('').sort().join('');
+
+    if (sortaw === sortbw) {
+        console.log("The words are Anagram");
+    } else {
+        console.log("The words are not Anagram");
+    }
+}
+
+// user input 
+let w1 = prompt("Enter the first word : ");
+let w2 = prompt("Enter the second word : ");
+
+// function call using Destructuring
+const [aw, bw] = clean(w1, w2);
+anagramchecker(aw, bw);
+       
+
+    </script>
+    
+</body>
+</html>
