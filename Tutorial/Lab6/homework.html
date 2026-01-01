@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            background-image: url(/Lab6/data/sanjicooking.jpg);
+
+        }
+
+        #heading {
+            text-align: right;
+            border-radius: 3px;
+            background-color:#B12623;
+            display: flex;    
+            justify-content: flex-end;
+            padding-top:10px;
+            padding-right:10px;
+            font-family: monospace;
+            
+
+        }
+
+        #welcome {
+            margin:auto;
+            width:600px;
+            margin-top:5px;
+            color:white;
+            text-align: center;
+            font-family:sans-serif;
+            font-size: 20px;
+            border-style: solid;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            
+        }
+        #logo {
+            font-size: 50px;
+            color: white;
+            margin-bottom: 10px;
+        }
+        #divtitle {
+            color:white;
+            letter-spacing:5px;
+        }
+
+        #menu {
+            display:flex;
+            justify-content:center;
+            margin-top: 100px;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            text-indent: 20px;
+            margin:10px 10px 10px 350px;
+            font-size:20px;
+            width:750px;
+            height:250px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            color:white;
+        }
+
+           table {
+            border-collapse: collapse;
+            width: 60%;
+        }
+
+               th {
+            text-align: center;
+            height:50px;
+            vertical-align:middle;
+        }
+
+        td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        a {
+            text-decoration: none;
+            color:white;
+        }
+
+
+        a:hover {
+                color: black;
+                }
+
+
+         a:active {
+            color: white;
+                    }
+ 
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Resturant</title>
+</head>
+<body>
+    <div id="heading">
+        <div id="divlogo">
+        <i id="logo" class="fa-solid fa-utensils"></i>
+        </div>
+        <div id="divtitle">
+        <h1> <a href="https://www.swiggy.com/city/thiruvananthapuram/masala-dosa-dish-restaurants" >Delicious Dungeon</a></h1>
+        </div>
+    </div>
+
+    <div id="welcome">
+    <h2> Welcome to Delicious Dungeon </h2>
+    <h3> A Culnary Adventure awaits you</p>
+    </div>
+
+    <div id="menu">
+    <table>
+        <tr>
+            <th>Menu</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            <td>Masala Dosa</td>
+            <td>110rs</td>
+        </tr>
+                <tr>
+            <td>Ghee Dosa</td>
+            <td>100rs</td>
+        </tr>
+                <tr>
+            <td>Tomato Dosa</td>
+            <td>50rs</td>
+        </tr>
+    </table>
+    </div>
+   
+</body>
+</html>
