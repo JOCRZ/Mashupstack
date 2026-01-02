@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        body {
+            background-image: url("/Lab7/data/bg.jpg");
+        }
+        .container {
+            height:610px;
+            width:750px;
+            margin:auto;
+            overflow: scroll;
+            margin:auto;
+            box-shadow: 30px 30px 30px gray;
+        }
+
+        .regular-job {
+            border-style:solid;
+            border-color: black;
+            padding:20px;
+            border-radius:10px;
+            background-image: url('/Lab7/data/bg3.webp');
+            background-size:150%;
+            color:white;
+            box-shadow: 30px 30px 30px gray;
+            font-family:sans-serif;
+            word-spacing:2px;
+            height:450px;
+        }
+
+        .hobbie {
+            border-style:solid;
+            border-color: black;
+            padding:20px;
+            border-radius:10px;
+            margin-top:30px;
+            background-image: url("/Lab7/data/bg7.jpg");
+            background-size:125%;
+            color:white;
+            box-shadow: 30px 30px 30px gray;
+            font-family: monospace;
+            letter-spacing: 1px;
+            height:450px;
+
+        }
+
+        #elliot-img {
+            float:right;
+            border-radius: 50%;
+        }
+
+        #robot-img {
+            float:right;
+            border-radius: 50%;
+        }
+        h1 {
+            text-align: center;
+            font-family:monospace;
+            
+        }
+
+        #title {
+            font-size:40px;
+            letter-spacing:10px;
+            font-weight:bolder;
+        }
+
+        #regular-head {
+            font-size:40px;
+            letter-spacing:5px;
+
+        }
+
+        #hobbie-head {
+            font-size:40px;
+            letter-spacing:10px;
+        }
+
+        #fsociety {
+            padding-top:315px;
+            padding-left:630px;
+            position:fixed;
+        }
+
+        #space {
+            padding-top:40px;
+        }
+    </style>
+    <title>Contact Card</title>
+</head>
+<body>
+    <div class="container">
+        <h1 id="title"> Contact Card</h1>
+        <img id="fsociety" src="/Lab7/data/fsociety.jpg" height="100px">
+        <div class="regular-job">
+            <img id="elliot-img" src="/Lab7/data/elliot.png" height="150px" >
+            <h2 id="regular-head"> Elliot Alderson</h2>
+            <p>Employee ID: E-CORP-404 </p>    
+            <p>Designation: Cybersecurity Engineer </p>
+            <p>Department: Information Security</p>
+            <p>Email: elliot.alderson@ecorp.com</p>
+            <p>Phone: +1 212 555 0110</p>
+            <p>Office Location: E Corp Headquarters, Floor 2</p>
+            <p>Reporting Manager: Gideon Goddard</p>
+            <p>Working Hours: Flexible (On-Call)</p>
+            <p>Access Level: Restricted</p>
+            <p>Status: Active</p>
+        </div>
+
+        <div class="hobbie">
+                <img id="robot-img" src="/Lab7/data/mrobot.jpg" height="150px">
+                <h2 id="hobbie-head">Mr Robot</h2>
+                <p>Role: Core Member / Exploit Engineer</p>
+                <p>Group: fsociety</p>
+                <p>Primary Skills: 
+                    <ul>
+                        <li>Penetration Testing</li>
+                        <li>Malware Injection</li>
+                        <li>Social Engineering</li>
+                        <li>Cryptography</li>
+                        <li>Linux Systems</li>
+                    </ul>
+                </p>
+                <p>Base Location: Coney Island Arcade</p>
+                <p>Access Level: Root</p>
+                <p>Availability: Unpredictable</p>
+                <p>Status: Stay Vigilant</p>
+        </div>
+        <p id="space"> </p>
+    </div>
+    
+</body>
+</html>
