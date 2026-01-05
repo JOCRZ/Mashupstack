@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        body {
+            font-family:sans-serif;
+            
+        }
+        
+        .headers {
+            border-style:solid;
+            height:80px;
+            width:1120px;
+            margin:auto;
+            border-radius: 5px;
+            box-shadow: 5px 5px 5px  gray;
+           
+        }
+
+        h1 {
+            float:left;
+            margin-left:15px;
+        }   
+
+        h2 {
+            float:right;
+            margin-right:15px;
+        }
+
+
+
+        .container {
+            border-style:solid;
+            margin:auto;
+            margin-top:20px;
+            padding:60px;
+            width:1000px;
+            height:400px;
+            border-radius: 5px;
+            box-shadow: 25px 25px 25px gray;
+            overflow: scroll;
+        }
+
+        #profile {
+            border-radius: 100px;
+            float:left;
+            margin-right:10px;
+            border-style:solid;
+        }
+        #date {
+            float:right;
+        }
+
+        #profile {
+            float:left;
+        }
+
+
+        .title {
+            margin-bottom:60px;
+            padding-bottom:40px;
+        }
+
+        #commentor {
+            float:left;
+            font-size:xx-large;
+            font-family: monospace;
+        }
+
+        div p::first-line {
+            font-weight: bold;
+        }
+
+        .content p:first-of-type::first-letter {
+            font-size: xx-large;
+            color:red;
+        }
+        blockquote {
+            border-style:solid;
+            padding:10px;
+            border-radius: 5px;
+            box-shadow: 5px 5px 5px gray;
+            font-family:monospace;
+            font-size: 15px;
+        }
+
+        blockquote p::before {
+            content: "“";
+            font-size: 40px;
+            color: #ccc;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        footer {
+            text-align: right;
+            font-family: cursive;
+            font-size:15px;
+        }
+
+        h3 {
+            font-size:x-large;
+        }
+
+        h1 + h2 {
+            font-family:monospace;
+            font-size:25px;
+        }
+        a {
+            text-decoration: none;
+        }
+
+        a:link {
+            color:black;
+        }
+
+        a:visited {
+            color:grey;
+        }
+        
+        a:hover {
+            color:red;
+        }
+
+        
+
+    </style>
+    <title>MyNovelist</title>
+</head>
+<body>
+    <div class="headers">
+        <h1 id="header1"> My NoveList</h1>
+        <h2 id="header2"><a href="https://shadowslave.fandom.com/wiki/Shadow_Slave_Wiki">Blog Posts</a></h2>
+    </div>
+    <div class="container">
+        <div class="title">
+             <img id="profile" src="/Lab8/data/shadowslave.jpg" height="80px">
+            <p id="date">May 11, 2019 6:17 PM</p>
+            <p id="commentor">Mongrel</p>
+        </div>
+        <div class="content">
+        <h3>Shadow slave is so addictive.</h3>
+        <p>So I'm gonna be honest with you guys. Currently, I'm reading Lord of the Mysteries, Reverend Insanity, Omniscient Reader's Viewpoint, and Shadow Slave together. And the thing is, among all of them, Shadow Slave is the one that totally caught me off guard.</p>
+        <p>It's not as well-written. It lacks the nutty depth of LOTM's worldbuilding, the philosophical gravitas of RI, or the devious meta storytelling of ORV. If anything, Shadow Slave has a tendency to come across as simple at times even cringe with its lines or dialogue. And still… I can't put it down.</p>
+        <p>With LOTM, I can rationally know it's a masterpiece. Each paragraph is "this is high-level writing." I'll read a couple of chapters, and then I'll just sit back and go, "damn, this is great." But at the same time, it's taken me three weeks to read part of the first volume. Simultaneously, with Shadow Slave, I read four full volumes in two weeks without knowing it. I just keep turning the page. I continue clicking "next chapter." It's like black magic.</p>
+        <p>And this is the strange thing: after 700 chapters, there is hardly any actual character development. The storyline is simple. The dialogue will sometimes make me cringe. But it's addictive. It's easy to read. It's enjoyable. It's compulsive in a way I cannot quite put my finger on.</p>
+        <p>So yeah, Shadow Slave may not be the "best work of art" when compared to goliaths like LOTM or Reverend Insanity. But somehow, in spite of knowing that, in spite of knowing all its flaws, I find myself thinking: this is better for me, at least, right now, in this particular moment. <br> <br> Can anyone else tell me why? Because I promise this thing has got a hold on me like a curse.</p>
+
+        <blockquote>
+            <p>But here is a thing about luck.<br> People usually speak about it as though luck is something that just happens to you. It's not. Luck is fifty percent circumstance and fifty percent your own ability to grasp it. Luck is something you have to make happen yourself. I fought with everything I had to survive. That's one of the two reasons I'm still here.</p>
+                <footer> ~ Sunny</footer>
+        </blockquote>       
+        </div> 
+        </div>
+    </div>
+</body>
+</html>
