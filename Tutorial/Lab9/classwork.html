@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        .main-container {
+            padding:10px;
+            display: grid;
+            grid-template-rows: 80px 550px;
+            height:600px;
+        }
+
+        .navbar {
+            border-style:solid;
+            border-radius: 6px;
+            display: grid;
+            grid-template-columns: 290px 290px;
+            justify-content: space-between;
+            height: 70px;
+
+        }
+
+        .icon {
+         
+            align-content:center;
+            padding-left:20px;
+        }
+
+        .profile {
+           
+           align-content:center;
+           padding-left:210px;
+        }
+
+
+        .contents {
+            border-style:solid;
+            margin-top:20px;
+            margin:auto;
+            border-radius: 6px;
+            justify-content: center;
+            display: grid;
+            grid-template-columns: 280px 280px;
+            height:500px;
+            width:600px;
+            background-color: white;
+        }
+
+        .title {
+          
+            height:250px;
+            padding-top:30px;
+            padding-left:50px;
+            height:220px;
+            
+            
+        }
+
+        .product {
+            border-style:solid;
+            border-width: 2px;
+            border-radius:30px 20px;
+            height:250px;
+            margin-top:20px;
+            padding-left: 5px;
+            height:250px;
+
+        }
+
+        .price {
+          
+            height:250px;
+            padding-top:10px;
+            padding-left:30px;
+        }
+
+        .buy {
+          
+            height:250px;
+            padding-top:20px;
+            padding-left:80px;
+            height:220px;
+        }
+        
+
+
+        #title {
+
+            font-family: monospace;
+            font-size: 30px;
+        }
+
+        #presto {
+            border-radius: 30px;
+        }
+
+        #price {
+            font-family: monospace;
+            font-size: 15px;
+
+        }
+
+        #btn {
+            width:100px;
+            height:40px;
+               
+        }
+        @media only screen and (orientation: landscape) {
+            body {
+                 background-color: lightblue;
+            }
+        }
+
+        @media only screen and  (max-width: 600px) {
+
+
+        #title {
+
+            font-family: monospace;
+            font-size: 20px;
+        }
+
+        #presto {
+            border-radius: 30px;
+        }
+
+        #price {
+            font-family: monospace;
+            font-size: 10px;
+
+        }
+
+        #btn {
+            width:50px;
+            height:20px;
+
+        }
+
+    }
+
+    </style>
+    <title>Grid</title>
+</head>
+<body>
+    <div class="main-container">
+        <nav class="navbar">
+            <div class="icon">
+                <img id="logo" src="/Lab9/data/nike.png" height="60px">
+            </div>
+            <div class="profile">
+                <img id="profile" src="/Lab9/data/user.png" height="50px">
+            </div>
+        </nav>
+        <div class="contents">
+            <div class="title">
+                <h3 id="title">Nike Air Presto </h3>
+            </div>
+            <div class="product">
+                <img id="presto" src="/Lab9/data/presto.avif" height="250px">
+            </div>
+            <div class="price">
+                <p id="price">MRP : ₹ 14 995.00</p>
+            </div>
+            <div class="buy">
+                <button id="btn" type="button">Buy</button>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

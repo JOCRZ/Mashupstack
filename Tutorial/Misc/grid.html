@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        .main-container {
+            border-style: solid;
+            padding:10px;
+            display: grid;
+            grid-template-rows: 80px 550px;
+        }
+
+        .navbar {
+            border-style:solid;
+            background-color: rgb(240, 38, 38);
+            border-radius: 6px;
+            display: grid;
+            grid-template-columns: 290px 290px;
+            justify-content: space-between;
+
+        }
+
+        .icon {
+            border-style:solid;
+            background-color: chocolate;
+        }
+
+        .profile {
+           border-style:solid; 
+           background-color:beige
+        }
+
+
+        .contents {
+            border-style:solid;
+            margin-top:20px;
+            background-color: rgb(0, 60, 255);
+            border-radius: 6px;
+            justify-content: center;
+            display: grid;
+            grid-template-columns: 280px 280px;
+        }
+
+        .title {
+            border-style: solid;
+            background-color: antiquewhite;
+            height:250px;
+        }
+
+        .product {
+            border-style:solid;
+            background-color:aqua;
+            height:250px;
+        }
+
+        .price {
+            border-style:solid;
+            background-color: blueviolet;
+            height:250px;
+        }
+
+        .buy {
+            border-style:solid;
+            background-color: cadetblue;
+            height:250px;
+        }
+        
+
+
+
+
+
+
+    </style>
+    <title>Grid</title>
+</head>
+<body>
+    <div class="main-container">
+        <nav class="navbar">
+            <div class="icon">
+                <img id="logo" src="/Lab9/data/nike.png" height="60px">
+            </div>
+            <div class="profile">
+                <img id="profile" src="/Lab9/data/user.png" height="50px">
+            </div>
+        </nav>
+        <div class="contents">
+            <div class="title">
+                <h3 id="title">Nike Air Presto </h3>
+            </div>
+            <div class="product">
+                <img src="/Lab9/data/presto.avif" height="250px">
+            </div>
+            <div class="price">
+                <p id="price">MRP : ₹ 14 995.00</p>
+            </div>
+            <div class="buy">
+                <button id="btn" type="button">Buy</button>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
