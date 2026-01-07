@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+        .container {
+        
+            display: grid;
+            grid-template-columns: 70% 50%; 
+            height:650px; 
+
+        }
+
+        .section1 {
+    
+            padding:50px;
+            background: linear-gradient(180deg, #747f97, #da9667);
+            height:100%;
+            
+        }
+
+        .section2 {
+        
+            padding:20px;
+            display: inline-block;
+            position:relative;
+        }
+
+        .login {
+    
+            position:absolute;
+            top:20%;
+            left:1%;
+            padding:15px;
+            margin-right:20px;
+            width:380px;
+        }
+        h2 {
+            color:#672f25;
+        }
+
+        #btn {
+            width:100%;
+            background-color: #d82d0b;
+            color:white;
+            padding:5px;
+        }
+
+        #email {
+            width:100%;
+            height:20px;
+        }
+
+        #passwd {
+            width:100%;
+            height:20px;
+        }
+
+
+        @media screen and (max-width: 768px) {
+
+        .section1 {
+            display: none;
+        }
+
+        .section2 {
+
+            margin-left:60px;
+            width:380px;
+        }
+
+        .login {
+            border-style: solid;
+            position:absolute;
+            top:20%;
+            left:1%;
+            padding:15px;
+            margin-right:20px;
+            width:350px;
+            height:300px;
+
+        }        #btn {
+            width:100%;
+            background-color: #d82d0b;
+            color:white;
+            padding:8px;
+        }
+
+        #email {
+            width:100%;
+            height:25px;
+        }
+
+        #passwd {
+            width:100%;
+            height:25px;
+        }
+
+
+
+    }
+    </style>
+    <title>Login</title>
+</head>
+<body>
+       <div class="container">
+            <div class="section1"></div>
+            <div class="section2">
+                <form class="login" method="post" action="login.html" target="_blank">
+                    <h2>Login Form</h2>
+                        <label for="email">Email:</label><br>
+                        <input type="email" id="email" name="email"><br>
+                        <label for="passwd">Password:</label><br>
+                        <input type="text" id="passwd" name="passwd"><br><br>
+                        <input type="checkbox" name="sport1" value="ckt">Remember Me <br><br>
+                        <button id="btn" type="button" onclick="alert('Logining in Please wait...')">Login</button>
+                </form>
+            </div>
+       </div> 
+</body>
+</html>
