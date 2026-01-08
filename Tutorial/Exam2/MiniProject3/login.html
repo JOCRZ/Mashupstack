@@ -4,23 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        body {
+            margin:0px;
+            overflow: hidden;
+        }
         * {
             font-family: sans-serif;
             font-weight: bold;
         }
+
+    
         .container {
         
             display: grid;
-            grid-template-columns: 70% 50%; 
+            grid-template-columns: 50% 50%; 
             height:650px; 
+            margin:0px;
 
         }
 
         .section1 {
     
             padding:50px;
-            background: linear-gradient(180deg, #747f97, #da9667);
+            background: linear-gradient(180deg, #b9b9ee, #d8a884);
             height:100%;
+            margin:0px;
+          
             
         }
 
@@ -29,26 +38,30 @@
             padding:20px;
             display: inline-block;
             position:relative;
+            background-color: white;
+            
         }
 
         .login {
-    
+         
             position:absolute;
-            top:20%;
-            left:1%;
+            top:30%;
+            left:4%;
             padding:15px;
             margin-right:20px;
-            width:380px;
+            width:650px;
         }
         h2 {
-            color:#672f25;
+            color:#de5138;
         }
 
         #btn {
             width:100%;
-            background-color: #d82d0b;
+            background-color: orangered;
             color:white;
             padding:5px;
+            border-style:none;
+
         }
 
         #email {
@@ -75,13 +88,13 @@
         }
 
         .login {
-            border-style: solid;
+        
             position:absolute;
             top:20%;
             left:1%;
             padding:15px;
             margin-right:20px;
-            width:350px;
+            width:450px;
             height:300px;
 
         }        #btn {
@@ -89,6 +102,7 @@
             background-color: #d82d0b;
             color:white;
             padding:8px;
+            
         }
 
         #email {
@@ -111,14 +125,14 @@
        <div class="container">
             <div class="section1"></div>
             <div class="section2">
-                <form class="login" method="post" action="login.html" target="_blank">
+                <form class="login" method="post" action="https://monkeytype.com/" >
                     <h2>Login Form</h2>
                         <label for="email">Email:</label><br>
-                        <input type="email" id="email" name="email"><br>
+                        <input type="email" id="email" name="email" required><br><br>
                         <label for="passwd">Password:</label><br>
-                        <input type="text" id="passwd" name="passwd"><br><br>
-                        <input type="checkbox" name="sport1" value="ckt">Remember Me <br><br>
-                        <button id="btn" type="button" onclick="alert('Logining in Please wait...')">Login</button>
+                        <input type="text" id="passwd" name="passwd" required><br><br>
+                        <input type="checkbox" name="reme" value="yes">Remember Me <br><br>
+                        <button id="btn" type="submit" >Login</button>
                 </form>
             </div>
        </div> 
