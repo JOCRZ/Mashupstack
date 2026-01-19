@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <title>Bakery-Feedback</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand shadow">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="#">
+            <i class="bi bi-cup-hot-fill"></i> Sweet Delights Bakery
+            </a>
+
+            <ul class="navbar-nav ">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Contact</a>
+            </li>
+            </ul>
+
+        </div>
+</nav>
+
+<div class="container p-3">
+
+    <div class="col-5 mx-auto shadow p-4 ">
+
+            <div class="form-group">
+                            <label for="text">Name:</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                    </div>
+
+
+                    <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                    </div>
+
+                    
+                    <div class="form-group">
+                            <label for="comment">Comment:</label>
+                            <textarea type="text" class="form-control" id="comment"  placeholder="Enter review" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+
+                <label for="range">Satisfaction level: <span id="rangeValue">5</span></label>
+                <input 
+                    type="range" 
+                    class="form-range" 
+                    id="range" 
+                    min="0" 
+                    max="10" 
+                    value="5"
+                    oninput="rangeValue.innerText = this.value">
+
+                    <div class="row">
+                        <div class="col-6">
+                                    <label for="sel1"> Prefered contact method:</label>
+                                    <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input "name="optradio">Phone
+                                    </label>
+                                    </div>
+
+                                    <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input"name="optradio" >Email
+                                    </label>
+                                    </div>
+                            </div>
+
+                        <div class="col-6">
+                            <label for="sel1">Type of Order:</label>
+                            <div class="form-group">
+                                    <select class="form-control" id="sel1">
+                                        <option>Cake</option>
+                                        <option>Cookies</option>
+                                        <option>Pastries</option>
+                                    </select>
+                                    </div>
+                        </div>
+                    </div>
+
+
+                    <button  type="submit" class="btn btn-primary float-right ">Submit</button>
+                    &nbsp;
+
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
