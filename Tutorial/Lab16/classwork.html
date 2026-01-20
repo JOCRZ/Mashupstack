@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <title>bookmyisland</title>
+</head>
+<body>
+
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+        <!--indicator-->
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+        <!--banner image-->
+        <div class="carousel-inner">
+
+                <div class="carousel-item active">
+                    <img src="/Tutorial/Lab16/data/water7.jpg" alt="water7" width="100%" height="500">
+                    <div class="carousel-caption">
+                        <h1 class="text-white">Water 7</h1>
+                        <p class="text-white ">The Venice of the Grand Line, where you can ride the famous Sea Train and navigate breathtaking canal streets on the back of a friendly Bull.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                <img src="/Tutorial/Lab16/data/ohara.jpg" alt="ohara" width="100%" height="500">
+                    <div class="carousel-caption">
+                        <h1 class="text-white">Ohara</h1>
+                        <p class="text-white">A tranquil sanctuary for history lovers, home to the legendary Tree of Knowledge and a world-renowned library dedicated to uncovering the secrets of the past.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                <img src="/Tutorial/Lab16/data/onigashima.png" alt="onigashima" width="100%" height="500">
+                    <div class="carousel-caption">
+                        <h1 class="text-white">Onigashima</h1>
+                        <p class="text-white">A dramatic, skull-shaped fortress island perfect for thrill-seekers looking to experience giant architecture, wild fire-festivals, and a rugged, mountainous landscape.</p>
+                    </div>
+                </div>
+        </div>
+        <!--side arrow-->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+
+    <div class="container">
+
+            <div class="row justify-content-center my-3">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            Book Now
+                        </button>
+                        <div class="modal " id="myModal">
+                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h4 class="modal-title">Welcome to the Journey!</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><span class="font-weight-bold">Limited Availability:</span><br> We keep our groups small for a better experience.<br></p>
+
+                                    <p class="font-weight-bold">Use code FIRST25 for 25% OFF your very first booking!</p>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Continue</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+    
+
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
