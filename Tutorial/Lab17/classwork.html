@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+            .container {
+                padding:30px;
+                margin:auto;
+                width:25%;
+                margin-top: 100px;
+                border-radius: 5px;
+                box-shadow: 10px 14px 20px 10px rgba(0, 0, 0, 0.3);
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            }
+
+
+    </style>
+    <title>Online Store</title>
+</head>
+<body>
+    <div class="container">
+        <h3>Online Store Sales Tracker</h3>
+        <p> T-Shirts = 400 rs  <br>
+            Caps = 150 rs
+        </p>
+        <p>Total Earnings : <span id="te"></span></p> 
+
+        <p>T-Shirts = 450 rs </p>
+        <p>Re-calculated Total Earnings: <span id="rte"></span></p>
+
+    </div>
+
+        <script>
+            var tshirts = 400;
+            var caps = 150;
+
+            var te = ( tshirts * 5 ) + ( caps * 3 ) ;
+            document.getElementById("te").innerHTML = te + " rs";
+
+            var tshirts = 450;
+            var rte = ( tshirts * 5 ) + ( caps * 3 ) ;
+            document.getElementById("rte").innerHTML = rte + " rs";
+
+        </script>
+    
+</body>
+</html>
