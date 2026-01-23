@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Shop</title>
+</head>
+<body>
+     <script>
+        console.log("           Grocery Shop");
+        console.log(" ");
+        const item1 = "rice", item2 = "sugar" ,  item3 = "wheat" ;
+
+        var price = 50, psugar = 45, pwheat = 30;
+        var qrice = 10, qsugar = 2, qwheat = 5;
+
+        var total_bill = (price * qrice) + (psugar * qsugar) + (pwheat * qwheat) ;
+        console.log("Grocery Bill");
+        console.log(item1 + ": Cost = " + price + "rs , Quantity: " +qrice );
+        console.log(item2 + ": Cost = " + psugar + "rs , Quantity: " +qsugar );
+        console.log(item3 + ": Cost = " + pwheat + "rs , Quantity: " +qwheat );
+
+        console.log("Total                       " + total_bill + "rs");
+
+        console.log(" ");
+        console.log("Re-calculated Grocery Bill");
+        var pwheat = 35;
+        var total_bill = (price * qrice) + (psugar * qsugar) + (pwheat * qwheat) ;
+
+        console.log(item1 + ": Cost = " + price + "rs , Quantity: " +qrice );
+        console.log(item2 + ": Cost = " + psugar + "rs , Quantity: " +qsugar );
+        console.log(item3 + ": Cost = " + pwheat + "rs , Quantity: " +qwheat );
+
+        console.log("Total                       " + total_bill + "rs");
+
+        
+
+     </script>
+</body>
+</html>
