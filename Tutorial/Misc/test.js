@@ -1,49 +1,28 @@
-function printBookSummary(bookobj) {
-  let library = {
-    book1: {
-      title: 'Shadow Slave',
-      author: 'Guiltythree',
-      year: 2022
-    },
-    B1: function() {
-      console.log('The book ' + this.book1.title + ' was written by ' + this.book1.author + ' in ' + this.book1.year);
-    },
-    book2: {
-      title: 'Reverend Insanity',
-      author: 'Gu Zhen Ren',
-      year: 2012 // RI actually started in 2012!
-    },
-    B2: function() {
-      console.log('The book ' + this.book2.title + ' was written by ' + this.book2.author + ' in ' + this.book2.year);
-    },
-     book3: {
-      title: 'The Omniscent Readers View Point',
-      author: 'singNsong',
-      year: 2018
-    },
-    B3: function() {
-      console.log('The book ' + this.book3.title + ' was written by ' + this.book3.author + ' in ' + this.book3.year);
-    },
+// Contact 1: Loid Forger
+const contact1 = {
+  name: 'Loid Forger',
+  phone: '901-234-5678',
+  email: 'twilight.spy@ostania-mail.com',
+  getInfo: function() {
+    return `Name: ${this.name} | Phone: ${this.phone} | Email: ${this.email}`;
+  }
+};
 
-     book4: {
-      title: 'Lord of the Mysteries',
-      author: 'Cuttlefish That Loves Diving',
-      year: 2018
-    },
-    B1: function() {
-      console.log('The book ' + this.book4.title + ' was written by ' + this.book4.author + ' in ' + this.book4.year);
-    },
-  };
+// Contact 2: Mikasa Ackerman
+const contact2 = {
+  name: 'Mikasa Ackerman',
+  phone: '809-876-5432',
+  email: 'stronger.together@shiganshina.net',
+  getInfo: function() {
+    return `Name: ${this.name} | Phone: ${this.phone} | Email: ${this.email}`;
+  }
+};
 
-  
-
-  // Check if the key exists before calling it to prevent errors
-  if (library[bookobj]) {
-    library[bookobj]();
+function printContactInfo(contact) {
+  // Check if the method exists to avoid the TypeError you saw earlier
+  if (typeof contact.getInfo === 'function') {
+    console.log(contact.getInfo());
   } else {
-    console.log("Book reference not found.");
+    console.log("Error: This object does not have a valid getInfo method.");
   }
 }
-
-// Pass the key as a string
-printBookSummary('B2');

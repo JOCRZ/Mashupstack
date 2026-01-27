@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Book</title>
+</head>
+<body>
+    <script>
+    
+            const contact1 = {
+            name: 'Loid Forger',
+            phone: '901-234-5678',
+            email: 'twilight.spy@ostania-mail.com',
+            getInfo: function() {
+                return `Name: ${this.name} | Phone: ${this.phone} | Email: ${this.email}`;
+            }
+            };
+
+
+            const contact2 = {
+            name: 'Mikasa Ackerman',
+            phone: '809-876-5432',
+            email: 'stronger.together@shiganshina.net',
+            getInfo: function() {
+                return `Name: ${this.name} | Phone: ${this.phone} | Email: ${this.email}`;
+            }
+            };
+
+        function printContactInfo(contact) {
+            
+            console.log(contact.getInfo());
+
+}
+
+printContactInfo(contact1);
+    </script>
+</body>
+</html>
