@@ -1,29 +1,26 @@
+function processReturn() {
+    // 1. Create the object with current input data
+    const order = {
+        itemName: "headphone",
+        isDelivered: true,
+        daysSinceDelivery: 4
+    };
 
+    // 2. Logic Check (Ternary Operator instead of if-else)
+    const status = (order.isDelivered && order.daysSinceDelivery <= 7) 
+        ? "Eligible for Return" 
+        : "Return Period Expired";
+    
+    console.log(status)
 
-const mysteryLevel = Math.floor(Math.random() * 50) + 1;
+    // 3. Check if 'itemName' exists
+    const hasName = "itemName" in order;
+    console.log("Does itemName exist?", hasName);
 
+    // 4. Remove 'daysSinceDelivery' property
+    delete order.daysSinceDelivery;
+    
+    console.log("Updated Object:", order);
+}
 
-const userInput = "45";
-const userScore = Number(userInput); 
-
-const diff = Math.abs(mysteryLevel - userScore);
-
-const scoreSqrt = Math.sqrt(userScore);
-
-
-const piValue = Math.PI;
-
-const implicitResult = "20" * 5;
-
-
-const highest = Math.max(10, 20, mysteryLevel);
-const lowest = Math.min(10, 20, mysteryLevel);
-
-
-console.log(`Mystery Level: ${mysteryLevel}`);
-console.log(`User Score: ${userScore}`);
-console.log(`Difference: ${diff}`);
-console.log(`Square Root of Score: ${scoreSqrt}`);
-console.log(`Value of Pi: ${piValue}`);
-console.log(`Implicit (20 * 5): ${implicitResult}`);
-console.log(`Highest value: ${highest}, Lowest value: ${lowest}`);
+processReturn();

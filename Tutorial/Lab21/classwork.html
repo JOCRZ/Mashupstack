@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .container {
+            border-style:solid;
+            border-radius: 5px;
+            display: grid;
+            grid-template-rows: 50px 50px 50px;
+            margin:auto;
+            margin-top:100px;
+            padding:10px;
+            width:500px;
+            height:180px;
+        } 
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+    <p> Check for Return Eligibility </p>
+    <input type="number" id="num1" placeholder="How much day has passed after delivery">
+    <button onclick="check()">Return Item</button>
+    <span id="result"></span>
+    </div>
+
+    <script>
+
+                const order = {
+                itemName : "headphone",
+                isDelivered : true ,
+                daySinceDelivery : Number(document.getElementById("num1").value)
+            }
+
+            function check() {
+                const order = {
+                itemName : "headphone",
+                isDelivered : true ,
+                daySinceDelivery : Number(document.getElementById("num1").value)
+
+            }
+            Dstatus =  (order.isDelivered == true && order.daySinceDelivery <= 7 ) ? "Eligible to Return":"Return period Expired" ;
+            document.getElementById("result").innerText = (Dstatus);
+
+            const hasName = "itemName" in order;
+            console.log("Does itemName exist?", hasName);
+
+
+            delete order.daysSinceDelivery;
+                
+            console.log("Updated Object:", order);
+            }
+
+            
+
+    </script>
+</body>
+</html>
