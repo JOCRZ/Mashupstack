@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .container {
+            border-style:solid;
+            border-radius: 5px;
+            display: grid;
+            grid-template-rows: 50px 50px 50px;
+            margin:auto;
+            margin-top:100px;
+            padding:20px;
+            width:500px;
+            height:190px;
+        } 
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+    <p> Check Eligibility to get Admin </p>
+    <input type="text" id="input1" placeholder="Enter user Name">
+    <input type="number" id="input2" placeholder="Enter user Age">
+    <button onclick="check()">Check</button>
+    <span id="result"></span>
+    </div>
+
+    <script>
+
+
+
+            function check() {
+
+                        const user = {
+                            name : document.getElementById("input1").value,
+                            age : Number(document.getElementById("input2").value) 
+
+            }
+
+            Astatus =  ( user.age >= 18 ) ? "Access Granted":"Access Denied" ;
+            document.getElementById("result").innerText = (Astatus);
+
+            const Age = "age" in user;
+            console.log("Does age exist?", Age);
+
+
+            delete user.age;
+                
+            console.log("Updated Object:", user);
+            }
+
+            
+
+    </script>
+</body>
+</html>
