@@ -1,26 +1,24 @@
-function processReturn() {
-    // 1. Create the object with current input data
-    const order = {
-        itemName: "headphone",
-        isDelivered: true,
-        daysSinceDelivery: 4
-    };
-
-    // 2. Logic Check (Ternary Operator instead of if-else)
-    const status = (order.isDelivered && order.daysSinceDelivery <= 7) 
-        ? "Eligible for Return" 
-        : "Return Period Expired";
-    
-    console.log(status)
-
-    // 3. Check if 'itemName' exists
-    const hasName = "itemName" in order;
-    console.log("Does itemName exist?", hasName);
-
-    // 4. Remove 'daysSinceDelivery' property
-    delete order.daysSinceDelivery;
-    
-    console.log("Updated Object:", order);
+        const products = [
+    { name: "Apple", price: 50 },
+    { name: "Milk", price: 25 },
+    { name: "Bread", price: 30 },
+    { name: "Eggs", price: 12 },
+    { name: "Cheese", price: 85 },
+    { name: "Butter", price: 55 }
+];
+var text1 = " ";
+var text2 = " ";
+for (i = 0; i < products.length; i++) {
+    text1 += products[i].name;
+    text2 += products[i].price ;
 }
 
-processReturn();
+console.log(text1,text2);
+
+
+
+const expensiveProducts = products.filter(item => {
+    return item.price > 50; 
+});
+
+console.log(expensiveProducts);
