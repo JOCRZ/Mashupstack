@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+
 const results = [
     { name: "Arjun", score: 85 },
     { name: "Sneha", score: 92 },
@@ -8,7 +20,8 @@ const results = [
     { name: "Kabir", score: 61 },
     { name: "Isha", score: 95 },
     { name: "Meera", score: 52 },
-    { name: "Aditya", score: 70 }
+    { name: "Aditya", score: 70 },
+    { name: "Sino", score: 98 }
 ];
 console.log("Mark list");
 console.log(results);
@@ -37,5 +50,29 @@ console.log(" ")
 var sum = results.reduce((accumulator, item) => {
     return accumulator + item.score; 
 }, 0);
-
+console.log("Total Marks")
 console.log(sum); 
+console.log(" ")
+
+
+const score35 = results.filter(item => {
+    return item.score < 35; 
+});
+console.log("Students how scored less than 35");
+console.log(score35);
+console.log(" ")
+
+const score95 = results.filter(item => {
+    return item.score > 95; 
+});
+console.log("Students how scored more than 95");
+console.log(score95);
+console.log(" ")
+
+
+const sorting = results.sort((a, b) => b.score - a.score);
+console.log("Sorted Result list")
+console.log(sorting);
+    </script>
+</body>
+</html>
