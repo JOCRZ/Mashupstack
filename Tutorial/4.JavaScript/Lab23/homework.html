@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .container {
+            border-style:solid;
+            border-radius: 5px;
+            display: grid;
+            grid-template-rows: 50px 50px 50px;
+            margin:auto;
+            margin-top:100px;
+            padding:20px;
+            width:500px;
+            height:190px;
+        } 
+    </style>
+    <title>Document</title>
+</head>
+<body>
+     <div class="container">
+    <input type="text" id="input" placeholder="Enter users previous Event date ( YYYY-MM-DD )">
+    <button onclick="getReminder()">Check</button>
+    <span id="result"></span>
+    </div>
+
+    <script>
+        function getReminder(){
+        
+            const birthDate = document.getElementById("input").value;
+
+            const parts = birthDate.split("-"); 
+            const dob = new Date(parts[0], parts[1] - 1, parts[2]);
+        
+            let today = new Date();
+
+            
+            let monthLabels = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            let year = dob.getFullYear();
+            let month = dob.getMonth();
+            let day = dob.getDate();
+            let timepassed = today.getFullYear() - dob.getFullYear() ;
+            var time = 0;
+            var text = "";
+
+        
+            if (timepassed < 1){
+                time = 0;
+                text = "It has been less than a year since that date.";
+                
+            }
+                else{
+                    time = timepassed;
+                    text = "It has been more than a year since that date.";
+                    
+                }
+
+      
+
+            
+            document.getElementById("result").innerHTML =  ` <br> This event occurred on ${day} ${monthLabels[month]}, ${year}.<br>  ${time} full years have passed since this date. <br> ${text}`;
+        }
+
+
+    </script>
+    
+</body>
+</html>
