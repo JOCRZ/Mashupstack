@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      
+      i = 1;
+      let totalCart = 0;
+      let product = "";
+      let cost = 0;
+
+        while(i <= 5){
+
+        const prodcutCode =Number(prompt("Enter Product code"));
+        const quantity =Number(prompt("Enter Quantity"));
+        
+
+        switch(prodcutCode){
+            case 1:
+                product = "Apple";
+                cost = 30 * quantity;
+                break;
+            case 2:
+                product = "Banana";
+                cost = 10 * quantity;
+                break;
+            case 3:
+                product = "Mango";
+                cost = 50 * quantity;
+                break;
+
+            default:
+                console.log("Enter Valid item code");
+                product = "None";
+                continue;
+        }
+        console.log(` ${product} x  ${quantity} = ${cost}`);
+        totalCart += cost;  
+    
+      i++;
+
+      
+}
+
+if (totalCart > 100){
+    console.log("High Purchase")
+}
+else {
+    console.log("Normal Purchase")
+}
+
+console.log(` Total Cart Purchase Cost ${totalCart}`);
+
+    </script>
+</body>
+</html>
