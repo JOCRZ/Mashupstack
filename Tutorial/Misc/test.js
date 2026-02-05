@@ -1,35 +1,14 @@
+let input = "My son is 12 years old. Our flat number is 45 and contact is 9876543210";
+console.log(input);
+let check = /\d/.test(input);
 
-const number = Number(prompt("Enter your prediction"));
-let i = 1;
+if (check){
+    let text = input.replace(/\d/g,"NUMBER");
+    console.log("The Text has Number")
+    console.group(text);
 
-while(i <=5){
-
-
-
-switch(number){
-    case 1:
-        console.log("You guessed wrong");
-        break;
-    
-    case 2:
-        console.log("You guessed wrong");
-        break;
-
-    case 3:
-        console.log("You guessed wrong");
-        break;
-
-    case 4:
-        console.log("You guessed right");
-        break;
-    
-    case 5:
-        console.log("You guessed wrong");
-        break;
-
-    default:
-        console.log("Enter number between 1 and 5");
-        break;
 }
-i++;
+else{
+    console.log("The doesn't contain any Number")
 }
+
