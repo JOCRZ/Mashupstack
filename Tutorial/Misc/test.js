@@ -1,14 +1,22 @@
-let input = "My son is 12 years old. Our flat number is 45 and contact is 9876543210";
-console.log(input);
-let check = /\d/.test(input);
-
-if (check){
-    let text = input.replace(/\d/g,"NUMBER");
-    console.log("The Text has Number")
-    console.group(text);
-
+let comments = {
+    1: "This is the most stupid video I’ve seen all year. How does this have 50000 views? The audio quality is bad and the editing is even worse. 0/10.",
+    2: "I tried following this at 3 AM and it’s just bad. Your instructions are stupid and the UI you showed is ugly as hell. Why are you using version 1.2 still?",
+    3: "Wow, what an ugly thumbnail. You look stupid in that hat. Just a bad person making bad content. Unsubscribing after 4 years.",
+    4: "Worst. Video. Ever. Stupid and bad. Just 1 star.",
+    5: "My life is 2 percent worse after watching this ugly mess. The logic in the 3rd minute is so stupid it hurts.",
+    
 }
-else{
-    console.log("The doesn't contain any Number")
-}
+let random = Math.floor(Math.random() * 5) + 1 ;
 
+let comment = comments[random];
+
+var txt = comment.replace(/BAD|UGLY|STUPID/gi, "***");
+console.log(txt);
+
+var findnum = /[0-9]/g ;
+var result = comment.match(findnum);
+console.log(result.length);
+
+var findcap = /\b[A-Z]/g ;
+var result2 = comment.match(findcap);
+console.log(result2.length)

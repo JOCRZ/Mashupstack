@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .box {
+        font-family:monospace;
+        font-size:20px;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box">
+    <button type="submit" id="btn" onclick="cleanComment()">Click Me</button>
+    <br>
+    <span id="output"></span>
+    </div>
+
+    <script>
+
+                    function cleanComment(){
+
+                        let comments = {
+                1: "This is the most stupid video I’ve seen all year. How does this have 50000 views? The audio quality is bad and the editing is even worse. 0/10.",
+                2: "I tried following this at 3 AM and it’s just bad. Your instructions are stupid and the UI you showed is ugly as hell. Why are you using version 1.2 still?",
+                3: "Wow, what an ugly thumbnail. You look stupid in that hat. Just a bad person making bad content. Unsubscribing after 4 years.",
+                4: "Worst. Video. Ever. Stupid and bad. Just 1 star.",
+                5: "My life is 2 percent worse after watching this ugly mess. The logic in the 3rd minute is so stupid it hurts.",
+                
+            }
+            let random = Math.floor(Math.random() * 5) + 1 ;
+
+            let comment = comments[random];
+
+            var txt = comment.replace(/BAD|UGLY|STUPID/gi, "***");
+            console.log(txt);
+
+            var findnum = /[0-9]/g ;
+            var result = comment.match(findnum);
+            console.log(result.length);
+
+            var findcap = /\b[A-Z]/g ;
+            var result2 = comment.match(findcap);
+            console.log(result2.length)
+
+            document.getElementById("output").innerHTML = `Comment before cleaning <br> ${comment} <br><br><br> Cleaned Comment <br> ${txt} <br><br> Count of number in the comment ${result.length} <br> Count of Capital letter in the comment ${result2.length} `;
+        }
+    </script>
+    
+</body>
+</html>
