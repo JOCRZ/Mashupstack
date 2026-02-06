@@ -1,40 +1,41 @@
-const data = {
-  name: "John Doe",
-  email: "johndoe@example.com",
-  message: "This is a sample comment for the user system."
-};
-let jason = JSON.stringify(data);
-console.log(jason);
-console.log(typeof(jason));
-console.log("")
+var random = Math.floor(Math.random() * 2);
+console.log(random);
+let fb;
+let data;
+let feedback;
 
-let obj = JSON.parse(jason);
-console.log(obj);
-console.log(typeof(obj));
-console.log("");
+   fb = {
+  "full_name": "Alex Johnson",
+  "email_address": "alex.j@example.com",
+  "subject": "Bug Report",
+  "message": "Thank you for responding quickly"
+   }
 
-let random;
 
-readobj = (txt) => {
-    random = Math.floor(Math.random() * 2)
+if (random == 1){
+    feedback = JSON.stringify(fb);
+    };
+
+
+try {
+    data = JSON.parse(feedback);
+    console.log("Successfully Parsed to Object!");
     
-    if (random == 1){
-          for (x in txt){
-    console.log(x + " : " + txt[x]);
-  }
-    }
-    else{
-          for (x in tx){
-    console.log(x + " : " + txt[x]);
-  }
-    }
+    let msg = data.message;
+    
+
+    let check = /thank/i.test(msg);
+
+        if (check){
+            console.log("Positive feedback received");
+        }
+        else{
+            console.log("feedback Noted");
+        }
+
+
+} catch (error) {
+    console.error("JSON is invalid:", error.message);
 
 }
 
-
-try{
-readobj(obj);
-}
-catch(err){
-    console.log("You have an error");
-}
