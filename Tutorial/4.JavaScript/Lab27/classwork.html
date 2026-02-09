@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+                class Books {
+                    constructor(title,author,price){
+                        this._title = title;
+                        this._author = author;
+                        this._price = price;
+                    }
+
+                    get book_details(){
+                        return `The Book title ${this._title} written by ${this._author} and the it cost around ${this._price}`
+                    }
+
+                    set price(amount){
+                        if(amount < 0){
+                            console.log("Amount cannot be Negative");
+                            this._price = 0;
+                        }
+                        else{
+                            this._price = amount;
+                        }
+                    }
+
+                
+                }
+
+                const book1 = new Books("Shadow slave",'Guilty three',570);
+                console.log(book1.book_details);
+                book1.price = 53;
+                console.log(book1.book_details);
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,41 +1,32 @@
-var random = Math.floor(Math.random() * 2);
-console.log(random);
-let fb;
-let data;
-let feedback;
 
-   fb = {
-  "full_name": "Alex Johnson",
-  "email_address": "alex.j@example.com",
-  "subject": "Bug Report",
-  "message": "Thank you for responding quickly"
-   }
+class Books {
+    constructor(title,author,price){
+        this._title = title;
+        this._author = author;
+        this._price = price;
+    }
 
+    get book_details(){
+        return `The Book title ${this._title} written by ${this._author} and the it cost around ${this._price}`
+    }
 
-if (random == 1){
-    feedback = JSON.stringify(fb);
-    };
-
-
-try {
-    data = JSON.parse(feedback);
-    console.log("Successfully Parsed to Object!");
-    
-    let msg = data.message;
-    
-
-    let check = /thank/i.test(msg);
-
-        if (check){
-            console.log("Positive feedback received");
+    set price(amount){
+        if(amount < 0){
+            console.log("Amount cannot be Negative");
+            this._price = 0;
         }
         else{
-            console.log("feedback Noted");
+            this._price = amount;
         }
+    }
 
-
-} catch (error) {
-    console.error("JSON is invalid:", error.message);
-
+ 
 }
+
+const book1 = new Books("Shadow slave",'Guilty three',570);
+console.log(book1.book_details);
+book1.price = 53;
+console.log(book1.book_details);
+
+
 
