@@ -1,32 +1,41 @@
 
-class Books {
-    constructor(title,author,price){
-        this._title = title;
-        this._author = author;
-        this._price = price;
+class User {
+    constructor(name,age,email){
+        this._name = name;
+        this._age = age;
+        this._email = email;
     }
 
-    get book_details(){
-        return `The Book title ${this._title} written by ${this._author} and the it cost around ${this._price}`
+    get user_details(){
+        return `User Name ${this._name} and Age ${this._age}.`
     }
 
-    set price(amount){
-        if(amount < 0){
-            console.log("Amount cannot be Negative");
-            this._price = 0;
+    get user_email(){
+        return `User Mail ${this._email}`
+    }
+
+    set mail(email){
+        let check = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+
+        if(check){
+            console.log("Mail has been updated");
+            this._email = email;
         }
         else{
-            this._price = amount;
+            console.log("Please input valid Mail")
+            this._email = " ";
         }
     }
 
  
 }
 
-const book1 = new Books("Shadow slave",'Guilty three',570);
-console.log(book1.book_details);
-book1.price = 53;
-console.log(book1.book_details);
+const person1 = new User("Zoro",23,"zoro18@gmail.com");
+console.log(person1.user_details);
+console.log(person1.user_email);
+person1.mail = "zoro28@gmail.com";
+console.log(person1.user_details);
+console.log(person1.user_email);
 
 
 
