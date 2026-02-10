@@ -1,41 +1,39 @@
 
-class User {
-    constructor(name,age,email){
-        this._name = name;
-        this._age = age;
-        this._email = email;
-    }
+                class User {
+                    constructor(name,age,email){
+                        this._name = name;
+                        this._age = age;
+                        this._email = email;
+                    }
 
-    get user_details(){
-        return `User Name ${this._name} and Age ${this._age}.`
-    }
+                    get user_details(){
+                        return `User Name ${this._name} and Age ${this._age}.`
+                    }
 
-    get user_email(){
-        return `User Mail ${this._email}`
-    }
+                    get user_email(){
+                        return `User Mail ${this._email}`
+                    }
 
-    set mail(email){
-        let check = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+                    set mail(email){
+                        let check = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
 
-        if(check){
-            console.log("Mail has been updated");
-            this._email = email;
-        }
-        else{
-            console.log("Please input valid Mail")
-            this._email = " ";
-        }
-    }
+                        if(check){
+                            console.log("Mail has been updated");
+                            this._email = email;
+                        }
+                        else{
+                            console.log("Please input valid Mail")
+                            this._email = " ";
+                        }
+                    }
 
- 
-}
+                
+                }
 
-const person1 = new User("Zoro",23,"zoro18@gmail.com");
-console.log(person1.user_details);
-console.log(person1.user_email);
-person1.mail = "zoro28@gmail.com";
-console.log(person1.user_details);
-console.log(person1.user_email);
-
-
+                const person1 = new User("Zoro",23,"zoro18@gmail.com");
+                console.log(person1.user_details);
+                console.log(person1.user_email);
+                person1.mail = "zoro28@gmail.com";
+                console.log(person1.user_details);
+                console.log(person1.user_email);
 

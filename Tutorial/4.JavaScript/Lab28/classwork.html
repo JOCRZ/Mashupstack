@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+
+        #output {
+            font-family: monospace;
+            color:blue;
+            cursor: pointer;
+            font-size: 30px;
+        }
+
+
+    </style>
+    <title>DOM1</title>
+</head>
+<body>
+    <div class="box">
+        <form class="form">
+            <input id="input1" type="text">
+            <input id="submit" onclick="getDom()" type="submit">
+        </form>
+
+        <span id="output" onmouseover="mOver(this)" onmouseout="mOut(this)" ></span>
+    </div>
+
+    <script>
+
+        function getDom(){
+            let text = document.getElementById("input1").value;
+            console.log(text);
+            event.preventDefault();
+
+            document.getElementById("output").innerHTML = text;
+
+        }
+
+        function mOver(obj) {
+                obj.style.color = "green";
+            
+                }
+
+        function mOut(obj){
+            obj.style.color = "blue";
+        }
+
+    </script>
+    
+</body>
+</html>
