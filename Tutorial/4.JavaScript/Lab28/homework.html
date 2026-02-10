@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #popup {
+            display: none;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <h1 onmouseover="mOver(this)" onmouseout="mOut(this)">Feedback</h1>
+    <form>
+    
+        <input type="text" id="input1"><br><br>
+        <textarea type="text" id="input2" name="feedback" rows="10" cols="30"></textarea><br>
+        <input onclick="feeDback()" type="submit">
+    </form>
+
+    <span id="output"></span>
+
+    <div id="popup">Thank You for the Feedback</div>
+
+    <script>
+
+        function feeDback(){
+            event.preventDefault();
+            let usr = document.getElementById("input1").value;
+            let txt = document.getElementById("input2").value;
+
+            document.getElementById("output").innerHTML = `Hai ${usr} this is your feedback ${txt}`;
+       
+
+            let pop = document.getElementById("popup");
+            
+            pop.style.display = "block";
+
+            setTimeout(function() {
+                pop.style.display = "none";
+            }, 5000);
+        }
+
+                function mOver(obj) {
+                obj.style.color = "blue";
+            
+                }
+
+                function mOut(obj) {
+                obj.style.color = "black";
+            
+                }
+
+    </script>
+</body>
+</html>
