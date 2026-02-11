@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student ID Card Preview - Modern</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body {
+            background: #f7f7fa;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 14px;
+        }
+        .form-section {
+            background: #fff;
+            padding: 17px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(64,64,64,0.07);
+            margin-bottom: 22px;
+            max-width: 400px;
+            margin: 0 auto 22px auto;
+        }
+        .form-section h2 {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .form-section label {
+            display: block;
+            color: #263692;
+            font-weight: 500;
+            margin-top: 12px;
+            margin-bottom: 3px;
+            font-size: 14px;
+        }
+        .form-section input, .form-section textarea {
+            width: 100%;
+            border: 1px solid #bbb;
+            border-radius: 5px;
+            padding: 7px;
+            margin-bottom: 11px;
+            font-size: 16px;
+        }
+        /* ID Card Styling */
+        .id-card {
+            background: #fff;
+            border-radius: 22px;
+            box-shadow: 0 4px 16px 2px rgba(100,100,110,0.07);
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 32px 32px 25px 32px;
+            position: relative;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .id-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+        .school-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #262c6b;
+            margin-bottom: 4px;
+            letter-spacing: 2px;
+        }
+        .id-gold-label {
+            background: linear-gradient(90deg,#fff7d6,#e9d782 60%,#b69237 100%);
+            color: #343434;
+            padding: 7px 28px;
+            border-radius: 0 17px 17px 0;
+            font-size: 1rem;
+            font-weight: 500;
+            box-shadow: 0 2px 7px rgba(60,60,60,0.06);
+            margin-left: 18px;
+            margin-top: 5px;
+        }
+        .id-divider {
+            border-top: 3px solid #292e76;
+            border-radius: 5px;
+            margin: 20px 0 15px 0;
+        }
+        .id-row {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+        }
+        .id-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: 15px;
+            object-fit: cover;
+            background: #e1e7f3;
+            box-shadow: 0 1px 9px rgba(45,45,45,0.03);
+            margin-left: 7px;
+        }
+        .id-fields {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            margin-top: 7px;
+        }
+        .id-field-label {
+            color: #292e76;
+            font-weight: 600;
+            font-size: 1.08em;
+            margin-top: 13px;
+            margin-bottom: 3px;
+        }
+        .id-field-value {
+            color: #222;
+            font-size: 1.27em;
+            font-weight: 400;
+            margin-bottom: 2px;
+            margin-left: 2px;
+        }
+        @media (max-width: 700px) {
+            .id-card { padding: 17px 4vw 19px 4vw; }
+            .id-row { flex-direction: column; gap: 14px; }
+            .id-photo { margin: 0 auto 8px auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-section">
+        <h2>Enter Student Details</h2>
+        <label>School Name</label>
+        <input type="text" id="schoolName" placeholder="School Name" oninput="updatePreview()">
+        <label>Student Name</label>
+        <input type="text" id="studentName" placeholder="Name" oninput="updatePreview()">
+        <label>Section</label>
+        <input type="text" id="section" placeholder="Section" oninput="updatePreview()">
+        <label>Phone</label>
+        <input type="text" id="phone" placeholder="Phone" oninput="updatePreview()">
+        <label>Address</label>
+        <textarea id="address" rows="2" placeholder="Address" oninput="updatePreview()"></textarea>
+        <label>Photo</label>
+        <input type="file" id="photo" accept="image/*" onchange="previewPhoto(event)">
+    </div>
+
+    <div class="id-card">
+        <div class="id-title-row">
+            <div class="school-name" id="cardSchoolName">SCHOOL NAME</div>
+            <div class="id-gold-label">Student ID Card</div>
+        </div>
+        <div class="id-divider"></div>
+        <div class="id-row">
+            <img src="image.jpg" id="cardPhoto" class="id-photo" alt="Student Photo">
+            <div class="id-fields">
+                <div class="id-field-label">Nama</div>
+                <div class="id-field-value" id="cardStudentName"></div>
+                <div class="id-field-label">Section</div>
+                <div class="id-field-value" id="cardSection"></div>
+                <div class="id-field-label">Phone</div>
+                <div class="id-field-value" id="cardPhone"></div>
+                <div class="id-field-label">Address</div>
+                <div class="id-field-value" id="cardAddress"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function updatePreview() {
+            document.getElementById('cardSchoolName').textContent =
+                document.getElementById('schoolName').value || 'SCHOOL NAME';
+            document.getElementById('cardStudentName').textContent =
+                document.getElementById('studentName').value || 'Student Name';
+            document.getElementById('cardSection').textContent =
+                document.getElementById('section').value || 'Section';
+            document.getElementById('cardPhone').textContent =
+                document.getElementById('phone').value || 'Phone';
+            document.getElementById('cardAddress').textContent =
+                document.getElementById('address').value || 'Address';
+        }
+
+        function previewPhoto(event) {
+            const file = event.target.files[0];
+            const img = document.getElementById('cardPhoto');
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            } else {
+                img.src = 'image.jpg';
+            }
+        }
+        updatePreview();
+    </script>
+</body>
+</html>
+
