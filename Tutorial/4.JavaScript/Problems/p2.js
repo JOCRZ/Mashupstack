@@ -203,7 +203,7 @@ console.log(`Factorial of ${num} is ${fact}`);
 console.log(text);
 
 
-// JavaScript Program to Display the Multiplication Table
+// 16 JavaScript Program to Display the Multiplication Table
 
 let num = 9;
 
@@ -211,4 +211,149 @@ for (i = 1; i <= 10; i++){
     console.log(`${i} x ${num} = ${i*num}`);
 }
 
+
+
+// 17 JavaScript Program to Print the Fibonacci Sequence
+
+let num = 10;
+let n1 = 0;
+let n2 = 1;
+let i;
+let next;
+
+for (i = 0; i <=num; i++){
+    console.log(n1);
+    next = n1 + n2;
+    n1 = n2;
+    n2 = next;
+    
+}
+
+// 18 JavaScript Program to Check Armstrong Number
+// try out different methods to reach same goal
+
+let num = 153;
+let arr = String(num).split('').map(x);
+
+function x(y){
+    return Number(y);
+}
+let i;
+let mul = 0;
+for (i = 0; i< arr.length; i++){
+    mul += arr[i]**3;
+}
+
+if (num == mul){
+    console.log(`${num} is Amstrong`)
+}
+else{
+    console.log(`${num} is not Amstrong`)
+}
+
+
+
+// 19 JavaScript Program to Find Armstrong Number in an Interval
+
+let start = 1;
+let end = 500;
+let i;
+
+let arr2 = [];
+for (i = start; i <= end; i++){
+
+        let num = i;
+        let arr = String(num).split('').map(x);
+
+        function x(y){
+            return Number(y);
+        }
+        let j;
+        let mul = 0;
+        for (j = 0; j< arr.length; j++){
+            mul += arr[j]**3;
+        }
+
+        if (num == mul){
+            arr2.push(num);
+        }
+        else{
+            continue;
+        }
+
+}
+
+console.log(arr2);
+
+
+
+// 20 JavaScript Program to Make a Simple Calculator
+
+let x = 2;
+let y = 4;
+let cal = ['sum','sub','mul','div'];
+let i = 1;
+let ans ;
+
+switch(cal[i]){
+    case 'sum':
+        ans = x + y;
+        break;
+    case 'sub' :
+        ans = x - y;
+        break;
+    case 'mul':
+        ans = x * y;
+        break;
+    case 'div':
+        ans = x / y;
+        break;
+    default:
+        console.log("Enter valide input between 0 and 3");               
+}
+
+console.log(`${cal[i]} of ${x} and ${y} is ${ans}`);
+
+
+
+// 21 JavaScript Program to Find the Sum of Natural Numbers
+
+let num = 100;
+
+let i;
+let sum = 0;
+
+for (i = 1; i <= num; i++){
+    sum += i;
+
+}
+console.log(sum);
+
+// in while loop 
+
+let j = 1;
+let sum2 = 0;
+
+while (j <= num){
+    sum2 += j;
+    j++;
+}
+
+console.log(sum2);
+
+
+// 22 JavaScript Program to Check if the Numbers Have Same Last Digit
+
+let value1 = 21;
+let value2 = 521;
+
+let txt1 = value1.toString();
+let txt2 = value2.toString();
+
+if (parseInt(txt1.at(-1)) == parseInt(txt2.at(-1))){
+    console.log("Last Digit are Same");
+}
+else{
+    console.log("Last Digit are Not Same");
+}
 */
