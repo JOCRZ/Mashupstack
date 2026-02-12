@@ -405,4 +405,70 @@ console.log("");
 console.log(`Common Values from both set are ${intersecton}.`)
 console.log(` The GCD of Both set is ${Math.max(...intersecton)}.`);
 
+
+
+// 24 JavaScript Program to Find LCM
+
+let num1 = 4;
+let num2 = 6;
+
+
+function mularr(num){
+        let i;
+        let arr = [];
+
+        for (i = 1; i <= 10; i++){
+            arr.push(i*num);
+            
+        }
+        return arr;
+}
+
+let num1arr = mularr(num1);
+let num2arr = mularr(num2);
+
+
+
+let intersecton = [];
+
+let j;
+let k;
+
+for (j = 0; j < num1arr.length; j++){
+    for (k = 0; k < num2arr.length; k++){
+        if(num1arr[j] == num2arr[k]){
+            intersecton.push(num1arr[j]);
+        }
+    }
+}
+
+console.log(`Common Multiples of ${num1} and ${num2} are ${intersecton}`)
+console.log(`The LCM of ${num1} & ${num2} is ${Math.min(...intersecton)}`);
+
+
+// 25 JavaScript Program to Find the Factors of a Number
+
+let num = 18;
+
+function factarr(val){
+
+            let i;
+            arr = [];
+            for (i = 1; i <=val; i++){
+
+                if (val % i == 0){
+                    arr.push(i);
+                }
+                else{
+                    continue;
+                }
+            }
+
+            return arr;
+
+}
+
+let fact = factarr(num);
+console.log(`Factors of ${num} is ${fact} `);
+
 */
