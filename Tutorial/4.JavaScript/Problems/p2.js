@@ -472,3 +472,24 @@ let fact = factarr(num);
 console.log(`Factors of ${num} is ${fact} `);
 
 */
+
+// JavaScript Program to Find Sum of Natural Numbers Using Recursion
+
+let x = 100;
+let y = 1;
+let sum = 0;
+
+
+function evennum(x,y){
+    sum += y;
+    if ( y == x){
+        return y;
+    }
+    else{
+        return evennum(x,y + 1)
+    }
+
+}
+
+evennum(x,y);
+console.log(sum);
