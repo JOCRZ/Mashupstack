@@ -356,4 +356,53 @@ if (parseInt(txt1.at(-1)) == parseInt(txt2.at(-1))){
 else{
     console.log("Last Digit are Not Same");
 }
+
+
+// 23 JavaScript Program to Find HCF or GCD
+
+let num1 = 12;
+let num2 = 18;
+
+
+function factarr(val){
+
+            let i;
+            arr = [];
+            for (i = 1; i <=val; i++){
+
+                if (val % i == 0){
+                    arr.push(i);
+                }
+                else{
+                    continue;
+                }
+            }
+
+            return arr;
+
+}
+
+
+let num1arr = factarr(num1);
+let num2arr = factarr(num2);
+
+console.log(`Factorial of ${num1} is ${num1arr}`);
+console.log(`Factorila of ${num2} is ${num2arr}`);
+
+let intersecton = [];
+
+let j;
+let k;
+
+for (j = 0; j <= num1arr.length; j++){
+    for (k = 0; k <= num2arr.length; k++){
+        if(num1arr[j] == num2arr[k]){
+            intersecton.push(j);
+        }
+    }
+}
+console.log("");
+console.log(`Common Values from both set are ${intersecton}.`)
+console.log(` The GCD of Both set is ${Math.max(...intersecton)}.`);
+
 */
