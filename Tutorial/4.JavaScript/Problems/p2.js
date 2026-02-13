@@ -471,9 +471,9 @@ function factarr(val){
 let fact = factarr(num);
 console.log(`Factors of ${num} is ${fact} `);
 
-*/
 
-// JavaScript Program to Find Sum of Natural Numbers Using Recursion
+
+// 26 JavaScript Program to Find Sum of Natural Numbers Using Recursion
 
 let x = 100;
 let y = 1;
@@ -493,3 +493,38 @@ function evennum(x,y){
 
 evennum(x,y);
 console.log(sum);
+
+
+// 27 JavaScript Program to Guess a Random Number
+
+
+if (Math.floor(Math.random()*3)+1 == Math.floor(Math.random()*3)+1 ){
+    console.log(Math.floor(Math.random()*10));
+    console.log("one digit")
+
+}
+else{
+    console.log(Math.floor(Math.random()*100));
+    console.log("two digit")
+}
+
+
+
+// 28 JavaScript Program to Shuffle Deck of Cards
+
+let cardsuit = ["Hearts (♥)", "Diamonds (♦)","Spades (♠)", "Clubs (♣)"];
+let cardface = ["Jack","Queen","King"];
+
+
+let csRan = Math.floor(Math.random()*4);
+
+
+if (Math.floor(Math.random()*2) == 1){
+    let cfRan = Math.floor(Math.random()*3);
+    console.log(`${cardface[cfRan]} of ${cardsuit[csRan]}`);
+}
+else{
+    let cRan = Math.floor(Math.random()*9)+2;
+    console.log(`${cardsuit[csRan]} of ${cRan}`);
+}
+    */
