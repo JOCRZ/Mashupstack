@@ -140,7 +140,7 @@ else{
 
 
 
-// 13 JavaScript Program to Check Prime Number
+// 13 JavaScript Program to Check Prime Number logic is wrong
 
 let num = 13;
 
@@ -159,7 +159,7 @@ else {
 
 
 
-// 14 JavaScript Program to Print All Prime Numbers in an Interval
+// 14 JavaScript Program to Print All Prime Numbers in an Interval  the logic is wrong
 
 let start = 0;
 let end = 25;
@@ -527,4 +527,72 @@ else{
     let cRan = Math.floor(Math.random()*9)+2;
     console.log(`${cardsuit[csRan]} of ${cRan}`);
 }
-    */
+   
+// check number is prime or not
+let num = 5;
+isprime = true;
+
+for (let i=2; i <= num/2; i++){
+    if( num % i === 0){
+        isprime = false;
+        break;
+    }
+    
+}
+
+if (isprime == true){
+    console.log("The number is Prime");
+}
+else{
+    console.log("The number is not Prime");
+}
+
+
+// amstrong or not
+
+let num = 153;
+let txt = num.toString();
+let sum = 0;
+let comp;
+
+for (let i = 0; i < txt.length ; i++){
+    sum += txt[i] ** 3;
+}
+
+comp = parseInt(sum);
+
+if (num == comp){
+    console.log(`${num} is Amstrong`);
+}
+else{
+    console.log(`${num} is not Amstrong`);
+}
+ */
+
+// palindrome
+
+
+let num = 12321;
+let txt = num.toString();
+let sum = "";
+
+let i;
+for (i = txt.length -1 ; i >= 0 ; i--){
+    
+    sum += txt[i];
+
+} 
+
+let comp = parseInt(sum);
+
+if (num == comp){
+    console.log(`${num} is Palindrome`);
+}
+else{
+    console.log(`${num} is not Palindrome`);
+}
+
+
+
+
+

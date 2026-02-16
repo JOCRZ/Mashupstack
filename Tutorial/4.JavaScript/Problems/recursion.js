@@ -19,7 +19,7 @@ function recursiveSum(n) {
 }
 
 console.log(recursiveSum(10));
-*/
+
 
 function recursiveSum(n) {
     console.log("Diving in: I need to solve " + n);
@@ -37,3 +37,23 @@ function recursiveSum(n) {
 }
 
 recursiveSum(3);
+
+*/
+
+let nickname = "user1"; 
+
+nickname ??= "Guest User"; 
+
+console.log(nickname); // "Guest User"
+
+let status = ""; 
+
+status ||= "Away"; 
+
+console.log(status); // "Away"
+
+let isLoggedIn = true;
+
+isLoggedIn &&= "Welcome Back!"; 
+
+console.log(isLoggedIn); // "Welcome Back!"
