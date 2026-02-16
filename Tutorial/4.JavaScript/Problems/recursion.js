@@ -38,7 +38,7 @@ function recursiveSum(n) {
 
 recursiveSum(3);
 
-*/
+
 
 let nickname = "user1"; 
 
@@ -57,3 +57,13 @@ let isLoggedIn = true;
 isLoggedIn &&= "Welcome Back!"; 
 
 console.log(isLoggedIn); // "Welcome Back!"
+
+*/
+
+function setSecret() {
+    var leak = "I am a global variable now!"; // No let, const, or var
+}
+
+setSecret();
+
+console.log(leak); // Outputs: "I am a global variable now!"

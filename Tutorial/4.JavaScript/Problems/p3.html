@@ -15,29 +15,28 @@
         let mode = false;
         const bodyElement = document.querySelector('body');
         window.addEventListener('load', function(){
-            let darks =JSON.parse(localStorage.getItem('dark'));
-                bodyElement.style.backgroundColor = darks.bgcolor;
-                document.getElementById("text").style.color= darks.color;
-                mode = darks.mode;
+            let darks= JSON.parse(localStorage.getItem('dark'));
+                color(darks.bgcolor,darks.color,darks.mode);
         })
+
+        function color(bg,txt,mode){
+                bodyElement.style.backgroundColor = bg;
+                document.getElementById("text").style.color = txt;
+                modes = mode;
+                localStorage.setItem('dark',JSON.stringify({bgcolor:bg,color:txt,modes:mode}));
+                return {bg,txt, mode};
+        }
+
 
         function darkMode(){
 
             if (mode == false){
-                
-                bodyElement.style.backgroundColor = 'black';
-                document.getElementById("text").style.color= "white";
+                color("black","white",true);
                 mode = true;
-                localStorage.setItem('dark',JSON.stringify({bgcolor:'black', color:'white',mode:true }))
-                console.log(mode);
-
-            }else {
-                bodyElement.style.backgroundColor = 'white';
-                document.getElementById("text").style.color= "black";
-                mode = false;
-                localStorage.setItem('dark',JSON.stringify({bgcolor:'white', color:'black',mode:false }))
-                console.log(mode);
-
+            }
+            else {
+                color("white","black",false);
+                mode = false; 
             }
 
         }

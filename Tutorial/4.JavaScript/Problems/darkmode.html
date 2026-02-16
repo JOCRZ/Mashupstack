@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode</title>
+</head>
+<body>
+    <h1 id="text"> Dark Mode </h1>
+    <button  onclick="darkMode()">Click</button>
+    
+
+    <script>
+
+        let mode = false;
+        const bodyElement = document.querySelector('body');
+        window.addEventListener('load', function(){
+            let darks =JSON.parse(localStorage.getItem('dark'));
+                bodyElement.style.backgroundColor = darks.bgcolor;
+                document.getElementById("text").style.color= darks.color;
+                mode = darks.mode;
+        })
+
+        function darkMode(){
+
+            if (mode == false){
+                
+                bodyElement.style.backgroundColor = 'black';
+                document.getElementById("text").style.color= "white";
+                mode = true;
+                localStorage.setItem('dark',JSON.stringify({bgcolor:'black', color:'white',mode:true }))
+                console.log(mode);
+
+            }else {
+                bodyElement.style.backgroundColor = 'white';
+                document.getElementById("text").style.color= "black";
+                mode = false;
+                localStorage.setItem('dark',JSON.stringify({bgcolor:'white', color:'black',mode:false }))
+                console.log(mode);
+
+            }
+
+        }
+
+    </script>
+</body>
+</html>
