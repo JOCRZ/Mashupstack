@@ -60,10 +60,26 @@ console.log(isLoggedIn); // "Welcome Back!"
 
 */
 
-function setSecret() {
-    var leak = "I am a global variable now!"; // No let, const, or var
+console.log('Continue');
+const cart = ["Apple", "Milk", "BROKEN_BOTTLE", "Bread", "Eggs"];
+
+for (let i = 0; i < cart.length; i++) {
+    if (cart[i] === "BROKEN_BOTTLE") {
+        continue; // Skip this one!
+    }
+    console.log("Adding to bag: " + cart[i]);
 }
 
-setSecret();
+console.log('break');
 
-console.log(leak); // Outputs: "I am a global variable now!"
+for (let i = 0; i < cart.length; i++) {
+    console.log("Checking item: " + cart[i]);
+    
+    if (cart[i] === "Milk") {
+        console.log("Found the Milk! Leaving now.");
+        break; // Stop the whole loop!
+    }
+}
+
+
+console.log(toString(10));

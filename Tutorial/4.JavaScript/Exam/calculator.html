@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+
+    <input type="number" id="value1">
+
+        <select name="operator" id="operator">
+        <option value="add">+</option>
+        <option value="sub">-</option>
+        <option value="mul">×</option>
+        <option value="div">÷</option>
+        </select>
+
+    <input type="number" id="value2">
+
+    <button onclick="calculator()" id="equal">=</button>
+    <span id="output"></span>
+
+    <script>
+
+        function calculator(){
+
+            let val1 = Number(document.getElementById("value1").value);
+            let val2 = Number(document.getElementById("value2").value);
+            let operator = document.getElementById("operator").value;
+            let operation;
+
+            switch(operator){
+                case "add":
+                    operation = val1 + val2;
+                    break;
+                case "sub":
+                    operation = val1 - val2;
+                    break;
+                case "mul":
+                    operation = val1 * val2;
+                    break;
+                case "div":
+                    operation = val1 / val2;
+                    break;
+                default:
+                    operation = "Enter appropriate value";
+                    break;        
+
+            }
+
+            document.getElementById("output").innerHTML = operation;
+        }
+    </script>
+    
+</body>
+</html>
