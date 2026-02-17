@@ -32,16 +32,16 @@
 
             switch(operator){
                 case "add":
-                    operation = val1 + val2;
+                    operation = add(val1,val2);
                     break;
                 case "sub":
-                    operation = val1 - val2;
+                    operation = sub(val1,val2);
                     break;
                 case "mul":
-                    operation = val1 * val2;
+                    operation = mul(val1,val2);
                     break;
                 case "div":
-                    operation = val1 / val2;
+                    operation = div(val1,val2);
                     break;
                 default:
                     operation = "Enter appropriate value";
@@ -51,6 +51,22 @@
 
             document.getElementById("output").innerHTML = operation;
         }
+
+        function add(v1,v2){
+            return v1+v2;
+        };
+
+        function sub(v1,v2){
+            return v1-v2;
+        };
+
+        function mul(v1,v2){
+            return v1*v2;
+        };
+
+        function div(v1,v2){
+            return v1/v2;
+        };
     </script>
     
 </body>
