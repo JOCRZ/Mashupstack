@@ -8,9 +8,7 @@
 </head>
 <body>
     
-
-
-<div class="modal fade shadow" id="myModal" >
+<div class="modal fade shadow" tabindex="-1" id="myModal" >
   <div class="modal-dialog">
     <div class="modal-content">
       
@@ -18,7 +16,7 @@
         <h5 class="modal-title text-success font-monospace fw-normal" id="exampleModalLabel">Lucky Draw Winner</h5>
       </div>
       
-      <div class="modal-body d-flex justify-content-center align-items-center p-5 display-1 fw-normal" id="output"></div>
+      <div class="modal-body d-flex justify-content-center align-items-center p-5 display-5 fw-normal" id="output"></div>
 
       <div class="modal-footer ">
         <button type="button" class="btn btn-secondary font-monospace" data-bs-dismiss="modal">Close</button>
@@ -27,10 +25,15 @@
     </div>
   </div>
 </div>
-    <div class="d-flex justify-content-center align-items-center vh-100">
+
+    <div class="d-flex flex-column justify-content-center align-items-center vh-100 " style="transform: translateY(100px);">
     <button  onclick="getLottery() " type="button" class="btn btn-primary p-3 border rounded font-monospace shadow fw-semibold" data-bs-toggle="modal" data-bs-target="#myModal" > Select Winner</button>
+    <span id="output2" class="fs-4 fw-bold"></span>
     </div>
+
     
+    
+   
     <script>
 
         function getLottery(){
@@ -44,6 +47,8 @@
                 console.log(`The Lottery Winner is ${winner}`)
                 document.getElementById("output").style.color = "red";
                 document.getElementById("output").innerHTML = winner;
+                document.getElementById("output2").style.color = "red";
+                document.getElementById("output2").innerHTML = winner;
 
                 
 
