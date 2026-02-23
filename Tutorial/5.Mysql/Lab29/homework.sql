@@ -29,4 +29,4 @@ SELECT * FROM books WHERE genre IN ('history','science','fiction');
 SELECT * FROM books WHERE title ="the great gatsby";
 
 -- Select all books that are not written by 'Dan Brown'.
-SELECT * FROM books WHERE author = 'dan brown';
+SELECT * FROM books WHERE author <> 'dan brown';
