@@ -33,3 +33,6 @@ SELECT * FROM students2;
 -- Delete all students who are 'Inactive'.
     DELETE FROM students2 WHERE status = 'Inactive';
 
+
+TRUNCATE TABLE books3;
+
