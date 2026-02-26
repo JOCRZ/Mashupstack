@@ -31,5 +31,5 @@ SELECT * FROM movies;
     SELECT title, release_year AS 'Release' FROM movies WHERE release_year BETWEEN 2008 AND 2015;
 
 -- Find out how many movies have a rating greater than 8.5 and rename the result as High Rated Movies
-    SELECT title, rating FROM movies WHERE rating > 8.5;
+    SELECT title, rating AS 'High Rated Movies' FROM movies WHERE rating > 8.5;
 
