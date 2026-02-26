@@ -28,7 +28,7 @@ SELECT * FROM movies;
     SELECT  title,genre, rating AS 'IMDb Rating' FROM movies WHERE genre IN ('Sci-Fi','Action');
 
 -- Find movies released between 2008 and 2015 and rename the year column as Release.
-    SELECT * FROM movies WHERE release_year BETWEEN 2008 AND 2015;
+    SELECT title, release_year AS 'Release' FROM movies WHERE release_year BETWEEN 2008 AND 2015;
 
 -- Find out how many movies have a rating greater than 8.5 and rename the result as High Rated Movies
     SELECT title, rating FROM movies WHERE rating > 8.5;
