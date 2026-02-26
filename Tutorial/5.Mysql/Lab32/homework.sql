@@ -21,7 +21,7 @@ SELECT * FROM books4;
     SELECT * FROM books4 WHERE price < 450 AND stock > 30;
 
 -- Update the stock to 45 and reduce the price to 420 for the book titled ‘Deep Work’.
-    UPDATE books4 SET stock = 45 , price = 450 WHERE title = "Deep Work";
+    UPDATE books4 SET stock = 45 , price = 420 WHERE title = "Deep Work";
 
 -- Delete the book titled ‘Ikigai’.
     DELETE FROM books4 WHERE title = 'Ikigai';
