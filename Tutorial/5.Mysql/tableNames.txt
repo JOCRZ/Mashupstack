@@ -6,4 +6,4 @@ Lab 32 - mobiles , books4
 Lab 33 - books5 , movies 
 Lab 34 - students3 , mobiles2   
 Lab 35 - products (DB Name GroceryShop)  , authors & books (DB Name BookStoreDB)
-Lab 36 - books6 borrowers, employees departments
+Lab 36 - books6 borrowers, employees deparments
