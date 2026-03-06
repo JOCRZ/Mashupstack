@@ -1,13 +1,13 @@
 USE Lab;
 
 CREATE TABLE students4(
-    student_id INT UNIQUE,
+    student_id INT PRIMARY KEY,
     name VARCHAR(50),
     email VARCHAR(50) UNIQUE
 );
 
 CREATE TABLE courses(
-    course_id INT UNIQUE,
+    course_id INT PRIMARY KEY,
     course_name VARCHAR(50)
 
 );
