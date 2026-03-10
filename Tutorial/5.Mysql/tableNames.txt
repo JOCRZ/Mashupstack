@@ -8,4 +8,4 @@ Lab 34 - students3 , mobiles2
 Lab 35 - products (DB Name GroceryShop)  , authors & books (DB Name BookStoreDB)
 Lab 36 - books6 borrowers, employees deparments
 Lab 37 - students4 courses enrollements, authors book7
-Lab 38 - authors2 books8
+Lab 38 - authors2 books8, categories books9
