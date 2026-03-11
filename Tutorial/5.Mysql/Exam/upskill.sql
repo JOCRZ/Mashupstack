@@ -80,3 +80,9 @@ SELECT * FROM exam;
     SELECT employee.name FROM employee
     LEFT JOIN exam ON employee.id = exam.employee_id
     WHERE employee.id NOT IN (SELECT DISTINCT(employee_id) FROM  exam);
+
+    SELECT employee.name FROM employee
+    LEFT JOIN exam ON employee.id = exam.employee_id
+    WHERE exam.employee_id IS NULL;
+
+    SELECT name FROM employee WHERE id NOT IN (SELECT employee_id FROM exam);
