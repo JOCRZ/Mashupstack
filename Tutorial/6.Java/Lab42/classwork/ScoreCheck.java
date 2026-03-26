@@ -22,7 +22,7 @@ public class ScoreCheck {
 				System.out.println("Fail");
 			}
 			else {
-				System.out.println("Enter valid input");
+				System.out.println("Out of Bound");
 			}
 		
 		}
