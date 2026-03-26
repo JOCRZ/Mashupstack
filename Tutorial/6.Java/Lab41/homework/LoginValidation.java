@@ -7,11 +7,9 @@ public class LoginValidation {
 			
 			Scanner input = new Scanner(System.in);
 			
-		
 			String apass = "1234";
 			String spass = "1111";
 		
-			
 			System.out.println("User code A for Admin, S for Student and G for Guest");
 			System.out.println("Enter user code: ");
 			String user = input.nextLine();
