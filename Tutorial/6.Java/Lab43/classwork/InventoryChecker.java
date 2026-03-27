@@ -20,7 +20,7 @@ public class InventoryChecker {
 					 System.out.println("Moderate Stock");
 				 }
 				 else {
-					 System.out.println("Above Stock");
+					 System.out.println("Good Stock");
 				 }
 			 }
 		 }
