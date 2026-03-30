@@ -39,15 +39,24 @@ public class GroceryManage {
 		// getting quantity from user 
 		 int[] quantity = new int[5];
 		
-		System.out.println();
-		System.out.println("Enter quantity");
-		for ( int q = 0; q < 5; q++) {
-			
-			System.out.printf("%s  quantity:",items[q]);
-			quantity[q] = input.nextInt();
-			System.out.println();
-			
-		}
+		 System.out.println();
+		 System.out.println("Enter quantity");
+
+		 for (int q = 0; q < 5; q++) {
+
+		     while (true) {
+		         try {
+		             System.out.printf("%s quantity: ", items[q]);
+		             quantity[q] = input.nextInt();
+		             System.out.println();
+		             break; 
+		         } 
+		         catch (Exception e) {
+		             System.out.println("Invalid input! Please enter a number.");
+		             input.nextLine(); 
+		         }
+		     }
+		 }
 		
 		Bill item = new Bill();
 		
