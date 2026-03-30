@@ -50,7 +50,20 @@ public class GroceryManage {
 		}
 		
 		Bill item = new Bill();
-		System.out.printf("Total %d Rs",item.cost(price,quantity));
+		
+		int total = item.cost(price,quantity);
+		// Final Price = Original Price - (Original Price × Discount / 100)
+		
+		if (total >= 500) {
+			
+			int grandtotal = total - (( total * 10 ) / 100) ;
+			System.out.printf("Total = %d \n after discount Grand Total %d Rs",total,grandtotal);
+		}
+		else {
+			System.out.printf("Grand Total = %d Rs",total);
+		}
+		
+		
 		
 		input.close();
 	}
