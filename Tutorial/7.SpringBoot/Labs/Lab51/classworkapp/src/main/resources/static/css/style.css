@@ -1,0 +1,34 @@
+/* Page styling */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #d4f5d0; /* light green */
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Center content */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Message box */
+.box {
+    background-color: #ffffff;
+    padding: 40px 60px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    
+    font-size: 36px;
+    font-weight: bold;
+    color: #333333; /* dark gray */
+    
+    transition: 0.3s;
+}
+
+/* Hover effect */
+.box:hover {
+    background-color: #f0fff0;
+}
