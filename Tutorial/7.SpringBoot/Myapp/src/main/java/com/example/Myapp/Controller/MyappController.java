@@ -1,10 +1,10 @@
-package com.example.welcomeapp.Controller;
+package com.example.Myapp.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
-public class WelcomeController {
+public class MyappController {
 	
 	@GetMapping("/home")
     public String home() {
