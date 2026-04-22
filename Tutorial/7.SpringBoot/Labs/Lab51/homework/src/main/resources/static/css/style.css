@@ -1,0 +1,27 @@
+/* Page background */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1e1e2f; /* dark background */
+    font-family: Arial, sans-serif;
+}
+
+/* Center content */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Message styling */
+h1 {
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+
+    background-color: #ff4c4c;
+    padding: 20px 40px;
+    border-radius: 10px;
+}
