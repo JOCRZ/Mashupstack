@@ -1,0 +1,42 @@
+/* Page styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #74ebd5, #ACB6E5);
+    text-align: center;
+}
+
+/* Heading */
+h1 {
+    margin-top: 40px;
+    font-size: 40px;
+    color: #333;
+}
+
+/* Image styling */
+img {
+    width: 250px;
+    height: auto;
+    border-radius: 15px;
+    margin: 20px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Button styling */
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    color: white;
+    background-color: #ff6b6b;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #ff4757;
+    transform: scale(1.05);
+}
