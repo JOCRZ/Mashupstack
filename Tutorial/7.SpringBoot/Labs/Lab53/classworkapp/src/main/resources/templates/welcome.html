@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>	
+    <h1 th:text="${msg1}"></h1>
+	<div th:utext="${msg2}"></div>
+    <div th:if="${isLoggedIn}">
+        <h1>Welcome back, student!</h1>
+    </div>
+	<div th:unless="${isLoggedIn}">
+		<h1>Please log in to access the lessons</h1>
+	</div>
+
+	
+	
+</body>
+</html>
