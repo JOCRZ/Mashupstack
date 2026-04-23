@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	   <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>	
+	<h2>Movieflix</h2>
+	<div>
+		<h3>The Legend of Aang: The Last Airbender</h3>
+		<p th:utext="${msg1}"></p>
+		<p th:if="${isLoggedIn}">With the help of his friends, he embarks on a global quest to find it before it falls into the wrong hands. <br> 
+			In the years since the defeat of Fire Lord Ozai, Aang, the world's last Airbender, discovers a surviving airbender named Tagah and learns of a powerful staff that could restore his culture. <br> With the help of his friends, he joins Tagah on a global quest to find it before a group known as the Denied can claim it and threaten the fragile peace they fought to achieve.
+		</p>
+		<p th:unless="${isLoggedIn}">Please log in to read the full movie description</p>
+	</div>
+</body>
+</html>

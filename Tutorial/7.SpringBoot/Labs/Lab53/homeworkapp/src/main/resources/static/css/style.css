@@ -1,0 +1,68 @@
+/* Cinematic Theme */
+body {
+    background-color: #0f171e; /* Deep midnight blue/black */
+    color: #ffffff;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* App Logo */
+h2 {
+    color: #e50914; /* Netflix Red */
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Movie Card Container */
+div {
+    background: #1a242f;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    max-width: 800px;
+    border: 1px solid #2c3e50;
+}
+
+/* Movie Title */
+h3 {
+    color: #f5c518; /* IMDb Gold */
+    font-size: 1.8rem;
+    margin-top: 0;
+}
+
+/* Movie Description (msg1) */
+p[th\:utext] {
+    font-size: 1.1rem;
+    color: #bdc3c7;
+    line-height: 1.8;
+    border-bottom: 1px solid #34495e;
+    padding-bottom: 15px;
+}
+
+/* Full Details (Logged In) */
+p[th\:if] {
+    background: rgba(52, 152, 219, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+    margin-top: 20px;
+    font-size: 0.95rem;
+    color: #ecf0f1;
+}
+
+/* Restriction Message (Logged Out) */
+p[th\:unless] {
+    color: #95a5a6;
+    font-style: italic;
+    background: #2c3e50;
+    padding: 10px 20px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 20px;
+}
