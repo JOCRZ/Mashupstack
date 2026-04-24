@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>  Student information </h1>
+
+<h3> Single Student </h3>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Marks</th>
+        </tr>
+    </thead>
+    
+        <tr th:each="students, index : ${students}" th:if="${index.index == 1}">
+            <td th:text="${students.id}"></td>
+            <td th:text="${students.name}"></td>
+            <td th:text="${students.marks}"></td>
+        </tr>
+</table>  
+
+
+<h3>Students List</h3>
+<table border=”1”>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Marks</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="students : ${students}">
+            <td th:text="${students.id}"></td>
+            <td th:text="${students.name}"></td>
+            <td th:text="${students.marks}"></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

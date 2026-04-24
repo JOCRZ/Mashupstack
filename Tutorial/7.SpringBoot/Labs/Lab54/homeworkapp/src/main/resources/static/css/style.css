@@ -1,0 +1,77 @@
+/* General Layout */
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #f9fafb;
+    color: #1f2937;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #4f46e5; /* Indigo accent */
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h3 {
+    margin-top: 2rem;
+    color: #374151;
+    font-weight: 600;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden; /* Ensures rounded corners work */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+/* Header Styling */
+thead {
+    background-color: #4f46e5;
+    color: #ffffff;
+}
+
+th {
+    text-align: left;
+    padding: 12px 15px;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Cell Styling */
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 0.95rem;
+}
+
+/* Hover effect for the full list */
+tbody tr:hover {
+    background-color: #f3f4ff;
+    transition: background-color 0.2s ease;
+}
+
+/* Highlighting the "Single Product" table specifically */
+h3 + table {
+    border: 2px solid #4f46e5;
+}
+
+/* Formatting the Price column to look distinct */
+td:last-child {
+    font-weight: bold;
+    color: #059669; /* Green for pricing */
+}
+
+/* Zebra striping for the main list */
+tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
