@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #d8f3dc;
+            font-family: Georgia, serif;
+        }
+
+        .card {
+            background: #f0faf2;
+            border: 1.5px solid #95d5b2;
+            border-radius: 20px;
+            padding: 60px 80px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(64,145,108,0.15);
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .card:hover {
+            background: #e0f5e5;
+            transform: translateY(-4px);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2d3a2e;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- th:text pulls the value from Controller -->
+        <h1 th:text="${message}">Fallback Text</h1>
+    </div>
+
+</body>
+</html>
