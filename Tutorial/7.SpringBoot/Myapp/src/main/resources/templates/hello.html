@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>This is my Page</h1>
+    <b>Welcome all</b>		
+    <div th:utext="${hello}"></div>
+    <h1 th:text="${message}"></h1>
+    <div th:if="${isLoggedIn}">
+        <h1>Welcome, User!</h1>
+    </div>
+    <div th:if="${!isLoggedIn}">
+        <h1>Please log in to continue.</h1>
+    </div>
+    <a th:href="@{/product}">Product Details</a>
+</body>
+</html>

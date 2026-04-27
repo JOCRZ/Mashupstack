@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Home</title>
+</head>
+<body>
+	<div th:replace="navigation :: navigation"></div>
+    <h1>Welcome to My App</h1>
+    
+    <a th:href="@{/product}">Go to Product Details</a>
+	<div th:replace="footer :: footer"></div>
+
+</body>
+</html>
