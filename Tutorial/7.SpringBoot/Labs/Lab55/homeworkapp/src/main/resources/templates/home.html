@@ -1,0 +1,20 @@
+<!-- home.html -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<div th:replace="navigation :: navigation"></div>
+    <h1>Welcome to My Book Store</h1>
+    <p>Discover your favorite books here.</p>
+
+    <a th:href="@{/books}">View Book Details</a>
+	
+	<div th:replace="footer :: footer"></div>
+
+</body>
+</html>

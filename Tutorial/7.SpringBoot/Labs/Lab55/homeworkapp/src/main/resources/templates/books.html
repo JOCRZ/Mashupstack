@@ -1,0 +1,24 @@
+<!-- books.html -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books Page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<div th:replace="navigation :: navigation"></div>
+    <h1>Book Details</h1>
+
+    <div class="book-container">
+        <h2>Title: Red Rising</h2>
+        <p><strong>Author:</strong> Pierce Brown</p>
+        <p><strong>Price:</strong> ₹1995</p>
+    </div>
+
+    <a th:href="@{/home}">Back to Home</a>
+	<div th:replace="footer :: footer"></div>
+
+</body>
+</html>
