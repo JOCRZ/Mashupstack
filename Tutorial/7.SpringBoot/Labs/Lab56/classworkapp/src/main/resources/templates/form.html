@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+<head>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+ <form th:action="@{/submit}" method="get">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required >
+        <br>
+		<button type="submit">Submit</button>
+    </form>
+</body>
+</html>
