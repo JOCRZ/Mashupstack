@@ -2,17 +2,20 @@ package com.example.homeworkapp;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+
 public class UserDetails {
-    
+
     @NotBlank(message = "Name is required")
-    public String name;
-    
-    @Email(message = "Email address is not valid")
-    @NotBlank(message = "Email address is required")
-    public String email;
+    private String name;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
+    @GmailOnly
+    private String email;
+
     @Address(message = "Your address must contain India.")
-    public String address;
-	
+    private String address;
+
     public String getName() {
         return name;
     }
@@ -28,12 +31,12 @@ public class UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public String getAddress() {
         return address;
     }
-    
+
     public void setAddress(String address) {
-    	this.address=address;
+        this.address = address;
     }
 }
