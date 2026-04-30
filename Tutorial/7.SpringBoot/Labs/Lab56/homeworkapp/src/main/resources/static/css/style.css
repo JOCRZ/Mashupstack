@@ -1,0 +1,120 @@
+/* style.css */
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body layout */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e3f2fd, #f5f7fa);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main container */
+form,
+body > h1,
+body > p {
+    width: 100%;
+    max-width: 450px;
+}
+
+/* Card style for both pages */
+form,
+.success-container {
+    background: #ffffff;
+    padding: 35px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Headings */
+h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Labels */
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #34495e;
+}
+
+/* Inputs */
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+    outline: none;
+}
+
+/* Button */
+button {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Error messages 
+span[th\\:errors],
+p[th\\:errors] {
+    color: #e74c3c;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+}
+*/
+/* Success page container */
+.success-container {
+    text-align: left;
+}
+
+/* Success text */
+.success-container p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+/* Highlight values */
+.success-container b {
+    color: #2980b9;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    form,
+    .success-container {
+        padding: 25px;
+    }
+}

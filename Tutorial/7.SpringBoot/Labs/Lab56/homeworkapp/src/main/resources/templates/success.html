@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Form Submission Successful</title>
+</head>
+<body>
+	<div class="success-container">
+	    <h1>Form Submission Successful</h1>
+	    <p>Thank you for submitting the form.</p>
+
+	    <p>Name: <b th:text="${userDetails.name}"></b></p>
+	    <p>Email: <b th:text="${userDetails.email}"></b></p>
+	    <p>Address: <b th:text="${userDetails.address}"></b></p>
+	</div>
+
+</body>
+</html>
