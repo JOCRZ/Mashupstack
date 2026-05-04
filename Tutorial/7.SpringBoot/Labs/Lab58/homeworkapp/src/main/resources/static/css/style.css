@@ -1,0 +1,48 @@
+/* Global Font */
+body {
+    background: linear-gradient(135deg, #eef2f7, #f8f9fa);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Card */
+.dish-card {
+    width: 360px;
+    border-radius: 18px;
+    padding: 30px;
+    background: #ffffff;
+    transition: transform 0.3s ease;
+}
+
+.dish-card:hover {
+    transform: scale(1.03);
+}
+
+/* Title */
+h2 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: #2c3e50;
+    letter-spacing: 0.5px;
+}
+
+/* Label (Name, Price) */
+.label {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Value (Actual Data) */
+.value {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #34495e;
+}
+
+/* Price Highlight */
+.value.text-success {
+    color: #27ae60 !important;
+    font-size: 1.5rem;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dish Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="bg-light">
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    
+    <div class="card shadow-lg p-4 dish-card text-center">
+        
+        <h1 class="mb-4 text-primary">🍽 Dish Details</h1>
+
+        <div class="mb-3">
+            <p class="label">Name</p>
+            <p class="value" th:text="${dish.name}"></p>
+        </div>
+
+        <div class="mb-3">
+            <p class="label">Price</p>
+            <p class="value text-success fw-bold">
+                ₹ <span th:text="${dish.price}"></span>
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
