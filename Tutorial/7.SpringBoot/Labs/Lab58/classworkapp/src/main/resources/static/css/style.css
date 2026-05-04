@@ -1,0 +1,102 @@
+/* ===== GLOBAL ===== */
+body {
+    background: linear-gradient(135deg, #eef2ff, #e0f2fe);
+    font-family: 'Segoe UI', sans-serif;
+    color: #1e293b;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    background: linear-gradient(90deg, #0f172a, #1e3a8a);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.navbar a {
+    color: #38bdf8 !important;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    color: #22c55e !important;
+}
+
+/* ===== CARD ===== */
+.card {
+    border-radius: 16px;
+    border: none;
+    background: #ffffff;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* ===== BUTTON ===== */
+.btn-primary {
+    background: linear-gradient(135deg, #0ea5e9, #2563eb);
+    border: none;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+}
+
+/* ===== TABLE ===== */
+.table {
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+}
+
+.table thead {
+    background: linear-gradient(90deg, #0ea5e9, #0284c7);
+    color: white;
+}
+
+.table tbody tr {
+    transition: 0.3s;
+}
+
+.table tbody tr:hover {
+    background: rgba(14,165,233,0.1);
+}
+
+/* ===== HEADINGS ===== */
+h2 {
+    color: #1e3a8a;
+    font-weight: 600;
+}
+
+/* ===== FORM INPUTS ===== */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+}
+
+.form-control:focus {
+    border-color: #0ea5e9;
+    box-shadow: 0 0 8px rgba(14,165,233,0.3);
+}
+
+/* ===== LABELS ===== */
+label {
+    font-weight: 500;
+    color: #475569;
+}
+
+/* ===== CONTAINER SPACING ===== */
+.container {
+    margin-top: 40px;
+}
+
+/* ===== ALERT ===== */
+.alert-success {
+    border-radius: 10px;
+    background: #dcfce7;
+    color: #166534;
+    border: none;
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mobile Store Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div th:replace="navigation :: navigation"></div>
+
+<div class="container">
+
+    <!-- 🔹 All Phones -->
+    <div class="card p-4 mb-5">
+        <h2 class="mb-3">📱 All Phones</h2>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Phone Name</th>
+                    <th>Price (₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="m : ${allPhones}">
+                    <td th:text="${m[0]}"></td>
+                    <td th:text="${m[1]}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 🔹 Budget Phones -->
+    <div class="card p-4 mb-5">
+        <h2 class="mb-3">💸 Budget Phones (&lt; ₹20,000)</h2>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Phone Name</th>
+                    <th>Price (₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="m : ${budgetPhones}">
+                    <td th:text="${m[0]}"></td>
+                    <td th:text="${m[1]}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 🔹 Count By Brand -->
+    <div class="card p-4 mb-5">
+        <h2 class="mb-3">📊 Phones by Brand</h2>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Total Phones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="m : ${brandCount}">
+                    <td th:text="${m[0]}"></td>
+                    <td th:text="${m[1]}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
