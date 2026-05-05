@@ -12,14 +12,14 @@ public class SchoolModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(length = 100)
+    @Column(length = 150, nullable = false)
     private String name;
 
-    @Column(length = 255)
+    @Column(length = 20)
     private String standard;
 
-    @Column(length = 2) 
-    private String age;
+    @Column(nullable = false)
+    private int age;
 
 
     // Getters and Setters
@@ -43,15 +43,15 @@ public class SchoolModel {
         return standard;
     }
 
-    public void setClass(String standard) {
+    public void setStandard(String standard) {
         this.standard = standard;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
