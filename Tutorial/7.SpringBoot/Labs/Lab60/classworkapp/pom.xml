@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.5</version>
+		<version>4.0.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>Myapp</artifactId>
+	<artifactId>classworkapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Myapp</name>
+	<name>classworkapp</name>
 	<description/>
 	<url/>
 	<licenses>
@@ -56,24 +56,17 @@
 			<scope>test</scope>
 		</dependency>
 		
-			<!-- Manually added  dependencies -->
-	<dependency>
-    <groupId>org.springframework.boot</groupId> 
-    <artifactId>spring-boot-starter-validation</artifactId> 
-	</dependency>
-	
-	
-	<dependency><groupId>org.springframework.boot</groupId>
+				<!--Manually added -->
+				<dependency><groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+<dependency>
+	<groupId>com.mysql</groupId>
+	<artifactId>mysql-connector-j</artifactId>
+	<scope>runtime</scope>
+</dependency>
 
-	</dependency>
-		<dependency>
-		<groupId>com.mysql</groupId>
-		<artifactId>mysql-connector-j</artifactId>
-		<scope>runtime</scope>
-	</dependency>
-	
-	<dependency>
+<dependency>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-security</artifactId>
 </dependency>
@@ -86,10 +79,11 @@
 	<artifactId>spring-security-test</artifactId>
 	<scope>test</scope>
 </dependency>
-	
-	
+
+<!--Manually added end -->
+
+
 	</dependencies>
-	
 
 	<build>
 		<plugins>
