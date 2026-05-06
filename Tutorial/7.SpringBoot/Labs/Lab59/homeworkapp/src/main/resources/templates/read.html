@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <title>Stock — Mobile Stock</title>
+</head>
+<body>
+
+  <div th:replace="navigation :: navigation"></div>
+
+  <div class="page-wrapper">
+
+
+    <form action="#" th:action="@{/all}" method="get" class="search-bar">
+      <input class="form-control" type="text" name="keyword"
+             placeholder="Search by name or description…" />
+      <button type="submit" class="btn btn-ghost">
+        <i class="ti ti-search" aria-hidden="true"></i>
+        Search
+      </button>
+    </form>
+
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="product : ${products}">
+            <td class="td-id" th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td style="color: var(--text-secondary);" th:text="${product.description}"></td>
+            <td class="td-price" th:text="${product.price}"></td>
+            <td>
+              <div class="td-actions">
+                <a class="action-btn action-btn-edit"
+                   th:href="@{/update/{id}(id=${product.id})}">
+                  <i class="ti ti-edit" aria-hidden="true"></i>
+                  Edit
+                </a>
+                <a class="action-btn action-btn-delete"
+                   th:href="@{/delete/{id}(id=${product.id})}">
+                  <i class="ti ti-trash" aria-hidden="true"></i>
+                  Delete
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr th:if="${#lists.isEmpty(products)}">
+            <td colspan="5">
+              <div class="empty-state">
+                <i class="ti ti-inbox" aria-hidden="true"></i>
+                <p>No items in stock. <a th:href="@{/create}" style="color:var(--accent);">Add one</a>.</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
