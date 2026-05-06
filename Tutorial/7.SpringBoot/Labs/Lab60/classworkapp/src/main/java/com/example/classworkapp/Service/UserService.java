@@ -18,7 +18,7 @@ public class UserService{
     private UserRepository userRepository;
 
     public User save(UserDto userDto) {
-        User user = new User(userDto.getMob(), passwordEncoder.encode(userDto.getPassword()) , userDto.getFullname());
+        User user = new User(userDto.getMob(), passwordEncoder.encode(userDto.getPassword()) , userDto.getFullname(), userDto.getEmail());
         return userRepository.save(user);
     }
 }

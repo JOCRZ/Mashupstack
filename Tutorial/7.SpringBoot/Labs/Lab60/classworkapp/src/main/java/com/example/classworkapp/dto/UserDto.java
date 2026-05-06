@@ -5,14 +5,21 @@ public class UserDto {
     private String mob;
     private String password;
     private String fullname;
-   
-    public UserDto(String mob, String password, String fullname) {
-        super();
+    private String email;
+
+    // ✅ DEFAULT CONSTRUCTOR (REQUIRED)
+    public UserDto() {
+    }
+
+    // Parameterized constructor
+    public UserDto(String mob, String password, String fullname, String email) {
         this.mob = mob;
         this.password = password;
         this.fullname = fullname;
+        this.email = email;
     }
 
+    // Getters & Setters
     public String getMob() {
         return mob;
     }
@@ -36,5 +43,12 @@ public class UserDto {
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
-   
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

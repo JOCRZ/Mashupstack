@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "mob"))
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
    
     @Id
@@ -18,15 +18,17 @@ public class User {
     private String mob;
     private String password;
     private String fullname;
+    private String email;
 
     public User() {
         super();
     }
 
-    public User(String mob, String password, String fullname) {
+    public User(String mob, String password, String fullname, String email) {
         this.mob = mob;
         this.password = password;
         this.fullname = fullname;
+        this.email = email;
     }
 
     // Getters and Setters
@@ -60,5 +62,13 @@ public class User {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

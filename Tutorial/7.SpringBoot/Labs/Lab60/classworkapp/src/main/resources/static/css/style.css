@@ -1,0 +1,62 @@
+/* Background */
+body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Card styling */
+.register-card {
+    width: 400px;
+    border-radius: 15px;
+    background: white;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Title */
+h2 {
+    font-family: 'Montserrat', sans-serif;;  /* 🔥 elegant heading font */
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 1px;
+}
+/* Inputs */
+.form-control {
+    border-radius: 10px;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
+}
+
+/* Button */
+.btn-primary {
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #5a6fd8, #6a4190);
+}
+
+/* Message */
+.alert {
+    border-radius: 10px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
