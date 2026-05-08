@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Register</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          th:href="@{/css/styles.css}">
+
+</head>
+
+<body>
+
+<div class="auth-card register-card">
+
+    <h2 class="auth-title">Create Account</h2>
+
+    <div class="auth-switch">
+
+        <a th:href="@{/login}">
+            Login
+        </a>
+
+        <a class="active"
+           th:href="@{/registration}">
+            Signup
+        </a>
+
+    </div>
+
+    <div class="message"
+         th:if="${message != null}">
+
+        [[${message}]]
+
+    </div>
+
+    <form th:action="@{/registration}"
+          method="post"
+          th:object="${user}">
+
+        <!-- First + Last Name -->
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+
+                    <input
+                        th:field="*{firstname}"
+                        type="text"
+                        class="form-control"
+                        placeholder="First Name"
+                        required>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+
+                    <input
+                        th:field="*{lastname}"
+                        type="text"
+                        class="form-control"
+                        placeholder="Last Name"
+                        required>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Address + Email -->
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+
+                    <input
+                        th:field="*{address}"
+                        type="text"
+                        class="form-control"
+                        placeholder="Address"
+                        required>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+
+                    <input
+                        th:field="*{email}"
+                        type="email"
+                        class="form-control"
+                        placeholder="Email"
+                        required>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Password + Confirm -->
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+
+                    <input
+                        th:field="*{password}"
+                        type="password"
+                        id="password"
+                        class="form-control"
+                        placeholder="Password"
+                        required>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        class="form-control"
+                        placeholder="Confirm Password"
+                        required>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button type="submit"
+                class="btn-auth"
+                onclick="return Validate()">
+
+            Signup
+
+        </button>
+
+    </form>
+
+    <div class="bottom-text">
+
+        Already have an account?
+
+        <a th:href="@{/login}">
+            Login now
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+function Validate(){
+
+    var password =
+        document.getElementById("password").value;
+
+    var confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    if(password != confirmPassword){
+
+        alert("Passwords do not match");
+
+        return false;
+    }
+
+    return true;
+}
+
+</script>
+
+</body>
+</html>
