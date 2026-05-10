@@ -48,17 +48,18 @@ public class ProductAPIController {
     @PutMapping("/updateproduct/{id}")
     public Products updateProduct(@RequestBody Products newProduct,
                                   @PathVariable Integer id) {
+        // Force-clear any ID coming from body — always trust URL id
+        newProduct.setId(null); // ← ADD THIS
 
         return productRepository.findById(id)
                 .map(product -> {
-
                     product.setName(newProduct.getName());
                     product.setDescription(newProduct.getDescription());
                     product.setPrice(newProduct.getPrice());
                     product.setExpirydate(newProduct.getExpirydate());
-
+                    product.setCategory(newProduct.getCategory());
+                    product.setStock(newProduct.getStock());
                     return productRepository.save(product);
-
                 }).orElseThrow(() -> new ProductNotFoundException(id));
     }
 
