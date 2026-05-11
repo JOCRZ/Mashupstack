@@ -1,0 +1,39 @@
+package com.example.homeworkapp.Controller;
+
+import com.example.homeworkapp.Models.User;
+import com.example.homeworkapp.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+import java.util.HashMap;
+import java.util.Map;
+
+
+@RestController
+@RequestMapping("/api")
+public class UserAPIController {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+
+        Map<String, String> response = new HashMap<>();
+        
+        response.put("name", user.getFirst());
+        response.put("email", user.getEmail());
+        response.put("message", "User registered successfully");
+
+        return ResponseEntity.ok(response);
+    }
+    
+    
+}
