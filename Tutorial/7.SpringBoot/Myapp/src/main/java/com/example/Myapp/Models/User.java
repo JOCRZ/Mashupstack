@@ -20,6 +20,7 @@ public class User {
     private String email;
     private String password;
     private String fullname;
+    private String token;
 
     public User() {
         super();
@@ -62,5 +63,13 @@ public class User {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+    
+    public String getToken() {
+    	return token;
+    }
+    
+    public void setToken(String token) {
+    	this.token = token;
     }
 }
