@@ -1,0 +1,67 @@
+body {
+
+    background: linear-gradient(
+        135deg,
+        #f5f7fa,
+        #c3cfe2
+    );
+
+    font-family: Arial, sans-serif;
+}
+
+/* Library Card */
+
+.card {
+
+    border-radius: 15px;
+
+    background-color: white;
+}
+
+/* Table */
+
+.table {
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+
+    vertical-align: middle;
+}
+
+/* Download Page */
+
+.download-card {
+
+    background: white;
+
+    padding: 50px;
+
+    border-radius: 15px;
+
+    width: 500px;
+
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* Buttons */
+
+.btn {
+
+    padding: 12px 25px;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+}
+
+/* Heading */
+
+h1, h2 {
+
+    color: #333;
+}
