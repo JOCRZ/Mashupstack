@@ -31,6 +31,8 @@
             <td>
                 <a th:href="@{/update/{id}(id=${product.id})}">Edit</a>
                 <a th:href="@{/delete/{id}(id=${product.id})}">Delete</a>
+				<a th:href="@{/pdf/{id}(id=${product.id})}">Download Pdf</a>
+				<a th:href="@{/email/{id}(id=${product.id})}">Send Email</a>
             </td>
         </tr>
     </tbody>

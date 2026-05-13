@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>File Upload</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+<div class="upload-container">
+
+    <h1>Upload File</h1>
+
+    <form method="post"
+          enctype="multipart/form-data"
+          th:action="@{/uploadFile}">
+
+        <input type="file"
+               name="file"
+               id="fileInput"
+               required />
+
+        <div id="file-name"></div>
+
+        <button type="submit">Upload</button>
+
+    </form>
+
+    <div th:if="${message}"
+         class="message"
+         th:classappend="${message.contains('successfully')} ? 'success' : 'error'">
+
+        <p th:text="${message}"></p>
+
+    </div>
+	
+	
+
+</div>
+
+
+<script>
+
+    const fileInput =
+        document.getElementById("fileInput");
+
+    const fileName =
+        document.getElementById("file-name");
+
+    fileInput.addEventListener("change", function () {
+
+        if (this.files.length > 0) {
+
+            fileName.textContent =
+                "Selected File: " +
+                this.files[0].name;
+        }
+    });
+
+</script>
+
+</body>
+</html>
