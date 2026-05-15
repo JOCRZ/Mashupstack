@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
 
     <meta charset="UTF-8">
@@ -19,87 +21,103 @@
 
 <body>
 
-<div class="auth-card">
+<!-- Navbar -->
+<div th:replace="~{navbar :: navbar}"
+     th:with="active='home'"></div>
 
-    <h2 class="auth-title">Signup</h2>
+<!-- Main Container -->
+<div class="page-container">
 
-    <div class="auth-switch">
+    <div class="auth-card">
 
-        <a th:href="@{/login}">
-            Login
-        </a>
+        <h2 class="auth-title">
+            Create Account
+        </h2>
 
-        <a class="active"
-           th:href="@{/registration}">
-            Signup
-        </a>
+        <p class="auth-subtitle">
+            Join BreadCrumbs today
+        </p>
 
-    </div>
+        <!-- Switch -->
+        <div class="auth-switch">
 
-    <div class="message"
-         th:if="${message != null}">
+            <a th:href="@{/login}">
+                Login
+            </a>
 
-        [[${message}]]
-
-    </div>
-
-    <form th:action="@{/registration}"
-          method="post"
-          th:object="${user}">
-
-        <div class="form-group">
-
-			<input
-			      th:field="*{email}"
-			      type="email"
-			      class="form-control"
-			      placeholder="Email Address"
-			      required>
+            <a class="active"
+               th:href="@{/registration}">
+                Signup
+            </a>
 
         </div>
 
+        <!-- Message -->
+        <div class="message"
+             th:if="${message != null}">
 
-
-        <div class="form-group">
-
-            <input
-                th:field="*{password}"
-                type="password"
-                id="password"
-                class="form-control"
-                placeholder="Password"
-                required>
+            [[${message}]]
 
         </div>
 
-        <div class="form-group">
+        <!-- Form -->
+        <form th:action="@{/registration}"
+              method="post"
+              th:object="${user}">
 
-            <input
-                type="password"
-                id="confirmPassword"
-                class="form-control"
-                placeholder="Confirm Password"
-                required>
+            <div class="form-group">
+
+                <input
+                    th:field="*{email}"
+                    type="email"
+                    class="form-control"
+                    placeholder="Email Address"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <input
+                    th:field="*{password}"
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="Password"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    class="form-control"
+                    placeholder="Confirm Password"
+                    required>
+
+            </div>
+
+            <button type="submit"
+                    class="btn-auth"
+                    onclick="return Validate()">
+
+                Signup
+
+            </button>
+
+        </form>
+
+        <div class="bottom-text">
+
+            Already have an account?
+
+            <a th:href="@{/login}">
+                Login now
+            </a>
 
         </div>
-
-        <button type="submit"
-                class="btn-auth"
-                onclick="return Validate()">
-
-            Signup
-
-        </button>
-
-    </form>
-
-    <div class="bottom-text">
-
-        Already have an account?
-
-        <a th:href="@{/login}">
-            Login now
-        </a>
 
     </div>
 

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
 
     <meta charset="UTF-8">
@@ -19,78 +21,96 @@
 
 <body>
 
-<div class="auth-card">
+<!-- Navbar -->
+<div th:replace="~{navbar :: navbar}"
+     th:with="active='home'"></div>
 
-    <h2 class="auth-title">Login</h2>
+<!-- Main Container -->
+<div class="page-container">
 
-    <div class="auth-switch">
+    <div class="auth-card">
 
-        <a class="active"
-           th:href="@{/login}">
-            Login
-        </a>
+        <h2 class="auth-title">
+            Welcome Back
+        </h2>
 
-        <a th:href="@{/registration}">
-            Signup
-        </a>
+        <p class="auth-subtitle">
+            Login to continue
+        </p>
 
-    </div>
+        <!-- Switch -->
+        <div class="auth-switch">
 
-    <div class="message"
-         th:if="${param.error}">
+            <a class="active"
+               th:href="@{/login}">
+                Login
+            </a>
 
-        Invalid Username or Password
-
-    </div>
-
-    <div class="message"
-         th:if="${param.logout}">
-
-        Logout Successfully
-
-    </div>
-
-    <form th:action="@{/login}"
-          method="post">
-
-        <div class="form-group">
-
-            <input
-                type="text"
-                name="username"
-                class="form-control"
-                placeholder="Mobile Number"
-                required>
+            <a th:href="@{/registration}">
+                Signup
+            </a>
 
         </div>
 
-        <div class="form-group">
+        <!-- Messages -->
+        <div class="message"
+             th:if="${param.error}">
 
-            <input
-                type="password"
-                name="password"
-                class="form-control"
-                placeholder="Password"
-                required>
+            Invalid Email or Password
 
         </div>
 
-        <button type="submit"
-                class="btn-auth">
+        <div class="message"
+             th:if="${param.logout}">
 
-            Login
+            Logout Successful
 
-        </button>
+        </div>
 
-    </form>
+        <!-- Form -->
+        <form th:action="@{/login}"
+              method="post">
 
-    <div class="bottom-text">
+            <div class="form-group">
 
-        Not a member?
+                <input
+                    type="email"
+                    name="username"
+                    class="form-control"
+                    placeholder="Email Address"
+                    required>
 
-        <a th:href="@{/registration}">
-            Signup now
-        </a>
+            </div>
+
+            <div class="form-group">
+
+                <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    placeholder="Password"
+                    required>
+
+            </div>
+
+            <button type="submit"
+                    class="btn-auth">
+
+                Login
+
+            </button>
+
+        </form>
+
+        <div class="bottom-text">
+
+            Not a member?
+
+            <a th:href="@{/registration}">
+                Signup now
+            </a>
+
+        </div>
 
     </div>
 
