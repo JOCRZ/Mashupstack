@@ -15,11 +15,11 @@
 
     <div class="nav-links">
 
-        <a th:href="@{/}"
-           th:classappend="${active == 'home'} ? 'active'"
+        <a th:href="@{/login}"
+           th:classappend="${active == 'account'} ? 'active'"
            class="nav-link">
 
-            Home
+            Account
 
         </a>
 
@@ -31,11 +31,11 @@
 
         </a>
 
-        <a th:href="@{/contact}"
-		th:classappend="${active == 'contact'} ? 'active'"
+        <a th:href="@{/about}"
+		th:classappend="${active == 'about'} ? 'active'"
 		           class="nav-link">
 
-            Contact
+            About
 
         </a>
 

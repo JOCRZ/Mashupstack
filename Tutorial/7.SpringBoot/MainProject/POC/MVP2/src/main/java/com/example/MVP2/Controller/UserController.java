@@ -49,4 +49,14 @@ public class UserController {
 
         return "welcome";
     }
+    
+    @GetMapping("/pricing")
+    public String pricing() {
+        return "pricing";
+    }
+    
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
 }
