@@ -1,24 +1,29 @@
 package com.example.MVP2.Models;
 
-import jakarta.persistence.Entity;
-
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(
+    name = "users",
+    uniqueConstraints = @UniqueConstraint(columnNames = "email")
+)
+
 public class User {
-   
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-   
+
     private String email;
+
     private String password;
+
+    // ONE USER -> MANY BOOKMARKS
+    @OneToMany(mappedBy = "user",
+               cascade = CascadeType.ALL)
+
+    private List<Bookmarks> bookmarks;
 
     public User() {
         super();
@@ -29,7 +34,8 @@ public class User {
         this.password = password;
     }
 
-    // Getters and Setters
+    // Getters & Setters
+
     public Long getId() {
         return id;
     }
@@ -54,4 +60,11 @@ public class User {
         this.password = password;
     }
 
+    public List<Bookmarks> getBookmarks() {
+        return bookmarks;
+    }
+
+    public void setBookmarks(List<Bookmarks> bookmarks) {
+        this.bookmarks = bookmarks;
+    }
 }

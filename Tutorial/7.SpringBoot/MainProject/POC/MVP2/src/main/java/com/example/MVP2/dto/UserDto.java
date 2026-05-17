@@ -1,16 +1,20 @@
 package com.example.MVP2.dto;
 
 public class UserDto {
-   
+
     private String email;
+
     private String password;
-  
-   
+
+    public UserDto() {
+    }
+
     public UserDto(String email, String password) {
-        super();
         this.email = email;
         this.password = password;
     }
+
+ // Getters & Setters
 
     public String getEmail() {
         return email;
@@ -27,8 +31,4 @@ public class UserDto {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
-
-   
 }

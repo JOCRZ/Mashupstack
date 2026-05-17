@@ -1,52 +1,265 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Welcome</title>
-
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-
-    <link rel="stylesheet"
-          th:href="@{/css/styles.css}">
-
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Bookmarks</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link th:href="@{/css/styles2.css}" rel="stylesheet"/>
 </head>
-
 <body>
 
-<div class="welcome-card">
+<!-- ── NAVBAR ── -->
+<nav class="navbar">
+  <a class="navbar-brand" th:href="@{/bookmarks}">
+    <i class="bi bi-bookmark-check-fill"></i>
+    My Bookmarks
+  </a>
+  <div class="user-pill">
+    <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
+	<form th:action="@{/logout}"
+	         method="post">
 
-    <h2 class="welcome-title">
+	       <button type="submit"
+	               class="btn-auth">
 
-        Hello,
-        <span th:text="${username}"></span>
+	           Logout
 
-    </h2>
+	       </button>
 
-    <p class="welcome-text">
+	   </form>
+    <i class="bi bi-chevron-down" style="font-size:.7rem;color:var(--text-muted)"></i>
+  </div>
+</nav>
 
-        You have logged in successfully.
+<div class="main-wrap">
 
-    </p>
+  <!-- Flash Messages -->
+  <div th:if="${successMsg}" class="flash flash-success">
+    <i class="bi bi-check-circle-fill"></i>
+    <span th:text="${successMsg}"></span>
+  </div>
+  <div th:if="${errorMsg}" class="flash flash-error">
+    <i class="bi bi-exclamation-circle-fill"></i>
+    <span th:text="${errorMsg}"></span>
+  </div>
 
-    <form th:action="@{/logout}"
-          method="post">
+  <div class="layout">
+    <div>
 
-        <button type="submit"
-                class="btn-auth">
+      <!-- ══ ADD BOOKMARK ══ -->
+      <!--
+        User just pastes URL and clicks Add.
+        Controller calls BookmarkService.addFromUrl()
+        which calls URLinfoExtractor.extractPreview()
+        which fetches the page, extracts title + domain
+        then saves to DB automatically.
+      -->
+      <div class="add-card">
+        <div class="add-card-title">
+          <div class="icon-wrap"><i class="bi bi-link-45deg"></i></div>
+          Add New Bookmark
+        </div>
+        <p class="add-card-hint">
+          <i class="bi bi-magic" style="color:var(--primary)"></i>
+          Just paste a URL — title and domain are extracted automatically.
+        </p>
+        <form th:action="@{/bookmarks/add}" method="post">
+          <div class="add-form-row">
+            <input class="url-input"
+                   type="url"
+                   name="url"
+                   placeholder="Paste any URL e.g. https://github.com"
+                   required/>
+            <button class="btn-add" type="submit">
+              <i class="bi bi-plus-lg"></i> Add &amp; Extract
+            </button>
+          </div>
+          <p class="extract-note">
+            <i class="bi bi-info-circle"></i>
+            Title, domain and description will be fetched from the page automatically.
+          </p>
+        </form>
+      </div>
 
-            Logout
-
+      <!-- ══ SEARCH + SORT ══ -->
+      <form th:action="@{/bookmarks}" method="get" class="controls">
+        <div class="search-wrap">
+          <i class="bi bi-search"></i>
+          <input class="search-input" name="keyword" type="text"
+                 placeholder="Search bookmarks..."
+                 th:value="${keyword}"/>
+        </div>
+        <span class="sort-label">Sort by:</span>
+        <select class="sort-select" name="sort" onchange="this.form.submit()">
+          <option value="newest" th:selected="${sort == 'newest'}">Newest First</option>
+          <option value="oldest" th:selected="${sort == 'oldest'}">Oldest First</option>
+          <option value="title"  th:selected="${sort == 'title'}">Title A–Z</option>
+        </select>
+        <button type="submit" class="btn-search">
+          <i class="bi bi-search"></i> Search
         </button>
+        <a th:href="@{/bookmarks}" class="btn-clear">
+          <i class="bi bi-x-lg"></i> Clear
+        </a>
+      </form>
 
-    </form>
+      <!-- ══ TABLE ══ -->
+      <div class="table-card">
+        <table class="bk-table">
+          <thead>
+            <tr>
+              <th style="width:36%">Title &amp; Domain</th>
+              <th>Link</th>
+              <th>Added On</th>
+              <th style="text-align:center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
 
+            <tr th:if="${#lists.isEmpty(bookmarks)}">
+              <td colspan="4">
+                <div class="empty-state">
+                  <i class="bi bi-bookmark-x"></i>
+                  <p>No bookmarks yet — paste a URL above to get started!</p>
+                </div>
+              </td>
+            </tr>
+
+            <tr th:each="bk : ${bookmarks}">
+
+              <!-- Title + domain (auto-extracted by URLinfoExtractor) -->
+              <td>
+                <div class="bk-title" th:text="${bk.title}">Title</div>
+                <div class="bk-domain" th:text="${bk.displayUrl}">domain.com</div>
+                <div class="bk-desc"
+                     th:if="${bk.description != null and !bk.description.isBlank()}"
+                     th:text="${bk.description}"></div>
+              </td>
+
+              <!-- Full URL -->
+              <td class="bk-link">
+                <a th:href="${bk.url}" target="_blank" th:text="${bk.url}">URL</a>
+              </td>
+
+              <!-- Timestamp -->
+              <td class="bk-date" th:text="${bk.formattedDate}">Date</td>
+
+              <!-- Actions -->
+              <td style="text-align:center">
+                <div style="display:flex;gap:8px;justify-content:center">
+                  <a th:href="@{/bookmarks/edit/{id}(id=${bk.id}, keyword=${keyword}, sort=${sort}, page=${currentPage})}"
+                     class="btn-icon edit" title="Edit">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <form th:action="@{/bookmarks/delete/{id}(id=${bk.id})}" method="post"
+                        onsubmit="return confirm('Delete this bookmark?')">
+                    <button type="submit" class="btn-icon del" title="Delete">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        <!-- Footer: showing X to Y + pagination -->
+        <div class="table-footer">
+          <span class="showing-text">
+            <span th:if="${totalItems == 0}">No results found</span>
+            <span th:if="${totalItems > 0}">
+              Showing <strong th:text="${showStart}"></strong> to
+              <strong th:text="${showEnd}"></strong> of
+              <strong th:text="${totalItems}"></strong> bookmarks
+            </span>
+          </span>
+          <div class="pagination" th:if="${totalPages > 1}">
+            <a th:href="@{/bookmarks(page=${currentPage - 1}, keyword=${keyword}, sort=${sort})}"
+               class="page-btn" th:classappend="${currentPage == 0} ? 'disabled'">
+              <i class="bi bi-chevron-left" style="font-size:.7rem"></i>
+            </a>
+            <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+               th:href="@{/bookmarks(page=${i}, keyword=${keyword}, sort=${sort})}"
+               class="page-btn" th:classappend="${i == currentPage} ? 'active'"
+               th:text="${i + 1}">1</a>
+            <a th:href="@{/bookmarks(page=${currentPage + 1}, keyword=${keyword}, sort=${sort})}"
+               class="page-btn" th:classappend="${currentPage + 1 >= totalPages} ? 'disabled'">
+              <i class="bi bi-chevron-right" style="font-size:.7rem"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══ STAT CARD ══ -->
+    <div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap">
+          <i class="bi bi-bookmark-fill"></i>
+        </div>
+        <div class="stat-number" th:text="${totalCount}">0</div>
+        <div class="stat-label">Total Bookmarks</div>
+        <div class="stat-divider"></div>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+<!-- ══ EDIT MODAL ══ -->
+<!--
+  Opens when user clicks pencil icon.
+  If URL is changed, service re-runs URLinfoExtractor to refresh metadata.
+  User can also manually override title and description.
+-->
+<div class="modal-overlay" th:classappend="${editBookmark != null} ? 'show'" id="editModal">
+  <div class="modal-box" th:if="${editBookmark != null}">
+    <div class="modal-title">
+      <i class="bi bi-pencil-square" style="color:var(--primary)"></i>
+      Edit Bookmark
+    </div>
+    <form th:action="@{/bookmarks/update/{id}(id=${editBookmark.id})}"
+          th:object="${editBookmark}" method="post">
+
+      <label class="modal-label">Title</label>
+      <input class="modal-input" th:field="*{title}" type="text" placeholder="Page title"/>
+
+      <label class="modal-label">URL</label>
+      <input class="modal-input" th:field="*{url}" type="url"
+             placeholder="https://example.com" required/>
+      <p class="modal-hint">
+        <i class="bi bi-info-circle"></i>
+        If you change the URL, metadata will be re-extracted automatically.
+      </p>
+
+      <label class="modal-label">Description</label>
+      <input class="modal-input" th:field="*{description}" type="text"
+             placeholder="Short description (optional)"/>
+
+      <div class="modal-actions">
+        <a th:href="@{/bookmarks}" class="btn-cancel">
+          <i class="bi bi-x-lg" style="font-size:.8rem;margin-right:4px"></i> Cancel
+        </a>
+        <button type="submit" class="btn-save">
+          <i class="bi bi-check-lg" style="margin-right:4px"></i> Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Close modal when clicking outside the box
+  const overlay = document.getElementById('editModal');
+  if (overlay) {
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) window.location.href = '/bookmarks';
+    });
+  }
+</script>
 
 </body>
 </html>
