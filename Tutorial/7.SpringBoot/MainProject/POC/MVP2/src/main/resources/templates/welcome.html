@@ -17,6 +17,85 @@
     <link th:href="@{/css/styles2.css}"
           rel="stylesheet"/>
 
+    <style>
+
+        /* =========================
+           PAGINATION
+        ========================= */
+
+        .pagination-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 14px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .pagination-info {
+            font-size: 0.82rem;
+            color: var(--text-muted, #888);
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-page {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border, #ddd);
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text, #333);
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .btn-page:hover:not(:disabled) {
+            background: var(--primary, #6366f1);
+            color: #fff;
+            border-color: var(--primary, #6366f1);
+        }
+
+        .btn-page:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .btn-page.active {
+            background: var(--primary, #6366f1);
+            color: #fff;
+            border-color: var(--primary, #6366f1);
+            font-weight: 600;
+        }
+
+        .page-size-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            color: var(--text-muted, #888);
+        }
+
+        .page-size-select {
+            border: 1px solid var(--border, #ddd);
+            border-radius: 6px;
+            padding: 3px 6px;
+            font-size: 0.82rem;
+            background: transparent;
+            cursor: pointer;
+            color: var(--text, #333);
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -200,11 +279,12 @@
 
                     </thead>
 
-                    <tbody>
+                    <tbody id="bookmarkTableBody">
 
-                    <!-- EMPTY -->
+                    <!-- EMPTY STATE (shown by JS when no rows) -->
 
-                    <tr th:if="${#lists.isEmpty(bookmarks)}">
+                    <tr th:if="${#lists.isEmpty(bookmarks)}"
+                        id="emptyRow">
 
                         <td colspan="4">
 
@@ -220,9 +300,10 @@
 
                     </tr>
 
-                    <!-- BOOKMARKS -->
+                    <!-- BOOKMARKS — all rows rendered, JS handles visibility -->
 
-                    <tr th:each="bk : ${bookmarks}">
+                    <tr class="bk-row"
+                        th:each="bk : ${bookmarks}">
 
                         <!-- TITLE -->
 
@@ -249,10 +330,12 @@
 
                         </td>
 
-                        <!-- DATE — FIXED: was ${bk.formattedDate} which does not exist on the entity -->
+                        <!-- DATE — FIXED: was ${bk.formattedDate} -->
 
                         <td class="bk-date"
-                            th:text="${bk.addedTime != null} ? ${#temporals.format(bk.addedTime, 'dd MMM yyyy')} : ''">
+                            th:text="${bk.addedTime != null}
+                                     ? ${#temporals.format(bk.addedTime, 'dd MMM yyyy')}
+                                     : ''">
                         </td>
 
                         <!-- ACTIONS -->
@@ -302,6 +385,47 @@
                     </tbody>
 
                 </table>
+
+                <!-- =========================
+                     PAGINATION
+                ========================= -->
+
+                <div class="pagination-wrap"
+                     id="paginationWrap">
+
+                    <!-- LEFT: info + page size -->
+
+                    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+
+                        <span class="pagination-info"
+                              id="pageInfo">
+                        </span>
+
+                        <div class="page-size-wrap">
+
+                            Rows per page:
+
+                            <select class="page-size-select"
+                                    id="pageSizeSelect"
+                                    onchange="changePageSize(this.value)">
+
+                                <option value="2">2</option>
+
+                                <option value="5" selected>5</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT: prev / page numbers / next -->
+
+                    <div class="pagination-controls"
+                         id="pageControls">
+                    </div>
+
+                </div>
 
             </div>
 
@@ -365,22 +489,14 @@
         <form th:action="@{/bookmarks/save}"
               method="post">
 
-            <label class="modal-label">
-
-                Title
-
-            </label>
+            <label class="modal-label">Title</label>
 
             <input class="modal-input"
                    type="text"
                    id="modalTitle"
                    name="title">
 
-            <label class="modal-label">
-
-                URL
-
-            </label>
+            <label class="modal-label">URL</label>
 
             <input class="modal-input"
                    type="url"
@@ -388,11 +504,7 @@
                    name="url"
                    required>
 
-            <label class="modal-label">
-
-                Display URL
-
-            </label>
+            <label class="modal-label">Display URL</label>
 
             <input class="modal-input"
                    type="text"
@@ -446,22 +558,14 @@
         <form id="editForm"
               method="post">
 
-            <label class="modal-label">
-
-                Title
-
-            </label>
+            <label class="modal-label">Title</label>
 
             <input class="modal-input"
                    type="text"
                    id="editTitle"
                    name="title">
 
-            <label class="modal-label">
-
-                URL
-
-            </label>
+            <label class="modal-label">URL</label>
 
             <input class="modal-input"
                    type="url"
@@ -469,11 +573,7 @@
                    name="url"
                    required>
 
-            <label class="modal-label">
-
-                Display URL
-
-            </label>
+            <label class="modal-label">Display URL</label>
 
             <input class="modal-input"
                    type="text"
@@ -565,9 +665,107 @@
 
 <script>
 
-//
+// ==========================================
+// PAGINATION
+// ==========================================
+
+let currentPage = 1;
+let pageSize    = 5;
+
+function getRows() {
+    return Array.from(
+        document.querySelectorAll("#bookmarkTableBody .bk-row")
+    );
+}
+
+function totalPages() {
+    const rows = getRows();
+    return rows.length === 0
+        ? 1
+        : Math.ceil(rows.length / pageSize);
+}
+
+function renderPage(page) {
+
+    const rows  = getRows();
+    const total = totalPages();
+
+    // Clamp page
+    if (page < 1)      page = 1;
+    if (page > total)  page = total;
+
+    currentPage = page;
+
+    const start = (currentPage - 1) * pageSize; // inclusive
+    const end   = start + pageSize;              // exclusive
+
+    rows.forEach(function(row, index) {
+        row.style.display =
+            (index >= start && index < end)
+                ? ""
+                : "none";
+    });
+
+    // Info text
+    const showing = Math.min(end, rows.length) - start;
+    document.getElementById("pageInfo").textContent =
+        rows.length === 0
+            ? ""
+            : "Showing " + (start + 1) + "–" + Math.min(end, rows.length)
+              + " of " + rows.length;
+
+    // Hide pagination bar if 0 or 1 page
+    document.getElementById("paginationWrap").style.display =
+        rows.length === 0 ? "none" : "flex";
+
+    // Build page number buttons
+    const controls = document.getElementById("pageControls");
+    controls.innerHTML = "";
+
+    // PREV button
+    const prev = document.createElement("button");
+    prev.className   = "btn-page";
+    prev.innerHTML   = '<i class="bi bi-chevron-left"></i>';
+    prev.disabled    = currentPage === 1;
+    prev.onclick     = function() { renderPage(currentPage - 1); };
+    controls.appendChild(prev);
+
+    // Page number buttons
+    for (let i = 1; i <= total; i++) {
+
+        const btn = document.createElement("button");
+        btn.className = "btn-page" + (i === currentPage ? " active" : "");
+        btn.textContent = i;
+        btn.onclick = (function(p) {
+            return function() { renderPage(p); };
+        })(i);
+        controls.appendChild(btn);
+    }
+
+    // NEXT button
+    const next = document.createElement("button");
+    next.className   = "btn-page";
+    next.innerHTML   = '<i class="bi bi-chevron-right"></i>';
+    next.disabled    = currentPage === total;
+    next.onclick     = function() { renderPage(currentPage + 1); };
+    controls.appendChild(next);
+}
+
+function changePageSize(value) {
+    pageSize    = parseInt(value, 10);
+    currentPage = 1;
+    renderPage(1);
+}
+
+// Boot pagination on load
+document.addEventListener("DOMContentLoaded", function() {
+    renderPage(1);
+});
+
+
+// ==========================================
 // PREVIEW URL
-//
+// ==========================================
 
 document.getElementById("previewForm")
 
@@ -589,13 +787,10 @@ document.getElementById("previewForm")
                     "Content-Type": "application/json"
                 },
 
-                body: JSON.stringify({
-                    url: url
-                })
+                body: JSON.stringify({ url: url })
             });
 
-        const data =
-            await response.json();
+        const data = await response.json();
 
         document.getElementById("modalTitle").value =
             data.title || "";
@@ -616,9 +811,9 @@ document.getElementById("previewForm")
 });
 
 
-//
+// ==========================================
 // EDIT MODAL
-//
+// ==========================================
 
 function openEditModal(button) {
 
@@ -645,9 +840,9 @@ function closeEditModal() {
 }
 
 
-//
+// ==========================================
 // CREATE MODAL
-//
+// ==========================================
 
 function closeCreateModal() {
 
@@ -656,9 +851,9 @@ function closeCreateModal() {
 }
 
 
-//
+// ==========================================
 // DELETE MODAL
-//
+// ==========================================
 
 function openDeleteModal(button) {
 
@@ -676,17 +871,17 @@ function closeDeleteModal() {
 }
 
 
-//
-// OUTSIDE CLICK CLOSE
-//
+// ==========================================
+// OUTSIDE CLICK — CLOSE MODAL
+// ==========================================
 
 document.querySelectorAll(".modal-overlay")
 
-.forEach(overlay => {
+.forEach(function(overlay) {
 
     overlay.addEventListener("click", function(e) {
 
-        if(e.target === overlay) {
+        if (e.target === overlay) {
 
             overlay.classList.remove("show");
         }

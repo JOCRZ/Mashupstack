@@ -341,3 +341,75 @@ body {
   .navbar { padding: .85rem 1rem; }
   .add-form-row { flex-direction: column; }
 }
+
+
+/* logout button */
+
+/* Container for the avatar and logout button */
+.user-pill {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 100px; /* Makes it a pill shape */
+  padding: 4px 8px;
+  gap: 12px;
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.user-pill:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+}
+
+/* Styling the circular avatar icon */
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+/* Handling the form layout */
+.user-pill form {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* The Logout Button */
+.btn-auth {
+  background: transparent;
+  border: none;
+  color: var(--text-sub);
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 4px 12px 4px 4px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  border-radius: var(--radius);
+}
+
+.btn-auth:hover {
+  color: var(--danger); /* Soft warning color on hover */
+}
+
+/* Optional: Add a small vertical divider between avatar and text */
+.user-avatar {
+  position: relative;
+}
+
+.user-avatar::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  height: 16px;
+  width: 1px;
+  background-color: var(--border);
+}
