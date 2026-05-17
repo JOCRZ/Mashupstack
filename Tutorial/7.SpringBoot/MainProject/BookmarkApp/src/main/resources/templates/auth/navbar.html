@@ -1,0 +1,44 @@
+<nav th:fragment="navbar" class="navbar-custom">
+
+    <div class="brand">
+
+        <span class="brand-icon">🍞</span>
+
+        <a th:href="@{/}"
+           class="brand-name">
+
+            BreadCrumbs
+
+        </a>
+
+    </div>
+
+    <div class="nav-links">
+
+        <a th:href="@{/login}"
+           th:classappend="${active == 'account'} ? 'active'"
+           class="nav-link">
+
+            Account
+
+        </a>
+
+        <a th:href="@{/pricing}"
+           th:classappend="${active == 'pricing'} ? 'active'"
+           class="nav-link">
+
+            Pricing
+
+        </a>
+
+        <a th:href="@{/about}"
+		th:classappend="${active == 'about'} ? 'active'"
+		           class="nav-link">
+
+            About
+
+        </a>
+
+    </div>
+
+</nav>

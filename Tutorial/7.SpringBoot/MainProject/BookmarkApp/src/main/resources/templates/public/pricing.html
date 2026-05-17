@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Pricing</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          th:href="@{/css/auth.css}">
+
+</head>
+
+<body>
+
+	<!-- Navbar -->
+	<div th:replace="~{auth/navbar :: navbar}"
+	     th:with="active='pricing'"></div>
+
+	<section class="pricing-section">
+
+	   
+
+	    <div class="pricing-cards">
+
+	        <!-- FREE PLAN -->
+	        <div class="pricing-card">
+
+	            <h3 class="plan-name">
+	                FREE
+	            </h3>
+
+	            <div class="plan-price">
+
+	                <span class="price">$0</span>
+
+	                <span class="duration">/monthly</span>
+
+	            </div>
+
+	            <p class="plan-description">
+	                Perfect for getting started.
+	            </p>
+
+	            <ul class="plan-features">
+
+	                <li>Limit of 5 Saves</li>
+
+	                <li>Basic Searching</li>
+
+	                <li>Limited access all devices</li>
+
+	                <li>Email support</li>
+
+	            </ul>
+
+	            <button class="plan-btn secondary-btn">
+	                Get Started
+	            </button>
+
+	        </div>
+
+	        <!-- PRO MONTHLY -->
+	        <div class="pricing-card featured-card">
+
+	            <div class="popular-tag">
+	                MOST POPULAR
+	            </div>
+
+	            <h3 class="plan-name">
+	                PRO MONTHLY
+	            </h3>
+
+	            <div class="plan-price">
+
+	                <span class="price">$2.86</span>
+
+	                <span class="duration">/monthly</span>
+
+	            </div>
+
+	            <p class="plan-description">
+	                Great for personal use.
+	            </p>
+
+	            <ul class="plan-features">
+
+	             
+
+	                <li>Unlimited saves</li>
+
+	                <li>Broken links finder</li>
+
+	                <li>Duplicate finder</li>
+
+	                <li>Priority support</li>
+
+	            </ul>
+
+	            <button class="plan-btn primary-btn">
+	                Get Started
+	            </button>
+
+	        </div>
+
+	        <!-- PRO YEARLY -->
+	        <div class="pricing-card">
+
+	            <h3 class="plan-name">
+	                PRO YEARLY
+	            </h3>
+
+	            <div class="plan-price">
+
+	                <span class="price">$25.32</span>
+
+	                <span class="duration">/yearly</span>
+
+	            </div>
+
+	            <p class="plan-description">
+	                Best value for power users.
+	            </p>
+
+	            <ul class="plan-features">
+
+	                <li>25% Discount</li>
+
+	                <li>AI Suggestions</li>
+
+	                <li>Web Archive</li>
+					
+					<li>Reminder</li>
+
+	                <li>Upload 10 GB of Files Per Month</li>
+
+	                
+
+	            </ul>
+
+	            <button class="plan-btn secondary-btn">
+	                Get Started
+	            </button>
+
+	        </div>
+
+	    </div>
+
+	</section>
+
+</body>
+</html>
