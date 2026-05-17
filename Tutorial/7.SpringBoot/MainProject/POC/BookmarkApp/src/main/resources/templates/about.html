@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Pricing</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          th:href="@{/css/styles.css}">
+
+</head>
+
+<body>
+
+	<!-- Navbar -->
+	<div th:replace="~{navbar :: navbar}"
+	     th:with="active='about'"></div>
+
+		 <!-- about.html -->
+
+		 <section class="about-section">
+
+		     <div class="about-container">
+
+		         <!-- LEFT SIDE -->
+		         <div class="about-content">
+
+		             <h1 class="about-title">
+		                 Save Less Chaos.
+		                 Find More Focus.
+		             </h1>
+
+		             <p class="about-description">
+
+		                 The internet moves fast.
+		                 Tabs pile up, links disappear,
+		                 and valuable resources get lost in the noise.
+
+		             </p>
+
+		             <p class="about-description">
+
+		                 BreadCrumbs helps you organize your digital life
+		                 with a clean and powerful bookmarking experience.
+		                 Save articles, tools, tutorials, videos and ideas,
+		                 all in one place, accessible anytime.
+
+		             </p>
+
+		             <div class="about-points">
+
+		             
+
+		                 <div class="about-point">
+
+		                     <div class="point-icon">
+		                         ✓
+		                     </div>
+
+		                     <div>
+
+		                         <h4>Never Lose Resources</h4>
+
+		                         <p>
+		                             Store useful websites permanently in your own space.
+		                         </p>
+
+		                     </div>
+
+		                 </div>
+
+		                 <div class="about-point">
+
+		                     <div class="point-icon">
+		                         ✓
+		                     </div>
+
+		                     <div>
+
+		                         <h4>Built for Productivity</h4>
+
+		                         <p>
+		                             Reduce clutter and stay focused on what matters.
+		                         </p>
+
+		                     </div>
+
+		                 </div>
+
+		             </div>
+
+		             <a href="/registration"
+		                class="about-btn">
+
+		                 Start Organizing Today
+
+		             </a>
+
+		         </div>
+
+		         <!-- RIGHT SIDE -->
+		         <div class="support-card">
+
+
+		             <h2 class="support-title">
+		                 Need Help?
+		             </h2>
+
+		             <p class="support-text">
+
+		                 Our support team is here to help you with
+		                 account issues, subscriptions, feedback
+		                 and feature requests.
+
+		             </p>
+
+		             <div class="support-info">
+
+		                 <div class="support-item">
+
+		                     <h5>Email Support</h5>
+
+		                     <p>support@breadcrumbs.com</p>
+
+		                 </div>
+
+		             </div>
+
+		             <a href="/contact"
+		                class="support-btn">
+
+		                 Contact Support
+
+		             </a>
+
+		         </div>
+
+		     </div>
+
+		 </section>
+
+</body>
+</html>

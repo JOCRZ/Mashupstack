@@ -1,4 +1,4 @@
-package com.example.MVP2.configuration;
+package com.example.BookmarkApp.Configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
-import com.example.MVP2.service.CustomUserDetailsService;
+import com.example.BookmarkApp.Services.CustomUserDetailsService;
 
 
 @Configuration
@@ -42,7 +42,7 @@ public class SecurityConfig {
             .formLogin(form -> form
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/bookmarks", true)
+                .defaultSuccessUrl("/dashboard", true)
                 .permitAll()
             )
 

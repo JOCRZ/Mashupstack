@@ -1,7 +1,6 @@
-package com.example.MVP2.Controller;
+package com.example.BookmarkApp.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 
 
 import org.springframework.stereotype.Controller;
@@ -10,9 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.MVP2.dto.UserDto;
-import com.example.MVP2.service.UserService;
-;
+import com.example.BookmarkApp.dto.UserDto;
+import com.example.BookmarkApp.Services.UserService;
 
 @Controller
 public class UserController {
@@ -37,10 +35,7 @@ public class UserController {
         return "login";
     }
     
-    @GetMapping("/welcome")
-    public String welcomePage() {
-        return "redirect:/bookmarks";   // just forward to the real dashboard
-    }
+  
     
     @GetMapping("/pricing")
     public String pricing() {
