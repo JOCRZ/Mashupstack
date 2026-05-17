@@ -1,7 +1,6 @@
 package com.example.BookmarkApp.Services;
 
 import java.net.URI;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;

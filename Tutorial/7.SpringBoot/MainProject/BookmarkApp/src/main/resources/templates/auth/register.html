@@ -48,13 +48,21 @@
 
         </div>
 
-        <!-- Message -->
-        <div class="message"
-             th:if="${message != null}">
+		<!-- Message -->
+		<div class="message"
+		     th:if="${message != null}">
 
-            [[${message}]]
+		    [[${message}]]
 
-        </div>
+		</div>
+
+		<!-- Error Message -->
+		<div class="message error"
+		     th:if="${errorMsg != null}">
+
+		    [[${errorMsg}]]
+
+		</div>
 
         <!-- Form -->
         <form th:action="@{/registration}"

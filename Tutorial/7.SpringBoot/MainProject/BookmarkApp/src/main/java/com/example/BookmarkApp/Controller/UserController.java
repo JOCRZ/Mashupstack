@@ -1,10 +1,6 @@
 package com.example.BookmarkApp.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.BookmarkApp.dto.UserDto;
 import com.example.BookmarkApp.Services.UserService;
-;
+
 
 @Controller
 public class UserController {
@@ -28,8 +24,12 @@ public class UserController {
     
     @PostMapping("/registration")
     public String saveUser(@ModelAttribute("user") UserDto userDto, Model model) {
-        userService.save(userDto);
-        model.addAttribute("message", "Registered Successfuly!");
+        try {
+            userService.save(userDto);
+            model.addAttribute("message", "Registered successfully!");
+        } catch (RuntimeException e) {
+            model.addAttribute("errorMsg", e.getMessage());
+        }
         return "auth/register";
     }
     
@@ -51,5 +51,9 @@ public class UserController {
     @GetMapping("/about")
     public String about() {
         return "public/about";
+    }
+    @GetMapping("/test-error")
+    public String testError() {
+        throw new RuntimeException("This is a test exception!");
     }
 }

@@ -1268,3 +1268,7 @@ body{
 
     text-decoration:none;
 }
+
+.message.error {
+    color: red;  /* or whatever color fits your design */
+}

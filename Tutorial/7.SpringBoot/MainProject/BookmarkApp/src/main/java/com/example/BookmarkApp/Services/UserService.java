@@ -1,8 +1,6 @@
 package com.example.BookmarkApp.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +18,13 @@ public class UserService{
     private UserRepository userRepository;
 
     public User save(UserDto userDto) {
-        User user = new User(userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()));
+        if (userRepository.findByEmail(userDto.getEmail()) != null) {
+            throw new RuntimeException("Email already registered.");
+        }
+        User user = new User(
+            userDto.getEmail(),
+            passwordEncoder.encode(userDto.getPassword())
+        );
         return userRepository.save(user);
     }
 }
