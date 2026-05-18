@@ -107,35 +107,63 @@
 
 		         </div>
 
-		         <!-- RIGHT SIDE -->
-		         <div class="support-card">
+				 <!-- RIGHT SIDE -->
+				 <div class="support-card">
 
+				     <h2 class="support-title">
+				         Need Help?
+				     </h2>
 
-		             <h2 class="support-title">
-		                 Need Help?
-		             </h2>
+				     <p class="support-text">
+				         Our support team is here to help you.
+				     </p>
+					 <!-- SUCCESS -->
+					 <div th:if="${successMsg}"
+					      class="contact-success">
+					     <i class="bi bi-check-circle-fill"></i>
+					     <span th:text="${successMsg}"></span>
+					 </div>
 
-		             <p class="support-text">
+					 <!-- ERROR -->
+					 <div th:if="${errorMsg}"
+					      class="contact-error">
+					     <i class="bi bi-exclamation-circle-fill"></i>
+					     <span th:text="${errorMsg}"></span>
+					 </div>
 
-		                 Our support team is here to help you with
-		                 account issues, subscriptions, feedback
-		                 and feature requests.
+				     <!-- CONTACT FORM -->
+				     <form action="/contact" method="post"
+				           class="contact-form">
 
-		             </p>
+				         <input class="contact-input"
+				                type="text"
+				                name="name"
+				                placeholder="Your Name"
+				                required/>
 
-		             <div class="support-info">
+				         <input class="contact-input"
+				                type="email"
+				                name="email"
+				                placeholder="Your Email"
+				                required/>
 
-		                 <div class="support-item">
+				         <textarea class="contact-input contact-textarea"
+				                   name="message"
+				                   placeholder="Your Message"
+				                   rows="4"
+				                   required></textarea>
 
-		                     <h5>Email Support</h5>
+				         <button type="submit"
+				                 class="contact-btn">
 
-		                     <p>support@breadcrumbs.com</p>
+				             <i class="bi bi-send-fill"></i>
+				             Send Message
 
-		                 </div>
+				         </button>
 
-		 
+				     </form>
 
-		     </div>
+				 </div>
 
 		 </section>
 

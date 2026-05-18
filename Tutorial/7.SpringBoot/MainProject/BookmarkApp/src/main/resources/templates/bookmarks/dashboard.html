@@ -17,85 +17,6 @@
     <link th:href="@{/css/bookmarks.css}"
           rel="stylesheet"/>
 
-    <style>
-
-        /* =========================
-           PAGINATION
-        ========================= */
-
-        .pagination-wrap {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 14px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .pagination-info {
-            font-size: 0.82rem;
-            color: var(--text-muted, #888);
-        }
-
-        .pagination-controls {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-page {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border: 1px solid var(--border, #ddd);
-            border-radius: 6px;
-            background: transparent;
-            cursor: pointer;
-            font-size: 0.85rem;
-            color: var(--text, #333);
-            transition: background 0.15s, color 0.15s;
-        }
-
-        .btn-page:hover:not(:disabled) {
-            background: var(--primary, #6366f1);
-            color: #fff;
-            border-color: var(--primary, #6366f1);
-        }
-
-        .btn-page:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-        }
-
-        .btn-page.active {
-            background: var(--primary, #6366f1);
-            color: #fff;
-            border-color: var(--primary, #6366f1);
-            font-weight: 600;
-        }
-
-        .page-size-wrap {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.82rem;
-            color: var(--text-muted, #888);
-        }
-
-        .page-size-select {
-            border: 1px solid var(--border, #ddd);
-            border-radius: 6px;
-            padding: 3px 6px;
-            font-size: 0.82rem;
-            background: transparent;
-            cursor: pointer;
-            color: var(--text, #333);
-        }
-
-    </style>
-
 </head>
 
 <body>
@@ -116,11 +37,12 @@
     </a>
 
     <div class="user-pill">
-
-        <div class="user-avatar">
-            <i class="bi bi-person-fill"></i>
-        </div>
-
+		
+	
+		<div class="user-avatar" th:title="${useremail}">
+		    <i class="bi bi-person-fill"></i>
+		</div>
+		<span th:text="'Hai, ' + ${username} + '!'"></span>
         <form th:action="@{/logout}"
               method="post">
 
@@ -271,7 +193,7 @@
 
                         <th>Link</th>
 
-                        <th>Date</th>
+                        <th>Timestamp</th>
 
                         <th>Actions</th>
 

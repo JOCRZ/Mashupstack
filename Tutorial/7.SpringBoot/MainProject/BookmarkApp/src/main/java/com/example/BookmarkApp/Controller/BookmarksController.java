@@ -62,6 +62,10 @@ public class BookmarksController {
 
         User user =
                 userRepository.findByEmail(email);
+        
+        String username = email.substring(0, email.indexOf('@'));
+        String displayName = Character.toUpperCase(username.charAt(0))
+                + username.substring(1);
 
         List<Bookmarks> bookmarks;
 
@@ -103,6 +107,9 @@ public class BookmarksController {
                 "keyword",
                 keyword
         );
+        
+        model.addAttribute("useremail", email);
+        model.addAttribute("username", displayName);
 
         return "bookmarks/dashboard";
     }
