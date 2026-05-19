@@ -36,3 +36,39 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* ===== PAGE ===== */
+body {
+    background: linear-gradient(135deg, #dbeafe, #f0f9ff);
+    font-family: Arial, sans-serif;
+}
+
+/* ===== CARD ===== */
+.welcome-card {
+    width: 420px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+/* ===== HEADING ===== */
+.title {
+    color: #0f172a;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* ===== IMAGES ===== */
+.card-image {
+    width: 200px;
+    height: 250px;
+    object-fit: cover;
+    margin: auto;
+    border: 3px solid #0ea5e9;
+}
+
+/* ===== DESCRIPTION ===== */
+.description {
+    font-size: 18px;
+    color: #475569;
+}
