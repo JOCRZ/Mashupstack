@@ -1,41 +1,102 @@
-
+import './App.css';
 
 function App() {
 
   const name = "Alex";
+
   const age = 20;
+
   const isStudent = true;
-   const favhob = ["Reading", "Hiking", "Coding"]
 
+  const headingColor = "lightblue";
 
+  const favoriteHobbies = [
+    "Reading",
+    "Hiking",
+    "Coding"
+  ];
 
-  const favhobList = [];
+  // FOR LOOP LIST
+  const hobbyListForLoop = [];
 
-  for (let i = 0; i < favhob.length; i++) {
-    favhobList.push(
-      <li key={i}>{favhob[i]}</li>
+  for (let i = 0; i < favoriteHobbies.length; i++) {
+
+    hobbyListForLoop.push(
+      <li key={i}>{favoriteHobbies[i]}</li>
     );
+
+  }
+
+  // BUTTON FUNCTION
+  function showMessage() {
+
+    document.getElementById("message").innerHTML =
+      "Hello from React! I love my hobbies!";
+
+    document.getElementById("heading").style.backgroundColor =
+      headingColor;
+
   }
 
   return (
 
-    <div>
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
 
-      <p>Name : {name}</p>
+      <div className="card shadow p-4 profile-card">
 
-      <p>Age : {age}</p>
+        <h1 id="heading" className="text-center heading">
+          Personal Profile
+        </h1>
 
-      <p>is Student : {isStudent.toString()}</p>
+        <div className="card-body">
 
-      <div>
-        <p> </p>
-        {favhob.map((item, index) => {
-          return <ul key={index}>{item}</ul>;
-        })}
-      </div>
+          <p>
+            <strong>Name:</strong> {name}
+          </p>
 
-      <div>
-        <ul>{favhobList}</ul>
+          <p>
+            <strong>Age:</strong> {age}
+          </p>
+
+          <p>
+            <strong>Is a Student:</strong> {isStudent.toString()}
+          </p>
+
+          <hr />
+
+          
+
+          <ul>
+            {hobbyListForLoop}
+          </ul>
+
+          
+
+          <ul>
+            {
+              favoriteHobbies.map((item, index) => {
+                return (
+                  <li key={index}>
+                    {item}
+                  </li>
+                );
+              })
+            }
+          </ul>
+
+          <button
+            className="btn btn-primary mt-3"
+            onClick={showMessage}
+          >
+            Show Enthusiasm
+          </button>
+
+          <p id="message" className="message mt-3">
+            Click the button to see my enthusiasm!
+          </p>
+
+        </div>
+
       </div>
 
     </div>
