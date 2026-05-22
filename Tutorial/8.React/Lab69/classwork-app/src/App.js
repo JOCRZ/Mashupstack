@@ -5,7 +5,7 @@ function App() {
   const [user, setUser] = useState('Guest');
 
   useEffect(() => {
-    console.log('User changed to Alice');
+    console.log('User changed to '+user);
   }, [user]);
 
   return (
