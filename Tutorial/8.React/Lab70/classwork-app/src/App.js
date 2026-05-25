@@ -1,82 +1,48 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './App.css';
 
 function App() {
-  return(
-   <div class="container mt-5">
+    const navigate = useNavigate();
+    const students = [
+        'Eren Yeager',
+        'Mikasa Ackerman',
+        'Armin Arlert',
+        'Levi Ackerman',
+        'Riya',
+    ];
 
-        <div class="card p-4 shadow">
-
-            <h1 class="text-center mb-4">
-                Student List
-            </h1>
-
-            <ul class="list-group">
-
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-
-                    Eren Yeager
-
+    return (
+        <div className="container mt-5">
+            <div className="card p-4 shadow">
+                <h1 className="text-center mb-4">Student List</h1>
+                <ul className="list-group">
+                    {students.map((student) => (
+                        <li
+                            key={student}
+                            className="list-group-item d-flex justify-content-between align-items-center"
+                        >
+                            {student}
+                            <Link
+                                to={`/student/${student}`}
+                                className="btn btn-primary"
+                            >
+                                Select
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+                <div className="text-center mt-4">
                     <button
-                        class="btn btn-primary"
-                        onclick="showMessage('Eren Yeager')"
+                        className="btn btn-success btn-lg"
+                        onClick={() => navigate('/student/Riya')}
                     >
-                        Select
+                        Go to Riya
                     </button>
-
-                </li>
-
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-
-                    Mikasa Ackerman
-
-                    <button
-                        class="btn btn-success"
-                        onclick="showMessage('Mikasa Ackerman')"
-                    >
-                        Select
-                    </button>
-
-                </li>
-
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-
-                    Armin Arlert
-
-                    <button
-                        class="btn btn-warning"
-                        onclick="showMessage('Armin Arlert')"
-                    >
-                        Select
-                    </button>
-
-                </li>
-
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-
-                    Levi Ackerman
-
-                    <button
-                        class="btn btn-danger"
-                        onclick="showMessage('Levi Ackerman')"
-                    >
-                        Select
-                    </button>
-
-                </li>
-
-            </ul>
-
-            <p
-                id="message"
-                class="text-center mt-4 fw-bold"
-            >
-                Click a button to select a student!
-            </p>
-
+                </div>
+            </div>
         </div>
-
-    </div>
-);
+    );
 }
 
 export default App;
