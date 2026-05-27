@@ -3,9 +3,9 @@ import Navbar from './Navbar';
 
 function Crud() {
     var [ items, setItems ] = useState ([
-        { id : 1, name : "John" },
-        { id : 2, name : "David" },
-        { id : 3, name : "William" }
+        { id : 1, name : "Shadow Slave" },
+        { id : 2, name : "Reverend Insanity" },
+        { id : 3, name : "Red Rising" }
 ]);
 
 const [itemName, setItemName ] = useState("");
