@@ -6,44 +6,47 @@ function Login() {
     var [email, setEmail] = useState('');
     var [password, setPassword] = useState('');
     var [errorMessage, setErrorMessage] = useState('');
+
     function attemptLogin() {
-        axios.post('https://demo-blog.mashupstack.com/api/login',{
-            email:email,
-            password:password
-        }).then(response=>{
+        axios.post('https://worksheet-auth.mashupstack.com/login', {
+            email: email,
+            password: password
+        }).then(response => {
             setErrorMessage('')
             console.log(response.data.token)
-        }).catch(error=>{
-            if(error.response.data.errors){
+            alert('Successfully Logged In')
+        }).catch(error => {
+            if (error.response && error.response.data.errors) {
                 setErrorMessage(Object.values(error.response.data.errors).join(' '))
-            }else if(error.response.data.message){
+            } else if (error.response && error.response.data.message) {
                 setErrorMessage(error.response.data.message)
-            }else{
+            } else {
                 setErrorMessage('Failed to login user. Please contact admin')
             }
         })
     }
+
     return (<div>
-        <Navbar/>
+        <Navbar />
         <div className="container">
             <div className="row">
                 <div className="col-8 offset-2">
                     <h1>Login</h1>
-                    {errorMessage?<div className="alert alert-danger">{errorMessage}</div>:''}
+                    {errorMessage ? <div className="alert alert-danger">{errorMessage}</div> : ''}
                     <div className="form-group">
                         <label>Email:</label>
                         <input type="text"
-                        className="form-control"
-                        value={email}
-                        onInput={(event)=>setEmail(event.target.value)}
+                            className="form-control"
+                            value={email}
+                            onInput={(event) => setEmail(event.target.value)}
                         />
                     </div>
                     <div className="form-group">
                         <label>Password:</label>
                         <input type="password"
-                        className="form-control"
-                        value={password}
-                        onInput={(event)=>setPassword(event.target.value)}
+                            className="form-control"
+                            value={password}
+                            onInput={(event) => setPassword(event.target.value)}
                         />
                     </div>
                     <div className="form-group">
