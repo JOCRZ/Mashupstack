@@ -9,7 +9,7 @@ function Navbar() {
     const navigate = useNavigate();
     function logout(){
         if(user){
-            axios.post('https://demo-blog.mashupstack.com/api/logout',{},{
+            axios.post('https://worksheet-product.mashupstack.com/logout',{},{
                 headers:{'Authorization':"Bearer " + user.token}
             });
             localStorage.removeItem('user');
@@ -19,7 +19,7 @@ function Navbar() {
     }
   return <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
         <div className="navbar-brand">
-            <h4>Todo List</h4>
+            <h4>Electronics Store</h4>
         </div>
         <button className="navbar-toggler" type="button" data-toggle="collapse"
 data-target="#navbarNav" aria-controls="navbarNav"aria-expanded="false"
@@ -29,27 +29,13 @@ data-target="#navbarNav" aria-controls="navbarNav"aria-expanded="false"
         <div
         className="collapse navbar-collapse mr-auto" id="navbarNav" style={{ float: "left" }}>
             <ul className="navbar-nav ml-auto" style={{ color: "#ffffff" }}>
-                <li className="nav-item">
-                <NavLink to={"/"} className={({isActive}) => 'nav-link' + (isActive ? ' active' : '')}>
-                    Home
-                </NavLink>
-                </li>
-                <li className="nav-item">
-               <NavLink to={"/aboutus"} className={({isActive}) => 'nav-link ' + (isActive ? 'active' : '')}>
-         About us
-</NavLink>
-                </li>
+    {user?
         <li className="nav-item">
-               <NavLink to={"/crud"} className={({isActive}) => 'nav-link ' + (isActive ? 'active' : '')}>
-         Crud
-</NavLink>
-                </li>
- <li className="nav-item">
-                <NavLink to={"/blog/posts"} className={({isActive}) => 'nav-link' + (isActive ? ' active' : '')}>
-                    blog
-                </NavLink>
-                </li>
- <li className="nav-item">
+        <NavLink to={"/products"} className={({isActive}) => 'nav-link' + (isActive ? ' active' : '')}>
+          Products
+        </NavLink>
+        </li>:''}
+  <li className="nav-item">
                 <NavLink to={"/register"} className={({isActive}) => 'nav-link' + (isActive ? ' active' : '')}>
                   Register
                 </NavLink>
