@@ -114,10 +114,19 @@ function EditModal({ link, onSave, onCancel }) {
 
 function App() {
   const PER_PAGE = 3;
+  const SHORT_BASE = 'http://192.168.1.15:8080';
+
+  function normalizeShortUrl(url) {
+    try {
+      const u = new URL(url);
+      return `${SHORT_BASE}/${u.pathname.replace(/^\//, '')}`;
+    } catch { return url; }
+  }
+
   const [url, setUrl] = useState('');
   const [links, setLinks] = useState(() => {
     const saved = localStorage.getItem('shlink_links');
-    return saved ? JSON.parse(saved) : [];
+    return saved ? JSON.parse(saved).map(l => ({ ...l, short: normalizeShortUrl(l.short) })) : [];
   });
   const [qrLink, setQrLink] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -127,6 +136,7 @@ function App() {
   const [sort, setSort] = useState('newest');
   const [page, setPage] = useState(1);
   const [showAll, setShowAll] = useState(false);
+  const [selectedLink, setSelectedLink] = useState(null);
 
   useEffect(() => {
     localStorage.setItem('shlink_links', JSON.stringify(links));
@@ -152,7 +162,7 @@ function App() {
     try {
       const data = await shortenUrl(url);
       const title = cleanTitle(data.title) || new URL(url).hostname;
-      setPreview({ short: data.shortUrl, long: data.longUrl, title });
+      setPreview({ short: normalizeShortUrl(data.shortUrl), long: data.longUrl, title });
     } catch (err) {
       alert('Failed to shorten: ' + err.message);
     } finally {
@@ -179,7 +189,7 @@ function App() {
   const to = Math.min(page * PER_PAGE, filtered.length);
 
   return (
-    <div className="bg-light min-vh-100">
+    <div className="bg-light min-vh-100" onClick={() => setSelectedLink(null)}>
       <QrModal link={qrLink} onClose={() => setQrLink(null)} />
       <PreviewModal preview={preview} onConfirm={handleConfirm} onCancel={() => setPreview(null)} />
       <EditModal link={editLink} onSave={handleEdit} onCancel={() => setEditLink(null)} />
@@ -214,6 +224,11 @@ function App() {
                     onChange={e => setUrl(e.target.value)}
                     required
                   />
+                  {url && (
+                    <button type="button" className="btn btn-outline-secondary" onClick={() => setUrl('')} title="Clear">
+                      <i className="bi bi-x-lg"></i>
+                    </button>
+                  )}
                   <button type="submit" className="btn btn-primary text-nowrap" disabled={loading}>
                     {loading ? '...' : '+ Add Link'}
                   </button>
@@ -232,7 +247,7 @@ function App() {
               </select>
             </div>
 
-            <div className="card shadow-sm border-0 rounded-3">
+            <div className="card shadow-sm border-0 rounded-3" style={{ minHeight: 260 }}>
               <div className="table-responsive">
                 <table className="table table-hover align-middle mb-0">
                   <thead className="table-light">
@@ -248,7 +263,7 @@ function App() {
                       <tr><td colSpan="4" className="text-center text-muted py-4">No links found.</td></tr>
                     )}
                     {visible.map((link, i) => (
-                      <tr key={i}>
+                      <tr key={i} onClick={e => { e.stopPropagation(); setSelectedLink(link); }} role="button" className={selectedLink?.short === link.short ? 'table-primary' : ''}>
                         <td>
                           <div className="d-flex align-items-center gap-2">
                             <img
@@ -283,40 +298,60 @@ function App() {
             </div>
 
             {filtered.length > PER_PAGE && (
-              <div className="d-flex align-items-center justify-content-between mt-3">
+              <div className="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-2 pb-2">
                 <small className="text-muted">
                   {showAll ? `Showing all ${filtered.length} links` : `Showing ${from} to ${to} of ${filtered.length} links`}
                 </small>
                 {showAll ? (
                   <button className="btn btn-sm btn-outline-info" onClick={() => { setShowAll(false); setPage(1); }}>Paginate</button>
                 ) : (
-                  <nav>
-                    <ul className="pagination pagination-sm mb-0">
-                      <li className={`page-item ${page <= 1 ? 'disabled' : ''}`}>
-                        <button className="page-link" onClick={() => setPage(p => p - 1)}>Previous</button>
-                      </li>
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
-                        <li key={p} className={`page-item ${p === page ? 'active' : ''}`}>
-                          <button className="page-link" onClick={() => setPage(p)}>{p}</button>
+                  <div className="d-flex align-items-center gap-2">
+                    <button className="btn btn-sm btn-outline-info" onClick={() => setShowAll(true)}>Show All</button>
+                    <nav className="overflow-auto">
+                      <ul className="pagination pagination-sm mb-0">
+                        <li className={`page-item ${page <= 1 ? 'disabled' : ''}`}>
+                          <button className="page-link" onClick={() => setPage(p => p - 1)}>Previous</button>
                         </li>
-                      ))}
-                      <li className={`page-item ${page >= totalPages ? 'disabled' : ''}`}>
-                        <button className="page-link" onClick={() => setPage(p => p + 1)}>Next</button>
-                      </li>
-                    </ul>
-                  </nav>
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                          <li key={p} className={`page-item ${p === page ? 'active' : ''}`}>
+                            <button className="page-link" onClick={() => setPage(p)}>{p}</button>
+                          </li>
+                        ))}
+                        <li className={`page-item ${page >= totalPages ? 'disabled' : ''}`}>
+                          <button className="page-link" onClick={() => setPage(p => p + 1)}>Next</button>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
                 )}
               </div>
             )}
           </div>
 
           <div className="col-lg-4">
-            <div className="card shadow-sm border-0 rounded-3 text-center p-4">
-              <div className="d-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-circle mx-auto" style={{ width: 56, height: 56 }}>
-                <i className="bi bi-link-45deg fs-3"></i>
+            <div className="card shadow-sm border-0 rounded-3 text-center py-3 px-4">
+              <div className="d-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-circle mx-auto" style={{ width: 44, height: 44 }}>
+                <i className="bi bi-link-45deg"></i>
               </div>
-              <h2 className="fw-bold mt-3 mb-0">{links.length}</h2>
-              <p className="text-muted mb-0">Total Links</p>
+              <h3 className="fw-bold mt-2 mb-0">{links.length}</h3>
+              <p className="text-muted mb-0 small">Total Links</p>
+            </div>
+            <div className="card shadow-sm border-0 rounded-3 text-center p-4 mt-3">
+              <h6 className="text-muted mb-3">QR Code</h6>
+              {selectedLink ? (
+                <>
+                  <div className="d-flex justify-content-center">
+                    <img
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(selectedLink.short)}`}
+                      alt="QR"
+                      style={{ width: 150, height: 150 }}
+                    />
+                  </div>
+                  <p className="small text-muted mt-2 mb-0 text-break">{selectedLink.short}</p>
+                </>
+              ) : (
+                <p className="text-muted small mb-0">Click a link to show QR</p>
+              )}
             </div>
           </div>
         </div>
