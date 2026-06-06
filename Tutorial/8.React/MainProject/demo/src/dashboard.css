@@ -1,0 +1,73 @@
+/* ============================================================
+   dashboard
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+.dashboard * {
+    font-family: 'Poppins', sans-serif;
+}
+
+.dashboard .btn-violet {
+    background: linear-gradient(135deg, #7C3AED, #3B82F6);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.dashboard .btn-violet:hover {
+    background: linear-gradient(135deg, #6D28D9, #2563EB);
+    transform: translateY(-1px);
+    color: #fff;
+}
+
+.dashboard .btn-outline-violet {
+    background: transparent;
+    border: 1px solid #7C3AED;
+    color: #7C3AED;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.dashboard .btn-outline-violet:hover {
+    background: linear-gradient(135deg, #7C3AED, #3B82F6);
+    color: #fff;
+    border-color: transparent;
+}
+
+.dashboard .icon-violet {
+    background: linear-gradient(135deg, #7C3AED, #3B82F6);
+    color: #fff;
+}
+
+.dashboard .icon-violet-bg {
+    background: rgba(124, 58, 237, 0.10);
+    color: #7C3AED;
+}
+
+.dashboard .page-link {
+    color: #7C3AED;
+}
+
+.dashboard .page-link:focus {
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.20);
+}
+
+.dashboard .page-item.active .page-link {
+    background: linear-gradient(135deg, #7C3AED, #3B82F6);
+    border-color: transparent;
+    color: #fff;
+}
+
+.dashboard .badge-violet {
+    background: rgba(124, 58, 237, 0.10);
+    color: #7C3AED;
+    font-weight: 600;
+}
+
+.dashboard .gradient-text {
+    background: linear-gradient(135deg, #7C3AED, #3B82F6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
