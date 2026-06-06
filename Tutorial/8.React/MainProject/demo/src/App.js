@@ -10,15 +10,21 @@ function cleanTitle(title) {
     .trim();
 }
 
+function extractDomain(url) {
+  try { return new URL(url).hostname.replace('www.', ''); } catch { return ''; }
+}
+
 function QrModal({ link, onClose }) {
   const [loaded, setLoaded] = useState(false);
   if (!link) return null;
   return (
-    <div className="modal d-block" tabIndex="-1" onClick={onClose} style={{ background: 'rgba(0,0,0,0.5)' }}>
-      <div className="modal-dialog modal-dialog-centered" onClick={e => e.stopPropagation()}>
+    <>
+      <div className="modal-backdrop show"></div>
+      <div className="modal d-block" tabIndex="-1" onClick={onClose}>
+        <div className="modal-dialog modal-dialog-centered" onClick={e => e.stopPropagation()}>
         <div className="modal-content p-4 text-center">
           {!loaded && (
-            <div className="d-flex justify-content-center align-items-center" style={{ width: 200, height: 200, margin: '0 auto' }}>
+            <div className="d-flex justify-content-center align-items-center mx-auto" style={{ width: 200, height: 200 }}>
               <div className="spinner-border text-secondary" role="status">
                 <span className="visually-hidden">Loading...</span>
               </div>
@@ -31,11 +37,12 @@ function QrModal({ link, onClose }) {
             style={{ width: 200, height: 200 }}
             onLoad={() => setLoaded(true)}
           />
-          <p className="text-muted small mt-2 mb-3" style={{ wordBreak: 'break-all' }}>{link.short}</p>
+          <p className="text-muted small mt-2 mb-3 text-break">{link.short}</p>
           <button className="btn btn-secondary" onClick={onClose}>Close</button>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -43,32 +50,32 @@ function PreviewModal({ preview, onConfirm, onCancel }) {
   const [title, setTitle] = useState('');
   const [longUrl, setLongUrl] = useState('');
   useEffect(() => {
-    if (preview) {
-      setTitle(preview.title);
-      setLongUrl(preview.long);
-    }
+    if (preview) { setTitle(preview.title); setLongUrl(preview.long); }
   }, [preview]);
   if (!preview) return null;
   return (
-    <div className="modal d-block" tabIndex="-1" onClick={onCancel} style={{ background: 'rgba(0,0,0,0.5)' }}>
-      <div className="modal-dialog modal-dialog-centered" onClick={e => e.stopPropagation()}>
-        <div className="modal-content p-4">
-          <h5 className="mb-3">Preview</h5>
-          <div className="mb-3">
-            <label className="form-label small text-muted">Title</label>
-            <input className="form-control" value={title} onChange={e => setTitle(e.target.value)} />
-          </div>
-          <div className="mb-3">
-            <label className="form-label small text-muted">Original URL</label>
-            <input className="form-control" value={longUrl} onChange={e => setLongUrl(e.target.value)} />
-          </div>
-          <div className="d-flex gap-2 justify-content-end">
-            <button className="btn btn-secondary" onClick={onCancel}>Cancel</button>
-            <button className="btn btn-success" onClick={() => onConfirm({ ...preview, title, long: longUrl })}>Save</button>
+    <>
+      <div className="modal-backdrop show"></div>
+      <div className="modal d-block" tabIndex="-1" onClick={onCancel}>
+        <div className="modal-dialog modal-dialog-centered" onClick={e => e.stopPropagation()}>
+          <div className="modal-content p-4">
+            <h5 className="mb-3">Preview</h5>
+            <div className="mb-3">
+              <label className="form-label small text-muted">Title</label>
+              <input className="form-control" value={title} onChange={e => setTitle(e.target.value)} />
+            </div>
+            <div className="mb-3">
+              <label className="form-label small text-muted">Original URL</label>
+              <input className="form-control" value={longUrl} onChange={e => setLongUrl(e.target.value)} />
+            </div>
+            <div className="d-flex gap-2 justify-content-end">
+              <button className="btn btn-secondary" onClick={onCancel}>Cancel</button>
+              <button className="btn btn-success" onClick={() => onConfirm({ ...preview, title, long: longUrl })}>Save</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -76,15 +83,14 @@ function EditModal({ link, onSave, onCancel }) {
   const [title, setTitle] = useState('');
   const [longUrl, setLongUrl] = useState('');
   useEffect(() => {
-    if (link) {
-      setTitle(link.title);
-      setLongUrl(link.long);
-    }
+    if (link) { setTitle(link.title); setLongUrl(link.long); }
   }, [link]);
   if (!link) return null;
   return (
-    <div className="modal d-block" tabIndex="-1" onClick={onCancel} style={{ background: 'rgba(0,0,0,0.5)' }}>
-      <div className="modal-dialog modal-dialog-centered" onClick={e => e.stopPropagation()}>
+    <>
+      <div className="modal-backdrop show"></div>
+      <div className="modal d-block" tabIndex="-1" onClick={onCancel}>
+        <div className="modal-dialog modal-dialog-centered" onClick={e => e.stopPropagation()}>
         <div className="modal-content p-4">
           <h5 className="mb-3">Edit Link</h5>
           <div className="mb-3">
@@ -100,13 +106,14 @@ function EditModal({ link, onSave, onCancel }) {
             <button className="btn btn-primary" onClick={() => onSave({ ...link, title, long: longUrl })}>Save</button>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
 function App() {
-  const PER_PAGE = 2;
+  const PER_PAGE = 3;
   const [url, setUrl] = useState('');
   const [links, setLinks] = useState(() => {
     const saved = localStorage.getItem('shlink_links');
@@ -117,6 +124,7 @@ function App() {
   const [editLink, setEditLink] = useState(null);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
+  const [sort, setSort] = useState('newest');
   const [page, setPage] = useState(1);
   const [showAll, setShowAll] = useState(false);
 
@@ -124,17 +132,19 @@ function App() {
     localStorage.setItem('shlink_links', JSON.stringify(links));
   }, [links]);
 
-  const filtered = links.filter(l =>
-    l.title.toLowerCase().includes(search.toLowerCase()) ||
-    l.long.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = links
+    .filter(l =>
+      l.title.toLowerCase().includes(search.toLowerCase()) ||
+      l.long.toLowerCase().includes(search.toLowerCase())
+    )
+    .sort((a, b) =>
+      sort === 'newest' ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date)
+    );
 
   const totalPages = Math.ceil(filtered.length / PER_PAGE);
   const visible = showAll ? filtered : filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
-  useEffect(() => {
-    localStorage.setItem('shlink_links', JSON.stringify(links));
-  }, [links]);
+  useEffect(() => { setPage(1); }, [search]);
 
   async function handleShorten(e) {
     e.preventDefault();
@@ -149,8 +159,6 @@ function App() {
       setLoading(false);
     }
   }
-
-  useEffect(() => { setPage(1); }, [search]);
 
   function handleConfirm(item) {
     setLinks(prev => [{ ...item, date: new Date().toISOString() }, ...prev]);
@@ -167,77 +175,152 @@ function App() {
     setLinks(prev => prev.filter(l => l.short !== short));
   }
 
+  const from = (page - 1) * PER_PAGE + 1;
+  const to = Math.min(page * PER_PAGE, filtered.length);
+
   return (
-    <div className="container py-4" style={{ maxWidth: 640 }}>
+    <div className="bg-light min-vh-100">
       <QrModal link={qrLink} onClose={() => setQrLink(null)} />
       <PreviewModal preview={preview} onConfirm={handleConfirm} onCancel={() => setPreview(null)} />
       <EditModal link={editLink} onSave={handleEdit} onCancel={() => setEditLink(null)} />
-      <h1 className="mb-4">Ziplink</h1>
-      <form onSubmit={handleShorten} className="d-flex gap-2 mb-4">
-        <input
-          type="url"
-          className="form-control"
-          placeholder="Paste a long URL..."
-          value={url}
-          onChange={e => setUrl(e.target.value)}
-          required
-        />
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? 'Shortening...' : 'Shorten'}
-        </button>
-      </form>
-      <input
-        className="form-control mb-3"
-        placeholder="Search links..."
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-      />
-      <h5 className="mb-3">Links</h5>
-      <div style={{ minHeight: 280 }}>
-        {visible.length === 0 && <p className="text-muted">No links found.</p>}
-        <ul className="list-unstyled">
-        {visible.map((link, i) => (
-          <li key={i} className="border rounded p-3 mb-3 position-relative" style={{ minHeight: 90 }}>
-            <button className="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 mt-2 me-2" onClick={() => setQrLink(link)}>QR</button>
-            <div className="fw-semibold mb-1 pe-5">{link.title}</div>
-            <div className="d-flex align-items-center gap-2 flex-wrap">
-              <a href={link.short} target="_blank" rel="noreferrer">{link.short}</a>
-            </div>
-            <div className="small text-muted text-truncate pe-5">{link.long}</div>
-            <div className="position-absolute bottom-0 end-0 mb-2 me-2 d-flex gap-1">
-              <button className="btn btn-sm btn-outline-primary" onClick={() => setEditLink(link)}>Edit</button>
-              <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(link.short)}>Delete</button>
-            </div>
-          </li>
-        ))}
-        </ul>
+
+      <div className="bg-white shadow-sm mb-4">
+        <div className="container d-flex justify-content-between align-items-center py-3" style={{ maxWidth: 1100 }}>
+          <div className="d-flex align-items-center gap-2">
+            <span className="fs-4"><i className="bi bi-link-45deg"></i></span>
+            <h4 className="mb-0 fw-bold">Ziplink</h4>
+          </div>
+          <div className="d-flex align-items-center gap-2">
+            <span className="text-muted small">Hello, User</span>
+            <div className="rounded-circle bg-secondary d-flex align-items-center justify-content-center text-white fw-bold" style={{ width: 32, height: 32, fontSize: 14 }}>U</div>
+          </div>
+        </div>
       </div>
-      {filtered.length > PER_PAGE && (
-        showAll ? (
-          <div className="text-end mt-3">
-            <button className="btn btn-sm btn-outline-info" onClick={() => { setShowAll(false); setPage(1); }}>Paginate</button>
+
+      <div className="container" style={{ maxWidth: 1100 }}>
+        <div className="row g-4">
+          <div className="col-lg-8">
+            <div className="card shadow-sm border-0 rounded-3 mb-4">
+              <div className="card-body d-flex align-items-center gap-3 p-3">
+                <div className="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded" style={{ width: 40, height: 40, minWidth: 40 }}>
+                  <i className="bi bi-link-45deg text-primary fs-5"></i>
+                </div>
+                <form onSubmit={handleShorten} className="d-flex gap-2 flex-grow-1">
+                  <input
+                    type="url"
+                    className="form-control"
+                    placeholder="Enter URL (e.g. https://example.com)"
+                    value={url}
+                    onChange={e => setUrl(e.target.value)}
+                    required
+                  />
+                  <button type="submit" className="btn btn-primary text-nowrap" disabled={loading}>
+                    {loading ? '...' : '+ Add Link'}
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <div className="d-flex align-items-center gap-2 mb-3">
+              <div className="input-group" style={{ maxWidth: 280 }}>
+                <span className="input-group-text bg-white"><i className="bi bi-search"></i></span>
+                <input className="form-control" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} />
+              </div>
+              <select className="form-select w-auto" value={sort} onChange={e => setSort(e.target.value)}>
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+              </select>
+            </div>
+
+            <div className="card shadow-sm border-0 rounded-3">
+              <div className="table-responsive">
+                <table className="table table-hover align-middle mb-0">
+                  <thead className="table-light">
+                    <tr>
+                      <th style={{ width: '40%' }}>Title</th>
+                      <th style={{ width: '25%' }}>Short Link</th>
+                      <th style={{ width: '20%' }}>Added On</th>
+                      <th style={{ width: '15%' }} className="text-end">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {visible.length === 0 && (
+                      <tr><td colSpan="4" className="text-center text-muted py-4">No links found.</td></tr>
+                    )}
+                    {visible.map((link, i) => (
+                      <tr key={i}>
+                        <td>
+                          <div className="d-flex align-items-center gap-2">
+                            <img
+                              src={`https://www.google.com/s2/favicons?domain=${extractDomain(link.long)}&sz=16`}
+                              alt=""
+                              width="16" height="16"
+                              style={{ minWidth: 16 }}
+                              onError={e => e.target.style.display = 'none'}
+                            />
+                            <div className="text-truncate">
+                              <div className="fw-semibold small text-truncate" style={{ maxWidth: 220 }}>{link.title}</div>
+                              <div className="small text-muted">{extractDomain(link.long)}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <a href={link.short} target="_blank" rel="noreferrer" className="text-primary small text-break">{link.short}</a>
+                        </td>
+                        <td className="small text-muted">{new Date(link.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
+                        <td>
+                          <div className="d-flex gap-1 justify-content-end">
+                            <button className="btn btn-sm btn-outline-secondary border-0" title="QR" onClick={() => setQrLink(link)}><i className="bi bi-qr-code"></i></button>
+                            <button className="btn btn-sm btn-outline-primary border-0" title="Edit" onClick={() => setEditLink(link)}><i className="bi bi-pencil"></i></button>
+                            <button className="btn btn-sm btn-outline-danger border-0" title="Delete" onClick={() => handleDelete(link.short)}><i className="bi bi-trash"></i></button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {filtered.length > PER_PAGE && (
+              <div className="d-flex align-items-center justify-content-between mt-3">
+                <small className="text-muted">
+                  {showAll ? `Showing all ${filtered.length} links` : `Showing ${from} to ${to} of ${filtered.length} links`}
+                </small>
+                {showAll ? (
+                  <button className="btn btn-sm btn-outline-info" onClick={() => { setShowAll(false); setPage(1); }}>Paginate</button>
+                ) : (
+                  <nav>
+                    <ul className="pagination pagination-sm mb-0">
+                      <li className={`page-item ${page <= 1 ? 'disabled' : ''}`}>
+                        <button className="page-link" onClick={() => setPage(p => p - 1)}>Previous</button>
+                      </li>
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                        <li key={p} className={`page-item ${p === page ? 'active' : ''}`}>
+                          <button className="page-link" onClick={() => setPage(p)}>{p}</button>
+                        </li>
+                      ))}
+                      <li className={`page-item ${page >= totalPages ? 'disabled' : ''}`}>
+                        <button className="page-link" onClick={() => setPage(p => p + 1)}>Next</button>
+                      </li>
+                    </ul>
+                  </nav>
+                )}
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="d-flex align-items-center justify-content-between mt-3">
-            <nav>
-              <ul className="pagination pagination-sm mb-0">
-                <li className={`page-item ${page <= 1 ? 'disabled' : ''}`}>
-                  <button className="page-link" onClick={() => setPage(p => p - 1)}>Previous</button>
-                </li>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
-                  <li key={p} className={`page-item ${p === page ? 'active' : ''}`}>
-                    <button className="page-link" onClick={() => setPage(p)}>{p}</button>
-                  </li>
-                ))}
-                <li className={`page-item ${page >= totalPages ? 'disabled' : ''}`}>
-                  <button className="page-link" onClick={() => setPage(p => p + 1)}>Next</button>
-                </li>
-              </ul>
-            </nav>
-            <button className="btn btn-sm btn-outline-info" onClick={() => setShowAll(true)}>Show All</button>
+
+          <div className="col-lg-4">
+            <div className="card shadow-sm border-0 rounded-3 text-center p-4">
+              <div className="d-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-circle mx-auto" style={{ width: 56, height: 56 }}>
+                <i className="bi bi-link-45deg fs-3"></i>
+              </div>
+              <h2 className="fw-bold mt-3 mb-0">{links.length}</h2>
+              <p className="text-muted mb-0">Total Links</p>
+            </div>
           </div>
-        )
-      )}
+        </div>
+      </div>
     </div>
   );
 }
