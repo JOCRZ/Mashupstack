@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './auth.css';
 import { registerUser } from './auth';
+import logo from './images/zipllinklogo.png';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -34,9 +35,7 @@ export default function Register() {
     <>
       <nav className="navbar-custom">
         <div className="brand">
-          <div className="brand-icon">
-            <i className="bi bi-link-45deg"></i>
-          </div>
+          <img src={logo} alt="Ziplink" style={{ height: 28, width: 'auto' }} />
           <Link to="/login" className="brand-name">Ziplink</Link>
         </div>
         <div className="nav-links">

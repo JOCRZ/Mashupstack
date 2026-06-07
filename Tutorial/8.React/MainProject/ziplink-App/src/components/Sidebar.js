@@ -9,10 +9,7 @@ export default function Sidebar({ selectedLink }) {
   return (
     <div className="col-lg-4">
       <div className="card shadow-sm border-0 rounded-3 text-center py-3 px-4">
-        <div className="d-flex align-items-center justify-content-center rounded-circle mx-auto icon-violet-bg" style={{ width: 44, height: 44 }}>
-          <i className="bi bi-link-45deg" style={{ color: '#7C3AED' }}></i>
-        </div>
-        <h3 className="fw-bold mt-2 mb-0" style={{ color: '#3B0764' }}>{links.length}</h3>
+        <h3 className="fw-bold mb-0" style={{ color: '#3B0764' }}>{links.length}</h3>
         <p className="text-muted mb-0 small">Total Links</p>
       </div>
 

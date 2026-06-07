@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './auth.css';
 import { loginUser } from './auth';
 import useAuthStore from './stores/authStore';
+import logo from './images/zipllinklogo.png';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -31,9 +32,7 @@ export default function Login() {
     <>
       <nav className="navbar-custom">
         <div className="brand">
-          <div className="brand-icon">
-            <i className="bi bi-link-45deg"></i>
-          </div>
+          <img src={logo} alt="Ziplink" style={{ height: 28, width: 'auto' }} />
           <Link to="/login" className="brand-name">Ziplink</Link>
         </div>
         <div className="nav-links">

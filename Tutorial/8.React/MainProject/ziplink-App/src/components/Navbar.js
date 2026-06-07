@@ -1,4 +1,5 @@
 import useAuthStore from '../stores/authStore';
+import logo from '../images/zipllinklogo.png';
 
 export default function Navbar({ onLogout }) {
   const user = useAuthStore((s) => s.user);
@@ -7,9 +8,7 @@ export default function Navbar({ onLogout }) {
     <div className="shadow-sm mb-4" style={{ background: 'linear-gradient(135deg, #7C3AED, #3B82F6)' }}>
       <div className="container d-flex justify-content-between align-items-center py-3" style={{ maxWidth: 1100 }}>
         <div className="d-flex align-items-center gap-2">
-          <div className="d-flex align-items-center justify-content-center rounded" style={{ width: 38, height: 38, background: '#fff' }}>
-            <i className="bi bi-link-45deg fs-5" style={{ color: '#7C3AED' }}></i>
-          </div>
+          <img src={logo} alt="Ziplink" style={{ height: 32, width: 'auto' }} />
           <h4 className="mb-0 fw-bold text-white">Ziplink</h4>
         </div>
         <div className="d-flex align-items-center gap-2">
