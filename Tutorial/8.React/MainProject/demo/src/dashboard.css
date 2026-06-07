@@ -1,11 +1,15 @@
 /* ============================================================
-   dashboard
+   dashboard.css — Dashboard-specific component styles
+   Violet-blue gradient buttons, icons, pagination, QR skeleton
    ============================================================ */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 .dashboard * {
     font-family: 'Poppins', sans-serif;
 }
+
+/* ---------- buttons ---------- */
 
 .dashboard .btn-violet {
     background: linear-gradient(135deg, #7C3AED, #3B82F6);
@@ -35,6 +39,8 @@
     border-color: transparent;
 }
 
+/* ---------- icon containers ---------- */
+
 .dashboard .icon-violet {
     background: linear-gradient(135deg, #7C3AED, #3B82F6);
     color: #fff;
@@ -44,6 +50,8 @@
     background: rgba(124, 58, 237, 0.10);
     color: #7C3AED;
 }
+
+/* ---------- pagination ---------- */
 
 .dashboard .page-link {
     color: #7C3AED;
@@ -59,15 +67,28 @@
     color: #fff;
 }
 
-.dashboard .badge-violet {
-    background: rgba(124, 58, 237, 0.10);
-    color: #7C3AED;
-    font-weight: 600;
-}
+/* ---------- QR skeleton loader ---------- */
 
-.dashboard .gradient-text {
-    background: linear-gradient(135deg, #7C3AED, #3B82F6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.qr-skeleton rect {
+  animation: qrPulse 1.2s ease-in-out infinite;
+}
+.qr-skeleton rect:nth-child(1) { animation-delay: 0s; }
+.qr-skeleton rect:nth-child(2) { animation-delay: 0.1s; }
+.qr-skeleton rect:nth-child(3) { animation-delay: 0.2s; }
+.qr-skeleton rect:nth-child(4) { animation-delay: 0.1s; }
+.qr-skeleton rect:nth-child(5) { animation-delay: 0.3s; }
+.qr-skeleton rect:nth-child(6) { animation-delay: 0.2s; }
+.qr-skeleton rect:nth-child(7) { animation-delay: 0.4s; }
+.qr-skeleton rect:nth-child(8) { animation-delay: 0.15s; }
+.qr-skeleton rect:nth-child(9) { animation-delay: 0.25s; }
+.qr-skeleton rect:nth-child(10) { animation-delay: 0.35s; }
+.qr-skeleton rect:nth-child(11) { animation-delay: 0.05s; }
+.qr-skeleton rect:nth-child(12) { animation-delay: 0.3s; }
+.qr-skeleton rect:nth-child(13) { animation-delay: 0.1s; }
+.qr-skeleton rect:nth-child(14) { animation-delay: 0.45s; }
+.qr-skeleton rect:nth-child(15) { animation-delay: 0.2s; }
+
+@keyframes qrPulse {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
 }

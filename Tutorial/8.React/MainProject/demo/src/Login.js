@@ -1,12 +1,15 @@
+// Login page — email/password form with validation and Link toggle to Signup
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './auth.css';
+import { loginUser } from './auth';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [logoutMsg, setLogoutMsg] = useState('');
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -15,7 +18,12 @@ export default function Login() {
       setError('Please fill in all fields');
       return;
     }
-    console.log('Login:', { email, password });
+    const result = loginUser(email, password);
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+    navigate('/dashboard');
   }
 
   return (
@@ -25,7 +33,7 @@ export default function Login() {
           <div className="brand-icon">
             <i className="bi bi-link-45deg"></i>
           </div>
-          <Link to="/" className="brand-name">Ziplink</Link>
+          <Link to="/login" className="brand-name">Ziplink</Link>
         </div>
         <div className="nav-links">
         </div>
@@ -38,7 +46,6 @@ export default function Login() {
             <Link to="/register">Signup</Link>
           </div>
           {error && <div className="message">{error}</div>}
-          {logoutMsg && <div className="message" style={{ background: '#d4edda', color: '#155724', borderColor: '#c3e6cb' }}>{logoutMsg}</div>}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <input

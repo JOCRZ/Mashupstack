@@ -1,28 +1,33 @@
+// Register page — email/password/confirm form with password-match validation
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './auth.css';
+import { registerUser } from './auth';
 
 export default function Register() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
 
-  function Validate() {
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return false;
-    }
-    return true;
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
     setError('');
     setMessage('');
-    if (!Validate()) return;
-    console.log('Register:', { email, password });
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    const result = registerUser(email, password);
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+    setMessage('Account created successfully!');
+    setTimeout(() => navigate('/login'), 1500);
   }
 
   return (
@@ -32,7 +37,7 @@ export default function Register() {
           <div className="brand-icon">
             <i className="bi bi-link-45deg"></i>
           </div>
-          <Link to="/" className="brand-name">Ziplink</Link>
+          <Link to="/login" className="brand-name">Ziplink</Link>
         </div>
         <div className="nav-links">
         </div>
@@ -60,7 +65,6 @@ export default function Register() {
             <div className="form-group">
               <input
                 type="password"
-                id="password"
                 className="form-control"
                 placeholder="Password"
                 value={password}
@@ -71,7 +75,6 @@ export default function Register() {
             <div className="form-group">
               <input
                 type="password"
-                id="confirmPassword"
                 className="form-control"
                 placeholder="Confirm Password"
                 value={confirmPassword}
