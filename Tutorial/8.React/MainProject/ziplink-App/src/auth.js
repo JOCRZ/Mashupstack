@@ -1,4 +1,4 @@
-// localStorage-based auth: register, login, logout, session, per-user link key
+import bcrypt from 'bcryptjs';
 
 const USERS_KEY = 'shlink_users';
 const SESSION_KEY = 'shlink_session';
@@ -12,20 +12,25 @@ function saveUsers(users) {
   localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 
-export function registerUser(email, password) {
+export async function registerUser(email, password) {
   const users = getUsers();
   if (users.find(u => u.email === email)) {
     return { ok: false, error: 'Email already registered' };
   }
-  users.push({ email, password });
+  const hashed = await bcrypt.hash(password, 10);
+  users.push({ email, password: hashed });
   saveUsers(users);
   return { ok: true };
 }
 
-export function loginUser(email, password) {
+export async function loginUser(email, password) {
   const users = getUsers();
-  const user = users.find(u => u.email === email && u.password === password);
+  const user = users.find(u => u.email === email);
   if (!user) {
+    return { ok: false, error: 'Invalid email or password' };
+  }
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) {
     return { ok: false, error: 'Invalid email or password' };
   }
   localStorage.setItem(SESSION_KEY, JSON.stringify({ email }));

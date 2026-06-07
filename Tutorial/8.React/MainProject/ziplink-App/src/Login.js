@@ -11,14 +11,14 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     setError('');
     if (!email || !password) {
       setError('Please fill in all fields');
       return;
     }
-    const result = loginUser(email, password);
+    const result = await loginUser(email, password);
     if (!result.ok) {
       setError(result.error);
       return;

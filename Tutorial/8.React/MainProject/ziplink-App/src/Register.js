@@ -13,7 +13,7 @@ export default function Register() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     setError('');
     setMessage('');
@@ -21,7 +21,7 @@ export default function Register() {
       setError('Passwords do not match');
       return;
     }
-    const result = registerUser(email, password);
+    const result = await registerUser(email, password);
     if (!result.ok) {
       setError(result.error);
       return;
