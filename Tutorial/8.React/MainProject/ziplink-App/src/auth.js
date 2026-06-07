@@ -29,7 +29,19 @@ export async function loginUser(email, password) {
   if (!user) {
     return { ok: false, error: 'Invalid email or password' };
   }
-  const match = await bcrypt.compare(password, user.password);
+
+  let match;
+  if (user.password.startsWith('$2')) {
+    match = await bcrypt.compare(password, user.password);
+  } else {
+    match = password === user.password;
+    if (match) {
+      const hashed = await bcrypt.hash(password, 10);
+      user.password = hashed;
+      saveUsers(users);
+    }
+  }
+
   if (!match) {
     return { ok: false, error: 'Invalid email or password' };
   }

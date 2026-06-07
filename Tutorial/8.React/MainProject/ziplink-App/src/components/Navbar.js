@@ -4,22 +4,22 @@ export default function Navbar({ onLogout }) {
   const user = useAuthStore((s) => s.user);
 
   return (
-    <div className="bg-white shadow mb-4" style={{ borderBottom: '2px solid #7C3AED' }}>
+    <div className="shadow-sm mb-4" style={{ background: 'linear-gradient(135deg, #7C3AED, #3B82F6)' }}>
       <div className="container d-flex justify-content-between align-items-center py-3" style={{ maxWidth: 1100 }}>
         <div className="d-flex align-items-center gap-2">
-          <div className="icon-violet d-flex align-items-center justify-content-center rounded" style={{ width: 38, height: 38 }}>
-            <i className="bi bi-link-45deg fs-5"></i>
+          <div className="d-flex align-items-center justify-content-center rounded" style={{ width: 38, height: 38, background: '#fff' }}>
+            <i className="bi bi-link-45deg fs-5" style={{ color: '#7C3AED' }}></i>
           </div>
-          <h4 className="mb-0 fw-bold" style={{ color: '#3B0764' }}>Ziplink</h4>
+          <h4 className="mb-0 fw-bold text-white">Ziplink</h4>
         </div>
         <div className="d-flex align-items-center gap-2">
-          <span className="text-muted" style={{ fontSize: 14 }}>
+          <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)' }}>
             Hi, {user?.email?.split('@')[0] || 'User'}
-            {user?.email === 'prodemo@gmail.com' && <i className="bi bi-crown-fill ms-1" style={{ color: '#F59E0B' }}></i>}
+            {user?.email === 'prodemo@gmail.com' && <i className="bi bi-crown-fill ms-1" style={{ color: '#FDE047' }}></i>}
           </span>
           <div className="dropdown">
             <button className="btn p-0 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-              <div className="icon-violet d-flex align-items-center justify-content-center rounded-circle text-white fw-bold" style={{ width: 32, height: 32, fontSize: 14, cursor: 'pointer' }}>
+              <div className="d-flex align-items-center justify-content-center rounded-circle fw-bold" style={{ width: 32, height: 32, fontSize: 14, cursor: 'pointer', background: '#fff', color: '#7C3AED' }}>
                 {user?.email?.charAt(0).toUpperCase() || 'U'}
               </div>
             </button>
