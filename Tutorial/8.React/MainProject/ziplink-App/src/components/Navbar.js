@@ -7,9 +7,9 @@ export default function Navbar({ onLogout }) {
   return (
     <div className="shadow-sm mb-4" style={{ background: 'linear-gradient(135deg, #7C3AED, #3B82F6)' }}>
       <div className="container d-flex justify-content-between align-items-center py-3" style={{ maxWidth: 1100 }}>
-        <div className="d-flex align-items-center gap-2">
-          <img src={logo} alt="Ziplink" style={{ height: 32, width: 'auto' }} />
-          <h4 className="mb-0 fw-bold text-white">Ziplink</h4>
+        <div className="d-flex align-items-center">
+          <img src={logo} alt="Z" style={{ height: 32, width: 'auto' }} />
+          <h4 className="mb-0 fw-bold text-white" style={{ marginLeft: -6 }}>iplink</h4>
         </div>
         <div className="d-flex align-items-center gap-2">
           <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)' }}>

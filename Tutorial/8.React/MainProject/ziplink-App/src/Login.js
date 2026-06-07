@@ -32,8 +32,8 @@ export default function Login() {
     <>
       <nav className="navbar-custom">
         <div className="brand">
-          <img src={logo} alt="Ziplink" style={{ height: 28, width: 'auto' }} />
-          <Link to="/login" className="brand-name">Ziplink</Link>
+          <img src={logo} alt="Z" style={{ height: 28, width: 'auto' }} />
+          <Link to="/login" className="brand-name" style={{ marginLeft: -6 }}>iplink</Link>
         </div>
         <div className="nav-links">
         </div>
