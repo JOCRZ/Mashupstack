@@ -1,12 +1,12 @@
-// Login page — email/password form with validation and Link toggle to Signup
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './auth.css';
 import { loginUser } from './auth';
+import useAuthStore from './stores/authStore';
 
 export default function Login() {
   const navigate = useNavigate();
+  const login = useAuthStore((s) => s.login);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -23,6 +23,7 @@ export default function Login() {
       setError(result.error);
       return;
     }
+    login(email);
     navigate('/dashboard');
   }
 

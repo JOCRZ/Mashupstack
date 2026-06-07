@@ -1,14 +1,12 @@
-// Root router — defines all app routes with auth guard on /dashboard
-
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
-import { isAuthenticated } from './auth';
+import useAuthStore from './stores/authStore';
 
-// Redirects to /login if not authenticated
 function ProtectedRoute({ children }) {
-  return isAuthenticated() ? children : <Navigate to="/login" replace />;
+  const user = useAuthStore((s) => s.user);
+  return user ? children : <Navigate to="/login" replace />;
 }
 
 export default function App() {
