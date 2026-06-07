@@ -135,8 +135,8 @@ export default function Dashboard() {
                 <input className="form-control" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} />
               </div>
               <select className="form-select w-auto" value={sort} onChange={e => setSort(e.target.value)}>
-                <option value="newest">Newest First</option>
-                <option value="oldest">Oldest First</option>
+                <option value="newest">Descending</option>
+                <option value="oldest">Ascending</option>
               </select>
             </div>
 

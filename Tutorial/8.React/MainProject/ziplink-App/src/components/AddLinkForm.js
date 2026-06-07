@@ -9,7 +9,7 @@ export default function AddLinkForm({ url, setUrl, loading, onShorten }) {
           <input
             type="url"
             className="form-control"
-            placeholder="Enter URL (e.g. https://example.com)"
+            placeholder="Enter URL"
             value={url}
             onChange={e => setUrl(e.target.value)}
             required
