@@ -11,9 +11,9 @@ describe('QrModal', () => {
     expect(screen.getByText(mockLink.short)).toBeInTheDocument();
   });
 
-  it('shows loading spinner initially', () => {
+  it('shows line spinner initially', () => {
     render(<QrModal link={mockLink} onClose={jest.fn()} />);
-    expect(screen.getByRole('status')).toBeInTheDocument();
+    expect(document.querySelector('.line-spinner')).toBeInTheDocument();
   });
 
   it('renders Close button', () => {

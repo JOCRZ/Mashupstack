@@ -29,23 +29,7 @@ export default function Sidebar({ selectedLink }) {
             <div className="d-flex justify-content-center" style={{ position: 'relative', minHeight: 150 }}>
               {qrLoading && (
                 <div className="d-flex align-items-center justify-content-center" style={{ position: 'absolute', inset: 0 }}>
-                  <svg width="100" height="100" viewBox="0 0 100 100" className="qr-skeleton">
-                    <rect x="5" y="5" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="27" y="5" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="49" y="5" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="5" y="27" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="49" y="27" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="5" y="49" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="27" y="49" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="49" y="49" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="71" y="5" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="71" y="27" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="71" y="49" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="5" y="71" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="27" y="71" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="49" y="71" width="18" height="18" rx="2" fill="#7C3AED" />
-                    <rect x="71" y="71" width="18" height="18" rx="2" fill="#7C3AED" />
-                  </svg>
+                  <div style={{ width: 120 }}><div className="line-spinner"></div></div>
                 </div>
               )}
               <img

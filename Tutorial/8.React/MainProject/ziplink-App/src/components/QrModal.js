@@ -8,10 +8,8 @@ export default function QrModal({ link, onClose }) {
     <ModalWrapper onClose={onClose}>
       <div className="text-center">
         {!loaded && (
-          <div className="d-flex justify-content-center align-items-center mx-auto" style={{ width: 200, height: 200 }}>
-            <div className="spinner-border text-secondary" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
+          <div className="mx-auto" style={{ width: '80%', maxWidth: 200, paddingTop: 100 }}>
+            <div className="line-spinner"></div>
           </div>
         )}
         <img

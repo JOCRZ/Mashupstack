@@ -46,6 +46,7 @@ export default function Dashboard() {
   const [selectedLink, setSelectedLink] = useState(null);
   const [showProModal, setShowProModal] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [error, setError] = useState('');
 
   useEffect(() => { setPage(1); }, [search]);
 
@@ -67,13 +68,14 @@ export default function Dashboard() {
       setShowProModal(true);
       return;
     }
+    setError('');
     setLoading(true);
     try {
       const data = await shortenUrl(url);
       const title = cleanTitle(data.title) || new URL(url).hostname;
       setPreview({ short: normalizeShortUrl(data.shortUrl), long: data.longUrl, title });
     } catch (err) {
-      alert('Failed to shorten: ' + err.message);
+      setError('Failed to shorten: ' + err.message);
     } finally {
       setLoading(false);
     }
@@ -127,6 +129,13 @@ export default function Dashboard() {
       <div className="container" style={{ maxWidth: 1100 }}>
         <div className="row g-4">
           <div className="col-lg-8">
+            {error && (
+              <div className="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-2 py-2" role="alert">
+                <i className="bi bi-exclamation-triangle-fill"></i>
+                <span>{error}</span>
+                <button type="button" className="btn-close ms-auto" onClick={() => setError('')}></button>
+              </div>
+            )}
             <AddLinkForm url={url} setUrl={setUrl} loading={loading} onShorten={handleShorten} />
 
             <div className="d-flex align-items-center gap-2 mb-3">
