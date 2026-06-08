@@ -20,11 +20,10 @@ import QrModal from './components/QrModal';
 import EditLinkModal from './components/EditLinkModal';
 import ProModal from './components/ProModal';
 import ConfirmModal from './components/ConfirmModal';
-// Dashboard-specific styles (gradients, buttons, pagination, line spinner)
 import './dashboard.css';
 
 export default function Dashboard() {
-  // ─── Router & Store Subscriptions ──────────────────────
+  // Router & Store 
   // navigate: redirect after logout
   const navigate = useNavigate();
   // Read auth state reactively — Dashboard re-renders on login/logout
