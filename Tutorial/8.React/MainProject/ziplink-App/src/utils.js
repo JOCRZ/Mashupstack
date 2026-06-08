@@ -1,5 +1,5 @@
 export const PER_PAGE = 3;
-export const SHORT_BASE = 'http://192.168.1.15:8080';
+export const SHORT_BASE = process.env.REACT_APP_SHLINK_BASE || 'http://192.168.1.15:8080';
 
 export function cleanTitle(title) {
   if (!title) return null;
