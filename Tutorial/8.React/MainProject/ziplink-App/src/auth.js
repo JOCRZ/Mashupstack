@@ -1,8 +1,14 @@
+// ─── Authentication Service ──────────────────────────────
+// Handles user registration, login, logout, and session management
+// All data persisted to browser localStorage (no backend database)
+
 import bcrypt from 'bcryptjs';
 
-const USERS_KEY = 'shlink_users';
-const SESSION_KEY = 'shlink_session';
+// ─── localStorage Keys ───────────────────────────────────
+const USERS_KEY = 'shlink_users';     // Array of registered users
+const SESSION_KEY = 'shlink_session';  // Current logged-in session
 
+// ─── Internal Helpers ────────────────────────────────────
 function getUsers() {
   const data = localStorage.getItem(USERS_KEY);
   return data ? JSON.parse(data) : [];
@@ -12,6 +18,9 @@ function saveUsers(users) {
   localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 
+// ─── Register ────────────────────────────────────────────
+// Checks for duplicate email, hashes password with bcrypt (10 salt rounds),
+// stores user in localStorage. Returns { ok: true/false, error?: string }
 export async function registerUser(email, password) {
   const users = getUsers();
   if (users.find(u => u.email === email)) {
@@ -23,6 +32,11 @@ export async function registerUser(email, password) {
   return { ok: true };
 }
 
+// ─── Login ───────────────────────────────────────────────
+// Finds user by email, compares password:
+//   - If stored pw starts with "$2" (bcrypt) → use bcrypt.compare
+//   - Else (legacy plaintext) → direct compare + auto-upgrade to bcrypt
+// On success: writes session to localStorage and returns { ok: true }
 export async function loginUser(email, password) {
   const users = getUsers();
   const user = users.find(u => u.email === email);
@@ -49,6 +63,7 @@ export async function loginUser(email, password) {
   return { ok: true };
 }
 
+// ─── Session Management ──────────────────────────────────
 export function logoutUser() {
   localStorage.removeItem(SESSION_KEY);
 }
@@ -62,8 +77,9 @@ export function isAuthenticated() {
   return !!getCurrentUser();
 }
 
-// Returns a unique localStorage key per email (e.g. "shlink_links_user@example.com")
-// so each user's links are isolated.
+// ─── Utility ─────────────────────────────────────────────
+// Returns a scoped localStorage key per email
+// (e.g. "shlink_links_user@example.com") for per-user link isolation
 export function getLinksKey(email) {
   return `shlink_links_${email}`;
 }
