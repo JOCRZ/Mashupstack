@@ -6,7 +6,7 @@ export default function Pagination({ filtered, page, setPage, showAll, setShowAl
   if (filtered.length <= PER_PAGE) return null;
 
   return (
-    <div className="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-2 pb-2">
+    <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 pb-2" style={{ marginTop: '1rem' }}>
       <small className="text-muted">
         {showAll ? `Showing all ${filtered.length} links` : `Showing ${from} to ${to} of ${filtered.length} links`}
       </small>

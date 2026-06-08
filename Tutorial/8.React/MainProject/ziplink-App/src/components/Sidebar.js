@@ -13,7 +13,7 @@ export default function Sidebar({ selectedLink }) {
         <p className="text-muted mb-0 small">Total Links</p>
       </div>
 
-      <div className="card shadow-sm border-0 rounded-3 text-center p-4 mt-3" style={{ minHeight: 280 }}>
+      <div className="card shadow-sm border-0 rounded-3 text-center p-4" style={{ marginTop: '3rem', minHeight: 280 }}>
         <h6 className="text-muted mb-3">QR Code</h6>
         {selectedLink ? (
           <>

@@ -11,7 +11,7 @@ export default function ModalWrapper({ children, onClose }) {
 
   return (
     <>
-      <div className="modal-backdrop show"></div>
+      <div className="modal-backdrop show" onClick={onClose}></div>
       <div className="modal d-block" tabIndex="-1" onClick={onClose}>
         <div className="modal-dialog modal-dialog-centered" onClick={e => e.stopPropagation()}>
           <div className="modal-content p-4">{children}</div>

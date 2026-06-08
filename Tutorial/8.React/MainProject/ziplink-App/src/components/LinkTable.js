@@ -17,8 +17,8 @@ export default function LinkTable({ visible, selectedLink, onSelectLink, onQrCli
         <table className="table table-hover align-middle mb-0">
           <thead className="table-light">
             <tr>
-              <th style={{ width: '40%' }}>Title</th>
-              <th style={{ width: '25%' }}>Short Link</th>
+              <th style={{ width: '30%' }}>Title</th>
+              <th style={{ width: '45%' }}>Short Link</th>
               <th style={{ width: '20%' }}>Added On</th>
               <th style={{ width: '15%' }} className="text-end">Actions</th>
             </tr>
