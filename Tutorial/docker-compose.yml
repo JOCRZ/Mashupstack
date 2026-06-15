@@ -1,0 +1,13 @@
+version: '3'
+services:
+  backend:
+    build: ./7.SpringBoot/form/form-app
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./8.React/form
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
