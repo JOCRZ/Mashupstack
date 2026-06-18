@@ -1,0 +1,38 @@
+User Management
+search - with email for user and serach doesn't need button to serach.
+
+while using serach and filter should able to work together and both should able to work independtly.
+
+
+account type - Free, Premium
+Email verfiied - yes, no
+country - 
+Locked Account  - yes , no
+sort by - Name A-Z, Z-A, Most active, New registered, old registered, login, logout, most spend.
+
+Content Management
+Search - Title, Content ID
+Status - published, draft, scheduled, archived
+type - anime, movie, series
+Genre - action, comedy, romance, school , adventure ( Multi select )
+Language - eng, mal , jap , hin
+rating - PG-13, G, R
+Release year - 
+country - 
+studio/production house - 
+flagged content - 
+streaming status-
+completion status- 
+subtitle available - 
+sort by - recently updated, most viewed, highest rated, most in watchlist, most liked, title A-z and Z-A, release date.
+
+
+
+need a button to Add contents
+
+for view and edit modal should be same what need to change is the when click edit a modal pop up that show all details with ability to edit in a form format while in view all detials should show without form and there should be button edit option that will redirect to edit modal.
+
+each content should show content_id, title, view count, preview button,block button, edit button, delete button, 
+
+
+for user should show user_id,name, email,analysis button, block button, 

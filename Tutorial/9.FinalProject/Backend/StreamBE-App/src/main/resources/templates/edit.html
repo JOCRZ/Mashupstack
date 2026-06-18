@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Content</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body{
+    background:#f8f9fa;
+}
+
+.card{
+    border:none;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+.preview-box{
+    border:1px dashed #ced4da;
+    border-radius:8px;
+    padding:15px;
+    text-align:center;
+    background:white;
+}
+
+.preview-small{
+    width:322px;
+    height:230px;
+    border:1px solid #dee2e6;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+}
+
+.preview-large{
+    width:615px;
+    height:415px;
+    border:1px solid #dee2e6;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container mt-4">
+
+    <div class="card">
+
+        <div class="card-header">
+            <h4 class="mb-0">Upload Content</h4>
+        </div>
+
+        <div class="card-body">
+
+            <!-- Content Type -->
+            <div class="mb-4">
+                <label class="form-label">Content Type</label>
+                <select class="form-select" id="contentType">
+                    <option value="">Select</option>
+                    <option value="movie">Movie</option>
+                    <option value="series">Series</option>
+                </select>
+            </div>
+
+            <!-- Common Fields -->
+            <div id="commonFields" style="display:none;">
+
+                <div class="mb-3">
+                    <label class="form-label">Movie / Series Title</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" rows="5"></textarea>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <label class="form-label">
+                            Thumbnail (322 × 230)
+                        </label>
+
+                        <input type="file" class="form-control">
+
+                        <div class="preview-box mt-3">
+                            <div class="preview-small">
+                                322 × 230 Preview
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label class="form-label">
+                            Thumbnail (615 × 415)
+                        </label>
+
+                        <input type="file" class="form-control">
+
+                        <div class="preview-box mt-3">
+                            <div class="preview-large">
+                                615 × 415 Preview
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Movie Section -->
+            <div id="movieSection" style="display:none;">
+
+                <hr>
+
+                <h5>Movie Upload</h5>
+
+                <div class="mb-3">
+                    <label class="form-label">Movie File</label>
+                    <input type="file" class="form-control">
+                </div>
+
+            </div>
+
+            <!-- Series Section -->
+            <div id="seriesSection" style="display:none;">
+
+                <hr>
+
+                <h5>Series Upload</h5>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <label class="form-label">Season No</label>
+                        <input type="number" class="form-control">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Total Episodes</label>
+                        <input type="number"
+                               class="form-control"
+                               id="episodeCount">
+                    </div>
+
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button class="btn btn-primary"
+                                type="button"
+                                onclick="generateEpisodes()">
+                            Generate Episodes
+                        </button>
+                    </div>
+
+                </div>
+
+                <div id="episodeUploads" class="mt-4"></div>
+
+            </div>
+
+            <div class="mt-4">
+                <button class="btn btn-success">
+                    Submit
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById('contentType').addEventListener('change', function(){
+
+    document.getElementById('commonFields').style.display = 'block';
+
+    if(this.value === 'movie'){
+        document.getElementById('movieSection').style.display = 'block';
+        document.getElementById('seriesSection').style.display = 'none';
+    }
+
+    if(this.value === 'series'){
+        document.getElementById('movieSection').style.display = 'none';
+        document.getElementById('seriesSection').style.display = 'block';
+    }
+
+});
+
+function generateEpisodes(){
+
+    let count = document.getElementById('episodeCount').value;
+
+    let container = document.getElementById('episodeUploads');
+
+    container.innerHTML = '';
+
+    for(let i = 1; i <= count; i++){
+
+        container.innerHTML += `
+            <div class="mb-3">
+                <label class="form-label">Episode ${i}</label>
+                <input type="file" class="form-control">
+            </div>
+        `;
+
+    }
+
+}
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

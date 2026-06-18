@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Movies Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+	.dropdown-menu {
+	    max-height: 250px;
+	    overflow-y: auto;
+	}
+
+	.dropdown-menu .form-check {
+	    margin-bottom: 8px;
+	}
+	</style>
+	</head>
+<body>
+
+    <div th:replace="~{/navbar :: admin-navbar('Content Management Dashboard')}"></div>
+
+	<div class="container mt-4">
+
+	    <div class="row g-3 align-items-start">
+
+	        <!-- Search -->
+	        <div class="col-lg-4">
+	            <input type="text"
+	                   class="form-control"
+	                   placeholder="Search Title or Content ID...">
+	        </div>
+
+	        <!-- Status -->
+	        <div class="col-lg-2">
+	            <select class="form-select">
+	                <option selected>Status</option>
+	                <option>Published</option>
+	                <option>Draft</option>
+	                <option>Scheduled</option>
+	                <option>Archived</option>
+	            </select>
+	        </div>
+
+	        <!-- Type -->
+	        <div class="col-lg-2">
+	            <select class="form-select">
+	                <option selected>Type</option>
+	                <option>Anime</option>
+	                <option>Movie</option>
+	                <option>Series</option>
+	            </select>
+	        </div>
+
+	        <!-- Genre Dropdown -->
+	        <div class="col-lg-2">
+	            <div class="dropdown">
+	                <button class="btn btn-outline-secondary dropdown-toggle w-100 text-start"
+	                        type="button"
+	                        data-bs-toggle="dropdown">
+	                    Genre
+	                </button>
+
+	                <div class="dropdown-menu p-3 w-100">
+
+	                    <div class="form-check">
+	                        <input class="form-check-input" type="checkbox" id="action">
+	                        <label class="form-check-label" for="action">Action</label>
+	                    </div>
+
+	                    <div class="form-check">
+	                        <input class="form-check-input" type="checkbox" id="comedy">
+	                        <label class="form-check-label" for="comedy">Comedy</label>
+	                    </div>
+
+	                    <div class="form-check">
+	                        <input class="form-check-input" type="checkbox" id="romance">
+	                        <label class="form-check-label" for="romance">Romance</label>
+	                    </div>
+
+	                    <div class="form-check">
+	                        <input class="form-check-input" type="checkbox" id="school">
+	                        <label class="form-check-label" for="school">School</label>
+	                    </div>
+
+	                    <div class="form-check">
+	                        <input class="form-check-input" type="checkbox" id="adventure">
+	                        <label class="form-check-label" for="adventure">Adventure</label>
+	                    </div>
+
+	                </div>
+	            </div>
+	        </div>
+
+	        <!-- Language -->
+	        <div class="col-lg-2">
+	            <select class="form-select">
+	                <option selected>Language</option>
+	                <option>English</option>
+	                <option>Malayalam</option>
+	                <option>Japanese</option>
+	                <option>Hindi</option>
+	            </select>
+	        </div>
+
+	        <!-- Rating -->
+	        <div class="col-lg-2">
+	            <select class="form-select">
+	                <option selected>Rating</option>
+	                <option>G</option>
+	                <option>PG-13</option>
+	                <option>R</option>
+	            </select>
+	        </div>
+
+	        <!-- Release Year Dropdown -->
+	        <div class="col-lg-2">
+	            <div class="dropdown">
+	                <button class="btn btn-outline-secondary dropdown-toggle w-100 text-start"
+	                        type="button"
+	                        data-bs-toggle="dropdown">
+	                    Release Year
+	                </button>
+
+	                <div class="dropdown-menu p-3 w-100">
+
+	                    <div class="form-check">
+	                        <input class="form-check-input" type="checkbox" id="y2026">
+	                        <label class="form-check-label" for="y2026">2026</label>
+	                    </div>
+
+	                    <div class="form-check">
+	                        <input class="form-check-input" type="checkbox" id="y2025">
+	                        <label class="form-check-label" for="y2025">2025</label>
+	                    </div>
+
+	                    <div class="form-check">
+	                        <input class="form-check-input" type="checkbox" id="y2024">
+	                        <label class="form-check-label" for="y2024">2024</label>
+	                    </div>
+
+	                    <div class="form-check">
+	                        <input class="form-check-input" type="checkbox" id="y2023">
+	                        <label class="form-check-label" for="y2023">2023</label>
+	                    </div>
+
+	                    <div class="form-check">
+	                        <input class="form-check-input" type="checkbox" id="y2022">
+	                        <label class="form-check-label" for="y2022">2022</label>
+	                    </div>
+
+	                </div>
+	            </div>
+	        </div>
+
+	        <!-- Country -->
+	        <div class="col-lg-2">
+	            <select class="form-select">
+	                <option selected>Country</option>
+	                <option>Japan</option>
+	                <option>India</option>
+	                <option>USA</option>
+	                <option>South Korea</option>
+	                <option>China</option>
+	            </select>
+	        </div>
+
+	        <!-- Studio -->
+	        <div class="col-lg-3">
+	            <input type="text"
+	                   class="form-control"
+	                   placeholder="Studio / Production House">
+	        </div>
+
+	        <!-- Flagged Content -->
+	        <div class="col-lg-2">
+	            <select class="form-select">
+	                <option selected>Flagged Content</option>
+	                <option>Yes</option>
+	                <option>No</option>
+	            </select>
+	        </div>
+
+	        <!-- Streaming Status -->
+	        <div class="col-lg-2">
+	            <select class="form-select">
+	                <option selected>Streaming Status</option>
+	                <option>Available</option>
+	                <option>Removed</option>
+	                <option>Coming Soon</option>
+	            </select>
+	        </div>
+
+	        <!-- Completion Status -->
+	        <div class="col-lg-2">
+	            <select class="form-select">
+	                <option selected>Completion Status</option>
+	                <option>Completed</option>
+	                <option>Ongoing</option>
+	            </select>
+	        </div>
+
+	        <!-- Sort By -->
+	        <div class="col-lg-3">
+	            <select class="form-select">
+	                <option selected>Sort By</option>
+	                <option>Recently Updated</option>
+	                <option>Most Viewed</option>
+	                <option>Highest Rated</option>
+	                <option>Most In Watchlist</option>
+	                <option>Most Liked</option>
+	                <option>Title A-Z</option>
+	                <option>Title Z-A</option>
+	                <option>Release Date</option>
+	            </select>
+	        </div>
+
+	        <!-- Buttons -->
+	        <div class="col-auto">
+	            <button class="btn btn-primary px-4">
+	                Filter
+	            </button>
+	        </div>
+
+	        <div class="col-auto">
+	            <button class="btn btn-outline-secondary px-4">
+	                Reset
+	            </button>
+	        </div>
+			
+			<div class="col-auto">
+			    <a th:href="@{/upload}" class="btn btn-outline-secondary px-4">
+			        Upload
+			    </a>
+			</div>
+
+	    </div>
+
+	
+		
+		<div class="card mt-4 shadow-sm">
+		    <div class="card-header bg-dark text-white">
+		        <h5 class="mb-0">Content List</h5>
+		    </div>
+
+		    <div class="card-body p-0">
+
+		        <table class="table table-hover table-striped mb-0 align-middle">
+
+		            <thead class="table-dark">
+		                <tr>
+		                    <th>Content ID</th>
+		                    <th>Title</th>
+		                    <th>Views</th>
+		       
+		                    <th>Preview</th>
+		                    <th>Edit</th>
+		     
+		                    <th>Delete</th>
+		                </tr>
+		            </thead>
+
+		            <tbody>
+
+		                <tr>
+		                    <td>1001</td>
+		                    <td>Attack on Titan</td>
+		                    <td>1,250,000</td>
+		                 
+
+							<td>
+							    <button class="btn btn-info btn-sm"
+							            onclick="window.location.href='/preview'">
+							        Preview
+							    </button>
+							</td>
+
+		                    <td>
+		                        <button class="btn btn-warning btn-sm">
+		                            Edit
+		                        </button>
+		                    </td>
+
+		   
+
+		                    <td>
+		                        <button class="btn btn-danger btn-sm">
+		                            Delete
+		                        </button>
+		                    </td>
+		                </tr>
+
+		                <tr>
+		                    <td>1002</td>
+		                    <td>Demon Slayer</td>
+		                    <td>950,000</td>
+		                    
+
+		                    <td>
+		                        <button class="btn btn-info btn-sm">
+		                            Preview
+		                        </button>
+		                    </td>
+
+		                    <td>
+		                        <button class="btn btn-warning btn-sm">
+		                            Edit
+		                        </button>
+		                    </td>
+
+		                
+
+		                    <td>
+		                        <button class="btn btn-danger btn-sm">
+		                            Delete
+		                        </button>
+		                    </td>
+		                </tr>
+
+		            </tbody>
+
+		        </table>
+
+		    </div>
+		</div>
+
+	</div>
+	
+	</div>
+	
+	<script>
+	document.querySelectorAll('.dropdown-menu').forEach(menu => {
+	    menu.addEventListener('click', function(e) {
+	        e.stopPropagation();
+	    });
+	});
+	</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
