@@ -10,7 +10,7 @@ function Navbar() {
 
   return (
     <nav style={styles.nav}>
-      <div style={styles.title}>StreamFe</div>
+      <div style={styles.title}>StreamBucket</div>
 
       <form onSubmit={handleSearch} style={styles.searchForm}>
         <input
