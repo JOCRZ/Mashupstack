@@ -1,67 +1,46 @@
+import { Link } from "react-router-dom";
+import "./auth.css";
+
 function Register() {
   return (
-    <div>
-      <h2>Register</h2>
-
-      <form>
-
-        <div>
-          <label htmlFor="name">Name</label>
-          <br />
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Enter your name"
-          />
+    <div className="auth-wrapper">
+      <div className="auth-card">
+        <div className="auth-header">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="#2596be">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          <h2>Create Account</h2>
+          <p className="auth-subtitle">Join Stream Bucket today</p>
         </div>
 
-        <br />
+        <form>
+          <div className="mb-3">
+            <label className="form-label">Name</label>
+            <input type="text" className="form-control auth-input" placeholder="Enter your name" />
+          </div>
 
-        <div>
-          <label htmlFor="email">Email</label>
-          <br />
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter your email"
-          />
+          <div className="mb-3">
+            <label className="form-label">Email</label>
+            <input type="email" className="form-control auth-input" placeholder="Enter your email" />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Password</label>
+            <input type="password" className="form-control auth-input" placeholder="Create a password" />
+          </div>
+
+          <div className="mb-4">
+            <label className="form-label">Confirm Password</label>
+            <input type="password" className="form-control auth-input" placeholder="Confirm your password" />
+          </div>
+
+          <button type="submit" className="btn auth-btn w-100">Register</button>
+        </form>
+
+        <div className="auth-footer">
+          Already have an account? <Link to="/login" className="auth-link">Login</Link>
         </div>
-
-        <br />
-
-        <div>
-          <label htmlFor="password">Password</label>
-          <br />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Enter password"
-          />
-        </div>
-
-        <br />
-
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <br />
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="Confirm password"
-          />
-        </div>
-
-        <br />
-
-        <button type="submit">
-          Register
-        </button>
-
-      </form>
+      </div>
     </div>
   );
 }

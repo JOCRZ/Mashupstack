@@ -1,3 +1,4 @@
+import Navbar from "../components/navbar";
 import HeroBanner from "../components/HeroBanner";
 import ContinueWatching from "../components/ContinueWatching";
 import Top5 from "../components/Top5";
@@ -6,6 +7,7 @@ import ListAll from "../components/ListAll";
 function Home() {
   return (
     <div>
+      <Navbar />
       <HeroBanner />
       <div style={{
         display: "flex",
