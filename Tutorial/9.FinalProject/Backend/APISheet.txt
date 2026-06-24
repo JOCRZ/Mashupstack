@@ -1,0 +1,14 @@
+User APIs
+Auth
+- POST /api/register — register
+- POST /api/login — login (returns token)
+- POST /api/logout — logout (invalidate token)
+Movies
+- GET /api/movies — list all
+- GET /api/movies/{id} — get by id
+- GET /api/movies/search?title= — search
+Watchlist
+- POST /api/watchlist/{movieId}?status= — add (status: WATCHING / PLAN_TO_WATCH / HOLD / DROPPED / COMPLETED)
+- GET /api/watchlist — my watchlist
+- PUT /api/watchlist/{movieId}?status= — update status
+- DELETE /api/watchlist/{movieId} — remove

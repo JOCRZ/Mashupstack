@@ -32,4 +32,14 @@ public class UserApiController {
         }
         return ResponseEntity.status(401).body("Invalid credentials");
     }
+    
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            tokenGenerator.invalidateToken(token);
+            return ResponseEntity.ok("Logout successful");
+        }
+        return ResponseEntity.badRequest().body("Invalid token");
+    }
 }
