@@ -2,7 +2,6 @@ package com.example.StreamBE_App.dto;
 
 public class UserDto {
     private Long id;
-    private Integer user_id;
     private String name;
     private String email;
     private String password;
@@ -11,9 +10,8 @@ public class UserDto {
 
     public UserDto() {}
 
-    public UserDto(Long id, Integer user_id, String name, String email, String password, Boolean role, Boolean block_status) {
+    public UserDto(Long id, String name, String email, String password, Boolean role, Boolean block_status) {
         this.id = id;
-        this.user_id = user_id;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -23,9 +21,6 @@ public class UserDto {
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-
-    public Integer getUser_id() { return user_id; }
-    public void setUser_id(Integer user_id) { this.user_id = user_id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

@@ -9,7 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.example.StreamBE_App.Service.UserService;
+import com.example.StreamBE_App.security.ApiAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -17,6 +19,9 @@ public class SecurityConfig {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ApiAuthenticationFilter apiAuthenticationFilter;
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -27,9 +32,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(c -> c.disable())
             .authorizeHttpRequests(request -> request
-                .requestMatchers("/api/**").permitAll()
+                .requestMatchers("/api/register", "/api/login").permitAll()
                 .anyRequest().authenticated()
             );
+        http.addFilterBefore(apiAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

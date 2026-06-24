@@ -5,4 +5,6 @@ import com.example.StreamBE_App.Models.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
+    User findByToken(String token);
+    boolean existsByToken(String token);
 }
