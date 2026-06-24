@@ -27,6 +27,12 @@ public class User {
         super();
     }
 
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
     public User(Integer user_id, String name, String email, String password, boolean role, boolean block_status) {
         this.user_id = user_id;
         this.name = name;

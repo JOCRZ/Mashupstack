@@ -6,12 +6,12 @@ public class UserDto {
     private String name;
     private String email;
     private String password;
-    private boolean role;
-    private boolean block_status;
+    private Boolean role;
+    private Boolean block_status;
 
     public UserDto() {}
 
-    public UserDto(Long id, Integer user_id, String name, String email, String password, boolean role, boolean block_status) {
+    public UserDto(Long id, Integer user_id, String name, String email, String password, Boolean role, Boolean block_status) {
         this.id = id;
         this.user_id = user_id;
         this.name = name;
@@ -36,9 +36,9 @@ public class UserDto {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public boolean isRole() { return role; }
-    public void setRole(boolean role) { this.role = role; }
+    public Boolean getRole() { return role; }
+    public void setRole(Boolean role) { this.role = role; }
 
-    public boolean isBlock_status() { return block_status; }
-    public void setBlock_status(boolean block_status) { this.block_status = block_status; }
+    public Boolean getBlock_status() { return block_status; }
+    public void setBlock_status(Boolean block_status) { this.block_status = block_status; }
 }
