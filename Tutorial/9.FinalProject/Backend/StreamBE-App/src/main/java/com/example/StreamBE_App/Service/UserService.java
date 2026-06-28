@@ -25,6 +25,16 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public boolean changePassword(String email, String currentPassword, String newPassword) {
+        User user = userRepository.findByEmail(email);
+        if (user == null || !passwordEncoder.matches(currentPassword, user.getPassword())) {
+            return false;
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        return true;
+    }
+
     public boolean authenticate(String email, String password) {
         User user = userRepository.findByEmail(email);
         if (user == null) {

@@ -1,11 +1,13 @@
 package com.example.StreamBE_App.Controller;
 
 import java.util.Map;
+import com.example.StreamBE_App.dto.ChangePasswordDto;
 import com.example.StreamBE_App.dto.UserDto;
 import com.example.StreamBE_App.Service.UserService;
 import com.example.StreamBE_App.security.TokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -41,5 +43,14 @@ public class UserApiController {
             return ResponseEntity.ok("Logout successful");
         }
         return ResponseEntity.badRequest().body("Invalid token");
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto dto, Authentication auth) {
+        boolean success = userService.changePassword(auth.getName(), dto.getCurrentPassword(), dto.getNewPassword());
+        if (success) {
+            return ResponseEntity.ok("Password changed successfully");
+        }
+        return ResponseEntity.badRequest().body("Current password is incorrect");
     }
 }

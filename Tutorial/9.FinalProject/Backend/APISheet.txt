@@ -1,14 +1,27 @@
 User APIs
+
 Auth
 - POST /api/register — register
 - POST /api/login — login (returns token)
 - POST /api/logout — logout (invalidate token)
+- POST /api/change-password — change password (requires token)
+
 Movies
 - GET /api/movies — list all
 - GET /api/movies/{id} — get by id
 - GET /api/movies/search?title= — search
+
 Watchlist
 - POST /api/watchlist/{movieId}?status= — add (status: WATCHING / PLAN_TO_WATCH / HOLD / DROPPED / COMPLETED)
 - GET /api/watchlist — my watchlist
 - PUT /api/watchlist/{movieId}?status= — update status
 - DELETE /api/watchlist/{movieId} — remove
+
+Watch History
+- POST /api/history/{movieId} — log a movie click (auto-timestamp)
+- GET /api/history — get history (most recent first)
+- DELETE /api/history/{movieId} — remove from history
+
+
+
+while implementing cros use CorseConfigurationsSource = corsconfiguraitonSource() instead of WebMvcConfigurer.

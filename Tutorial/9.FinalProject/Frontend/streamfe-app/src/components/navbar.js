@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-function Navbar() {
+function Navbar({ onOpenLogin, onOpenRegister }) {
+  const { user, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -16,11 +18,16 @@ function Navbar() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   const items = [
     { label: "Profile", action: () => navigate("/profile") },
     { label: "Continue Watching", action: () => navigate("/home") },
-    { label: "Watch List", action: () => navigate("/home") },
-    { label: "Logout", action: () => navigate("/login") }
+    { label: "Watch List", action: () => navigate("/profile", { state: { tab: "WatchList" } }) },
+    { label: "Logout", action: () => { handleLogout(); setOpen(false); } }
   ];
 
   return (
@@ -131,64 +138,93 @@ function Navbar() {
         </button>
       </div>
 
-      <div ref={menuRef} style={{ position: "relative" }}>
-        <div
-          onClick={() => setOpen(!open)}
-          style={{
-            width: 36,
-            height: 36,
-            borderRadius: "50%",
-            overflow: "hidden",
-            cursor: "pointer",
-            border: "2px solid #4ade80",
-            flexShrink: 0
-          }}
-        >
-          <img
-            src="https://picsum.photos/seed/avatar/100/100"
-            alt="Profile"
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
-        </div>
-
-        {open && (
-          <div style={{
-            position: "absolute",
-            top: "calc(100% + 8px)",
-            right: 0,
-            background: "#1a1a1a",
-            border: "1px solid #333",
-            borderRadius: 8,
-            minWidth: 200,
-            padding: "6px 0",
-            zIndex: 100,
-            boxShadow: "0 8px 24px rgba(0,0,0,0.5)"
-          }}>
-            {items.map((item, i) => (
-              <button
-                key={i}
-                onClick={() => { item.action(); setOpen(false); }}
-                style={{
-                  display: "block",
-                  width: "100%",
-                  padding: "10px 20px",
-                  background: "transparent",
-                  color: item.label === "Logout" ? "#e04060" : "#fff",
-                  border: "none",
-                  textAlign: "left",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  cursor: "pointer"
-                }}
-                onMouseEnter={(e) => e.target.style.background = "#2a2a2a"}
-                onMouseLeave={(e) => e.target.style.background = "transparent"}
-              >
-                {item.label}
-              </button>
-            ))}
+      {user ? (
+        <div ref={menuRef} style={{ position: "relative" }}>
+          <div
+            onClick={() => setOpen(!open)}
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: "50%",
+              overflow: "hidden",
+              cursor: "pointer",
+              border: "2px solid #4ade80",
+              flexShrink: 0
+            }}
+          >
+            <img
+              src="https://picsum.photos/seed/avatar/100/100"
+              alt="Profile"
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            />
           </div>
-        )}
-      </div>
+
+          {open && (
+            <div style={{
+              position: "absolute",
+              top: "calc(100% + 8px)",
+              right: 0,
+              background: "#1a1a1a",
+              border: "1px solid #333",
+              borderRadius: 8,
+              minWidth: 200,
+              padding: "6px 0",
+              zIndex: 100,
+              boxShadow: "0 8px 24px rgba(0,0,0,0.5)"
+            }}>
+              {items.map((item, i) => (
+                <button
+                  key={i}
+                  onClick={() => { item.action(); setOpen(false); }}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    padding: "10px 20px",
+                    background: "transparent",
+                    color: item.label === "Logout" ? "#e04060" : "#fff",
+                    border: "none",
+                    textAlign: "left",
+                    fontSize: 14,
+                    fontWeight: 600,
+                    cursor: "pointer"
+                  }}
+                  onMouseEnter={(e) => e.target.style.background = "#2a2a2a"}
+                  onMouseLeave={(e) => e.target.style.background = "transparent"}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div style={{ display: "flex", gap: 8 }}>
+          <button onClick={onOpenLogin} style={{
+            color: "#fff",
+            border: "none",
+            fontSize: 14,
+            fontWeight: 600,
+            padding: "8px 16px",
+            borderRadius: 6,
+            background: "#2a2a2a",
+            cursor: "pointer"
+          }}>
+            Login
+          </button>
+          <button onClick={onOpenRegister} style={{
+            color: "#fff",
+            border: "none",
+            fontSize: 14,
+            fontWeight: 600,
+            padding: "8px 16px",
+            borderRadius: 6,
+            background: "#2596be",
+            cursor: "pointer"
+          }}>
+            Register
+          </button>
+        </div>
+      )}
     </nav>
   );
 }
