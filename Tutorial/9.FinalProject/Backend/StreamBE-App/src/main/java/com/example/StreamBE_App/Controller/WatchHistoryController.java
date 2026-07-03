@@ -47,8 +47,7 @@ public class WatchHistoryController {
         Long userId = getUserId(auth);
         if (userId == null) return ResponseEntity.status(401).body("User not found");
 
-        List<WatchHistory> history = watchHistoryRepository.findByUserIdOrderByWatchedAtDesc(userId);
-        return ResponseEntity.ok(history);
+        return ResponseEntity.ok(watchHistoryRepository.findHistoryWithMovie(userId));
     }
 
     @Transactional

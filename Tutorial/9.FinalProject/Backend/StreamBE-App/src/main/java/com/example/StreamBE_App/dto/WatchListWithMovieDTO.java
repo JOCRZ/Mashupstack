@@ -1,0 +1,34 @@
+package com.example.StreamBE_App.dto;
+
+public class WatchListWithMovieDTO {
+    private Long id;
+    private Long movieId;
+    private String title;
+    private int year;
+    private String status;
+
+    public WatchListWithMovieDTO() {}
+
+    public WatchListWithMovieDTO(Long id, Long movieId, String title, int year, String status) {
+        this.id = id;
+        this.movieId = movieId;
+        this.title = title;
+        this.year = year;
+        this.status = status;
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Long getMovieId() { return movieId; }
+    public void setMovieId(Long movieId) { this.movieId = movieId; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public int getYear() { return year; }
+    public void setYear(int year) { this.year = year; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+}

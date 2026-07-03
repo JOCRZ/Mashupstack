@@ -1,9 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
+
+const API = process.env.REACT_APP_API_URL || "";
 
 const subTabs = ["All", "Watching", "On-Hold", "Planned", "Dropped", "Watched"];
 
+const statusMap = {
+  "All": null,
+  "Watching": "WATCHING",
+  "On-Hold": "HOLD",
+  "Planned": "PLAN_TO_WATCH",
+  "Dropped": "DROPPED",
+  "Watched": "COMPLETED"
+};
+
 function WatchList() {
+  const { user } = useAuth();
   const [activeSub, setActiveSub] = useState("All");
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!user) return;
+    fetch(`${API}/api/watchlist`, {
+      headers: { Authorization: `Bearer ${user.token}` }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setItems(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [user]);
+
+  const filtered = statusMap[activeSub]
+    ? items.filter((i) => i.status === statusMap[activeSub])
+    : items;
 
   return (
     <div style={{
@@ -12,12 +44,6 @@ function WatchList() {
       borderRadius: 12,
       padding: "24px"
     }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 20 }}>
-        <p style={{ color: "#666", fontSize: 12, margin: 0 }}>- Click on the folder icon to organize your watch list.</p>
-        <p style={{ color: "#666", fontSize: 12, margin: 0 }}>- Hold down and drag to rearrange items.</p>
-        <p style={{ color: "#666", fontSize: 12, margin: 0 }}>- Click to toggle between public and private visibility.</p>
-      </div>
-
       <div style={{ display: "flex", gap: 16, alignItems: "center", marginBottom: 20, borderBottom: "1px solid #2a2a2a", paddingBottom: 12 }}>
         {subTabs.map((st) => (
           <button
@@ -38,42 +64,42 @@ function WatchList() {
         ))}
       </div>
 
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(6, 1fr)",
-        gap: 10
-      }}>
-        <input type="text" placeholder="Search..." style={{
-          padding: "8px 10px", borderRadius: 6, border: "1px solid #2a2a2a",
-          background: "#1a1a1a", color: "#fff", fontSize: 13, outline: "none"
-        }} />
-        {["Select genre", "Select season", "Select year", "Select type", "Select status"].map((p) => (
-          <select key={p} style={{
-            width: "100%", padding: "8px 10px", borderRadius: 6, border: "1px solid #2a2a2a",
-            background: "#1a1a1a", color: "#888", fontSize: 13, outline: "none", cursor: "pointer"
-          }}>
-            <option>{p}</option>
-          </select>
-        ))}
-        <button style={{
-          display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-          background: "#2596be", color: "#fff", border: "none",
-          padding: "8px", borderRadius: 6, fontSize: 13, fontWeight: 700, cursor: "pointer"
-        }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M2 14h4M10 8h4M18 16h4"/>
-          </svg>
-          Filter
-        </button>
-        {["Select language", "Select rating", "Select source", "Episode range", "Default"].map((p) => (
-          <select key={p} style={{
-            width: "100%", padding: "8px 10px", borderRadius: 6, border: "1px solid #2a2a2a",
-            background: "#1a1a1a", color: "#888", fontSize: 13, outline: "none", cursor: "pointer"
-          }}>
-            <option>{p}</option>
-          </select>
-        ))}
-      </div>
+      {loading && <p style={{ color: "#666", fontSize: 13, margin: 0 }}>Loading...</p>}
+      {!loading && !filtered.length && (
+        <p style={{ color: "#666", fontSize: 13, margin: 0 }}>Your watch list is empty.</p>
+      )}
+      {!loading && filtered.length > 0 && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {filtered.map((item) => (
+            <div
+              key={item.id}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                background: "#1f1f1f",
+                padding: "12px 16px",
+                borderRadius: 8
+              }}
+            >
+              <div>
+                <p style={{ margin: 0, fontWeight: 600, fontSize: 15, color: "#fff" }}>{item.title}</p>
+                <p style={{ margin: "4px 0 0", color: "#999", fontSize: 13 }}>{item.year}</p>
+              </div>
+              <span style={{
+                background: "#2596be",
+                color: "#fff",
+                fontSize: 11,
+                fontWeight: 700,
+                padding: "2px 8px",
+                borderRadius: 4
+              }}>
+                {item.status.replace(/_/g, " ")}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

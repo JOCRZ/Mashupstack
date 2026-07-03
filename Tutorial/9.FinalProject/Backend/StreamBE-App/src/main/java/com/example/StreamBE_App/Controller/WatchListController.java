@@ -46,8 +46,7 @@ public class WatchListController {
         Long userId = getUserId(auth);
         if (userId == null) return ResponseEntity.status(401).body("User not found");
 
-        List<WatchList> list = watchListRepository.findByUserId(userId);
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(watchListRepository.findWatchListWithMovie(userId));
     }
 
     @PutMapping("/{movieId}")

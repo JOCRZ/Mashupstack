@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Landing from "./pages/landing";
 import Home from "./pages/home";
 import ProfileSection from "./components/ProfileSection";
+import Resumelist from "./pages/resumelist";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ProtectedRoute><ProfileSection /></ProtectedRoute>} />
+          <Route path="/history" element={<ProtectedRoute><Resumelist /></ProtectedRoute>} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

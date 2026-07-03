@@ -28,7 +28,7 @@ public class ApiAuthenticationFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        if (path.equals("/api/register") || path.equals("/api/login")) {
+        if (path.equals("/api/register") || path.equals("/api/login") || path.startsWith("/api/movies")) {
             filterChain.doFilter(request, response);
             return;
         }

@@ -32,7 +32,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(c -> c.disable())
             .authorizeHttpRequests(request -> request
-                .requestMatchers("/api/register", "/api/login").permitAll()
+                .requestMatchers("/api/register", "/api/login", "/api/movies", "/api/movies/**").permitAll()
                 .anyRequest().authenticated()
             );
         http.addFilterBefore(apiAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

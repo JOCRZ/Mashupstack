@@ -1,72 +1,48 @@
-import MediaCard from "./MediaCard";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-const continueData = [
-  {
-    id: 1,
-    title: "Seihantai na Kimi to Boku",
-    posterUrl: "https://picsum.photos/seed/anime1/360/540",
-    currentEpisode: 3,
-    currentTime: "22:47",
-    totalTime: "24:07",
-    progressPercent: 94
-  },
-  {
-    id: 2,
-    title: "Naruto",
-    posterUrl: "https://picsum.photos/seed/anime2/360/540",
-    currentEpisode: 135,
-    currentTime: "03:53",
-    totalTime: "23:38",
-    progressPercent: 16
-  },
-  {
-    id: 3,
-    title: "Attack on Titan",
-    posterUrl: "https://picsum.photos/seed/anime3/360/540",
-    currentEpisode: 87,
-    currentTime: "11:30",
-    totalTime: "24:00",
-    progressPercent: 48
-  },
-  {
-    id: 4,
-    title: "Demon Slayer: Mugen Train",
-    posterUrl: "https://picsum.photos/seed/anime4/360/540",
-    currentEpisode: 1,
-    currentTime: "05:15",
-    totalTime: "26:40",
-    progressPercent: 20
-  },
-  {
-    id: 5,
-    title: "One Piece",
-    posterUrl: "https://picsum.photos/seed/anime5/360/540",
-    currentEpisode: 1072,
-    currentTime: "18:22",
-    totalTime: "24:00",
-    progressPercent: 76
-  },
-  {
-    id: 6,
-    title: "Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e",
-    posterUrl: "https://picsum.photos/seed/anime6/360/540",
-    currentEpisode: 8,
-    currentTime: "10:00",
-    totalTime: "24:00",
-    progressPercent: 42
-  },
-  {
-    id: 7,
-    title: "Jujutsu Kaisen",
-    posterUrl: "https://picsum.photos/seed/anime7/360/540",
-    currentEpisode: 23,
-    currentTime: "20:30",
-    totalTime: "24:00",
-    progressPercent: 85
-  }
-];
+const API = process.env.REACT_APP_API_URL || "";
+
+function Card({ item }) {
+  return (
+    <div style={{ minWidth: 170, maxWidth: 170 }}>
+      <div style={{ position: "relative", borderRadius: 6, overflow: "hidden", aspectRatio: "2/3", background: "#2a2a2a" }}>
+        <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#555", fontSize: 12 }}>
+          Poster
+        </div>
+      </div>
+      <p style={{ color: "#fff", fontSize: 13, fontWeight: 600, margin: "8px 0 0", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+        {item.title}
+      </p>
+      <p style={{ color: "#999", fontSize: 12, margin: "2px 0 0" }}>
+        {item.year}
+      </p>
+    </div>
+  );
+}
 
 function ContinueWatching() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!user) return;
+    fetch(`${API}/api/history`, {
+      headers: { Authorization: `Bearer ${user.token}` }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setItems(data.slice(0, 5));
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [user]);
+
+  if (loading || !items.length) return null;
+
   return (
     <div>
       <div style={{
@@ -78,7 +54,10 @@ function ContinueWatching() {
         <h2 style={{ color: "#fff", fontSize: 20, fontWeight: 700, margin: 0 }}>
           Continue Watching
         </h2>
-        <span style={{ color: "#4ade80", fontSize: 14, cursor: "pointer", fontWeight: 600 }}>
+        <span
+          style={{ color: "#4ade80", fontSize: 14, cursor: "pointer", fontWeight: 600 }}
+          onClick={() => navigate("/history")}
+        >
           View more &gt;
         </span>
       </div>
@@ -90,8 +69,8 @@ function ContinueWatching() {
         paddingBottom: 8,
         scrollbarWidth: "none"
       }}>
-        {continueData.map((item) => (
-          <MediaCard key={item.id} item={item} />
+        {items.map((item) => (
+          <Card key={item.movieId} item={item} />
         ))}
       </div>
     </div>
