@@ -24,8 +24,8 @@ function Navbar({ onOpenLogin, onOpenRegister }) {
   };
 
   const items = [
-    { label: "Profile", action: () => navigate("/profile") },
-    { label: "Continue Watching", action: () => navigate("/home") },
+    { label: "Profile", action: () => navigate("/profile", { state: { tab: "Profile" } }) },
+    { label: "Continue Watching", action: () => navigate("/profile", { state: { tab: "ContinueWatching" } }) },
     { label: "Watch List", action: () => navigate("/profile", { state: { tab: "WatchList" } }) },
     { label: "Logout", action: () => { handleLogout(); setOpen(false); } }
   ];
@@ -43,7 +43,7 @@ function Navbar({ onOpenLogin, onOpenRegister }) {
         <svg width="28" height="28" viewBox="0 0 24 24" fill="#4ade80">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
         </svg>
-        <span style={{ color: "#fff", fontSize: 20, fontWeight: 800, letterSpacing: -0.5 }}>
+        <span onClick={() => navigate("/home")} style={{ color: "#fff", fontSize: 20, fontWeight: 800, letterSpacing: -0.5, cursor: "pointer" }}>
           Stream Bucket
         </span>
       </div>

@@ -1,11 +1,44 @@
-const profileData = {
-  userId: "112820257617867910",
-  avatarUrl: "https://picsum.photos/seed/avatar/200/200",
-  joinDate: "Jun 19, 2026",
-  watchListCount: 0
+import { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
+
+const API = process.env.REACT_APP_API_URL || "";
+
+const statusLabels = {
+  WATCHING: "Watching",
+  PLAN_TO_WATCH: "Planned",
+  HOLD: "On Hold",
+  DROPPED: "Dropped",
+  COMPLETED: "Watched"
 };
 
 function ProfileCard({ onClose, hideActions }) {
+  const { user } = useAuth();
+  const [profile, setProfile] = useState(null);
+  const [counts, setCounts] = useState([]);
+
+  useEffect(() => {
+    if (!user) return;
+    fetch(`${API}/api/profile`, {
+      headers: { Authorization: `Bearer ${user.token}` }
+    })
+      .then((res) => res.json())
+      .then((data) => setProfile(data))
+      .catch(() => {});
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+    fetch(`${API}/api/watchlist/counts`, {
+      headers: { Authorization: `Bearer ${user.token}` }
+    })
+      .then((res) => res.json())
+      .then((data) => setCounts(data))
+      .catch(() => {});
+  }, [user]);
+
+  const countMap = {};
+  counts.forEach((c) => { countMap[c.status] = c.count; });
+
   return (
     <div style={{
       background: "#141414",
@@ -27,7 +60,7 @@ function ProfileCard({ onClose, hideActions }) {
         marginBottom: 16
       }}>
         <img
-          src={profileData.avatarUrl}
+          src="https://picsum.photos/seed/avatar/200/200"
           alt="Avatar"
           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
         />
@@ -41,19 +74,25 @@ function ProfileCard({ onClose, hideActions }) {
         textAlign: "center",
         wordBreak: "break-all"
       }}>
-        {profileData.userId}
+        {profile ? profile.name : "Loading..."}
       </p>
 
-      <div style={{ width: "100%", marginBottom: 16 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-          <span style={{ color: "#94a3b8", fontSize: 13 }}>Join date</span>
-          <span style={{ color: "#c0c0c0", fontSize: 13 }}>{profileData.joinDate}</span>
+      {counts.length > 0 && (
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "8px 16px",
+          width: "100%",
+          marginBottom: 16
+        }}>
+          {Object.entries(statusLabels).map(([key, label]) => (
+            <div key={key} style={{ display: "flex", justifyContent: "space-between" }}>
+              <span style={{ color: "#94a3b8", fontSize: 13 }}>{label}</span>
+              <span style={{ color: "#c0c0c0", fontSize: 13 }}>{countMap[key] || 0}</span>
+            </div>
+          ))}
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <span style={{ color: "#94a3b8", fontSize: 13 }}>Watch list</span>
-          <span style={{ color: "#c0c0c0", fontSize: 13 }}>{profileData.watchListCount}</span>
-        </div>
-      </div>
+      )}
 
       {!hideActions && (
         <div style={{

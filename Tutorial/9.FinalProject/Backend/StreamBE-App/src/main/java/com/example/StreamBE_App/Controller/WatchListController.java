@@ -49,6 +49,14 @@ public class WatchListController {
         return ResponseEntity.ok(watchListRepository.findWatchListWithMovie(userId));
     }
 
+    @GetMapping("/counts")
+    public ResponseEntity<?> getCounts(Authentication auth) {
+        Long userId = getUserId(auth);
+        if (userId == null) return ResponseEntity.status(401).body("User not found");
+
+        return ResponseEntity.ok(watchListRepository.countByStatus(userId));
+    }
+
     @PutMapping("/{movieId}")
     public ResponseEntity<?> updateStatus(@PathVariable Long movieId,
             @RequestParam String status, Authentication auth) {

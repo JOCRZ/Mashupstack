@@ -35,6 +35,10 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     public boolean authenticate(String email, String password) {
         User user = userRepository.findByEmail(email);
         if (user == null) {

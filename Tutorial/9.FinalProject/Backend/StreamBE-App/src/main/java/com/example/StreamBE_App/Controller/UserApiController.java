@@ -2,7 +2,9 @@ package com.example.StreamBE_App.Controller;
 
 import java.util.Map;
 import com.example.StreamBE_App.dto.ChangePasswordDto;
+import com.example.StreamBE_App.dto.ProfileDto;
 import com.example.StreamBE_App.dto.UserDto;
+import com.example.StreamBE_App.Models.User;
 import com.example.StreamBE_App.Service.UserService;
 import com.example.StreamBE_App.security.TokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,13 @@ public class UserApiController {
         return ResponseEntity.status(401).body("Invalid credentials");
     }
     
+    @GetMapping("/profile")
+    public ResponseEntity<?> getProfile(Authentication auth) {
+        User user = userService.findByEmail(auth.getName());
+        if (user == null) return ResponseEntity.status(401).body("User not found");
+        return ResponseEntity.ok(new ProfileDto(user.getName(), user.getEmail()));
+    }
+
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader("Authorization") String authHeader) {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {

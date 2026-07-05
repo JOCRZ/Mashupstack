@@ -1,21 +1,34 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import Navbar from "./navbar";
 import ProfileCard from "./ProfileCard";
 import ContinueWatchingSection from "./ContinueWatchingSection";
 import WatchList from "./WatchList";
 
+const API = process.env.REACT_APP_API_URL || "";
+
 const tabs = [
   { key: "Profile", icon: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z", label: "Profile" },
-  { key: "ContinueWatching", icon: "M12 8v4l2.5 1.5M12 21a9 9 0 1 1 2-17.7M14 2v5H9", label: "Continue Watching" },
-  { key: "WatchList", icon: "M19 14c1.5-1.5 2-4 2-6 0-4.4-3.6-8-8-8S5 3.6 5 8c0 2 1 4.5 2.5 6M15 22H9", label: "Watch List" },
-  { key: "Settings", icon: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h.1a1.7 1.7 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z", label: "Settings" },
-  { key: "Import", icon: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3", label: "Import" }
+  { key: "ContinueWatching", icon: "M10 8l6 4-6 4V8zM12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z", label: "Continue Watching" },
+  { key: "WatchList", icon: "M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z", label: "Watch List" }
 ];
 
 function ProfileSection() {
+  const { user } = useAuth();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("Profile");
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    if (!user) return;
+    fetch(`${API}/api/profile`, {
+      headers: { Authorization: `Bearer ${user.token}` }
+    })
+      .then((res) => res.json())
+      .then((data) => setProfile(data))
+      .catch(() => {});
+  }, [user]);
 
   useEffect(() => {
     if (location.state?.tab) {
@@ -32,54 +45,23 @@ function ProfileSection() {
       return <ContinueWatchingSection />;
     }
 
-    return (
-      <div style={{
-        background: "#141414",
-        border: "1px solid #2a2a2a",
-        borderRadius: 12,
-        padding: "28px 24px"
-      }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <span style={{ color: "#94a3b8", fontSize: 14, width: 160, flexShrink: 0 }}>Join date</span>
-            <input type="text" value="Jun 19, 2026" disabled style={{
-              flex: 1, padding: "10px 14px", borderRadius: 6, border: "1px solid #2a2a2a",
-              background: "#1a1a1a", color: "#666", fontSize: 14, outline: "none"
-            }} />
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <span style={{ color: "#94a3b8", fontSize: 14, width: 160, flexShrink: 0 }}>Email address</span>
-            <input type="email" defaultValue="user@example.com" style={{
-              flex: 1, padding: "10px 14px", borderRadius: 6, border: "1px solid #2a2a2a",
-              background: "#1a1a1a", color: "#fff", fontSize: 14, outline: "none"
-            }} />
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <span style={{ color: "#94a3b8", fontSize: 14, width: 160, flexShrink: 0 }}>Username</span>
-            <input type="text" defaultValue="112820257617867910" style={{
-              flex: 1, padding: "10px 14px", borderRadius: 6, border: "1px solid #2a2a2a",
-              background: "#1a1a1a", color: "#fff", fontSize: 14, outline: "none"
-            }} />
-          </div>
-          <div style={{ display: "flex", gap: 16 }}>
-            <span style={{ color: "#94a3b8", fontSize: 14, width: 160, flexShrink: 0 }}>Reading list visibility</span>
-            <div>
-              <p style={{ color: "#666", fontSize: 12, margin: "0 0 10px", lineHeight: 1.5 }}>
-                Enable other users to view your public, anon-friendly reading<br />
-                lists that showcase your current, completed, and planned reads.
-              </p>
-              <div style={{ display: "flex", gap: 20 }}>
-                <label style={{ color: "#ccc", fontSize: 13, display: "flex", alignItems: "center", gap: 6, cursor: "pointer" }}>
-                  <input type="radio" name="visibility" style={{ accentColor: "#2596be" }} /> Private
-                </label>
-                <label style={{ color: "#ccc", fontSize: 13, display: "flex", alignItems: "center", gap: 6, cursor: "pointer" }}>
-                  <input type="radio" name="visibility" defaultChecked style={{ accentColor: "#2596be" }} /> Public
-                </label>
-              </div>
+    if (activeTab === "Profile") {
+      return (
+        <div style={{
+          background: "#141414",
+          border: "1px solid #2a2a2a",
+          borderRadius: 12,
+          padding: "28px 24px"
+        }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <span style={{ color: "#94a3b8", fontSize: 14, width: 160, flexShrink: 0 }}>Name</span>
+              <span style={{ color: "#fff", fontSize: 14 }}>{profile ? profile.name : "..."}</span>
             </div>
-          </div>
-          <div style={{ display: "flex", gap: 16 }}>
-            <span style={{ color: "#94a3b8", fontSize: 14, width: 160, flexShrink: 0 }} />
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <span style={{ color: "#94a3b8", fontSize: 14, width: 160, flexShrink: 0 }}>Email</span>
+              <span style={{ color: "#fff", fontSize: 14 }}>{profile ? profile.email : "..."}</span>
+            </div>
             <button style={{
               display: "flex", alignItems: "center", gap: 6,
               background: "transparent", color: "#2596be", border: "none",
@@ -93,17 +75,8 @@ function ProfileSection() {
             </button>
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 28 }}>
-          <button style={{
-            background: "#2596be", color: "#fff", border: "none",
-            padding: "10px 32px", borderRadius: 6, fontSize: 14,
-            fontWeight: 700, cursor: "pointer"
-          }}>
-            Update
-          </button>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 
   return (
