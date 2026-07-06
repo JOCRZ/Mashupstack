@@ -5,6 +5,7 @@ import Navbar from "./navbar";
 import ProfileCard from "./ProfileCard";
 import ContinueWatchingSection from "./ContinueWatchingSection";
 import WatchList from "./WatchList";
+import ChangePasswordModal from "./ChangePasswordModal";
 
 const API = process.env.REACT_APP_API_URL || "";
 
@@ -19,6 +20,7 @@ function ProfileSection() {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("Profile");
   const [profile, setProfile] = useState(null);
+  const [showChangePw, setShowChangePw] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -62,7 +64,7 @@ function ProfileSection() {
               <span style={{ color: "#94a3b8", fontSize: 14, width: 160, flexShrink: 0 }}>Email</span>
               <span style={{ color: "#fff", fontSize: 14 }}>{profile ? profile.email : "..."}</span>
             </div>
-            <button style={{
+            <button onClick={() => setShowChangePw(true)} style={{
               display: "flex", alignItems: "center", gap: 6,
               background: "transparent", color: "#2596be", border: "none",
               fontSize: 13, fontWeight: 600, cursor: "pointer", padding: 0
@@ -92,7 +94,7 @@ function ProfileSection() {
         <div style={{ width: 280, flexShrink: 0 }}>
           <ProfileCard hideActions />
         </div>
-        <div style={{ flex: 1, overflowY: "auto", maxHeight: "calc(100vh - 80px)" }} className="hide-scrollbar">
+        <div style={{ flex: 1, overflow: "hidden" }}>
           <div style={{
             display: "flex",
             gap: 20,
@@ -132,6 +134,8 @@ function ProfileSection() {
           {renderContent()}
         </div>
       </div>
+
+      <ChangePasswordModal isOpen={showChangePw} onClose={() => setShowChangePw(false)} />
     </div>
   );
 }
