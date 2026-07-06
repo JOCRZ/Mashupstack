@@ -18,9 +18,12 @@ function Landing() {
         display: "flex", justifyContent: "space-between", alignItems: "center",
         padding: "20px 5%"
       }}>
-        <span style={{ color: "#2596be", fontSize: 24, fontWeight: 800, letterSpacing: -0.5 }}>
-          StreamBucket
-        </span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <img width="28" height="28" src="https://img.icons8.com/color/48/popcorn.png" alt="popcorn" style={{ borderRadius: 4 }}/>
+          <span style={{ color: "#2596be", fontSize: 24, fontWeight: 800, letterSpacing: -0.5 }}>
+            StreamBucket
+          </span>
+        </div>
         {user ? (
           <button onClick={() => navigate("/home")} style={{
             background: "#2596be", color: "#fff", border: "none",
@@ -49,7 +52,7 @@ function Landing() {
           letterSpacing: -1, lineHeight: 1.1
         }}>
           Bucket full of stories
-        </h1>Ready to watch? Enter your email 
+        </h1>
         <p style={{
           color: "#94a3b8", fontSize: 18, margin: "16px 0 32px", maxWidth: 480
         }}>
