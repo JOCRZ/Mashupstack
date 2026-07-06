@@ -108,7 +108,7 @@ function Navbar({ onOpenLogin, onOpenRegister }) {
           />
         </div>
         <button
-          onClick={() => navigate("/profile", { state: { tab: "WatchList" } })}
+          onClick={() => navigate("/filter")}
           style={{
           display: "flex",
           alignItems: "center",

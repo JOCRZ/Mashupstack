@@ -6,6 +6,7 @@ import Landing from "./pages/landing";
 import Home from "./pages/home";
 import ProfileSection from "./components/ProfileSection";
 import Resumelist from "./pages/resumelist";
+import Filter from "./components/Filter";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ProtectedRoute><ProfileSection /></ProtectedRoute>} />
           <Route path="/history" element={<ProtectedRoute><Resumelist /></ProtectedRoute>} />
+          <Route path="/filter" element={<ProtectedRoute><Filter /></ProtectedRoute>} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

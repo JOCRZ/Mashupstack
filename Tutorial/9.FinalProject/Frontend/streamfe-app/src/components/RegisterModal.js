@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import "../pages/auth.css";
 
-function RegisterModal({ isOpen, onClose, onSwitchToLogin }) {
+function RegisterModal({ isOpen, onClose, onSwitchToLogin, initialEmail }) {
   const { register } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    if (isOpen && initialEmail) setEmail(initialEmail);
+  }, [isOpen, initialEmail]);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -43,12 +47,12 @@ function RegisterModal({ isOpen, onClose, onSwitchToLogin }) {
       }}
       onClick={onClose}
     >
-      <div className="auth-card" style={{ margin: 0 }} onClick={(e) => e.stopPropagation()}>
-        <div className="auth-header">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="#2596be">
+      <div className="auth-card" style={{ margin: 0, padding: "24px 36px 28px" }} onClick={(e) => e.stopPropagation()}>
+        <div className="auth-header" style={{ marginBottom: 20 }}>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="#2596be">
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
           </svg>
-          <h2>Create Account</h2>
+          <h2 style={{ fontSize: 20, margin: "10px 0 2px" }}>Create Account</h2>
           <p className="auth-subtitle">Join Stream Bucket today</p>
         </div>
 
@@ -63,19 +67,20 @@ function RegisterModal({ isOpen, onClose, onSwitchToLogin }) {
             <input type="email" className="form-control auth-input" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
 
-          <div className="mb-3">
-            <label className="form-label">Password</label>
-            <input type="password" className="form-control auth-input" placeholder="Create a password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-          </div>
-
-          <div className="mb-4">
-            <label className="form-label">Confirm Password</label>
-            <input type="password" className="form-control auth-input" placeholder="Confirm your password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-            {confirmPassword && password !== confirmPassword && (
-              <div style={{ color: "#e04060", fontSize: 12, marginTop: 4 }}>
-                Passwords do not match
-              </div>
-            )}
+          <div style={{ display: "flex", gap: 12, marginBottom: 16 }}>
+            <div style={{ flex: 1 }}>
+              <label className="form-label">Password</label>
+              <input type="password" className="form-control auth-input" placeholder="Create a password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            </div>
+            <div style={{ flex: 1 }}>
+              <label className="form-label">Confirm Password</label>
+              <input type="password" className="form-control auth-input" placeholder="Confirm your password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+              {confirmPassword && password !== confirmPassword && (
+                <div style={{ color: "#e04060", fontSize: 12, marginTop: 4 }}>
+                  Passwords do not match
+                </div>
+              )}
+            </div>
           </div>
 
           {error && (

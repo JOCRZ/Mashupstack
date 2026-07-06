@@ -73,7 +73,7 @@ function MovieHoverCard({ movie, position, onClose }) {
         <span style={{ color: "#94a3b8", fontSize: 12 }}>{movie.duration} min</span>
       </div>
 
-      <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
+      <div style={{ display: "flex", gap: 8, marginTop: 10, alignItems: "center" }}>
         <button
           onClick={() => navigate(`/movie/${movie.id}`)}
           style={{
@@ -83,19 +83,21 @@ function MovieHoverCard({ movie, position, onClose }) {
         >
           Watch Now
         </button>
-        <div style={{ position: "relative", flex: 1 }}>
+        <div style={{ position: "relative" }}>
           <button
             onClick={() => setShowDropdown(!showDropdown)}
             style={{
-              width: "100%", padding: "8px 0", borderRadius: 6, border: "1px solid #444",
-              background: "transparent", color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer"
+              width: 36, height: 36, borderRadius: "50%", border: "1px solid #444",
+              background: "transparent", color: "#fff", fontSize: 20, fontWeight: 300,
+              cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+              lineHeight: 1
             }}
           >
-            + Watch List
+            +
           </button>
           {showDropdown && (
             <div style={{
-              position: "absolute", top: "100%", left: 0, right: 0, marginTop: 4,
+              position: "absolute", top: "100%", right: 0, marginTop: 4, minWidth: 140,
               background: "#1a1a1a", border: "1px solid #333", borderRadius: 6, overflow: "hidden"
             }}>
               {statusOptions.map((s) => (

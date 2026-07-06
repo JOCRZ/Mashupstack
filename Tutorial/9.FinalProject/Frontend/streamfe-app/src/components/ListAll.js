@@ -3,7 +3,7 @@ import MovieHoverCard from "./MovieHoverCard";
 
 const API = process.env.REACT_APP_API_URL || "";
 
-function Card({ item, onHover }) {
+function Card({ item, onHover, onClick }) {
   const timer = useRef(null);
 
   return (
@@ -16,6 +16,10 @@ function Card({ item, onHover }) {
       }}
       onMouseLeave={() => {
         timer.current = setTimeout(() => onHover(null), 200);
+      }}
+      onClick={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        onClick(item, { top: rect.top, left: rect.right });
       }}
     >
       <div style={{ position: "relative", borderRadius: 6, overflow: "hidden", aspectRatio: "2/3", background: "#2a2a2a" }}>
@@ -33,10 +37,10 @@ function Card({ item, onHover }) {
   );
 }
 
-function Row({ data, onHover }) {
+function Row({ data, onHover, onClick }) {
   return (
     <div style={{ display: "flex", gap: 16, overflowX: "auto", paddingBottom: 8, scrollbarWidth: "none" }}>
-      {data.map((item) => <Card key={item.id} item={item} onHover={onHover} />)}
+      {data.map((item) => <Card key={item.id} item={item} onHover={onHover} onClick={onClick} />)}
     </div>
   );
 }
@@ -49,6 +53,7 @@ function ListAll() {
   const [hoverPos, setHoverPos] = useState(null);
   const hoverTimer = useRef(null);
   const [onPopup, setOnPopup] = useState(false);
+  const [pinned, setPinned] = useState(false);
 
   useEffect(() => {
     fetch(`${API}/api/movies`)
@@ -67,6 +72,7 @@ function ListAll() {
   }, []);
 
   const handleHover = (item, pos) => {
+    if (pinned) return;
     clearTimeout(hoverTimer.current);
     if (item) {
       setHovered(item);
@@ -81,6 +87,19 @@ function ListAll() {
     }
   };
 
+  const handleClick = (item, pos) => {
+    clearTimeout(hoverTimer.current);
+    setPinned(true);
+    setHovered(item);
+    setHoverPos(pos);
+  };
+
+  const handleClose = () => {
+    setPinned(false);
+    setHovered(null);
+    setHoverPos(null);
+  };
+
   if (loading) return <div style={{ padding: "0 5%", color: "#999" }}>Loading...</div>;
   if (error) return <div style={{ padding: "0 5%", color: "#e04060" }}>Failed to load movies</div>;
 
@@ -93,15 +112,18 @@ function ListAll() {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        <Row data={movies} onHover={handleHover} />
+        <Row data={movies} onHover={handleHover} onClick={handleClick} />
       </div>
 
       {hovered && hoverPos && (
-        <div onMouseEnter={() => setOnPopup(true)} onMouseLeave={() => { setOnPopup(false); setHovered(null); setHoverPos(null); }}>
+        <div
+          onMouseEnter={() => setOnPopup(true)}
+          onMouseLeave={() => { if (!pinned) { setOnPopup(false); setHovered(null); setHoverPos(null); } }}
+        >
           <MovieHoverCard
             movie={hovered}
             position={hoverPos}
-            onClose={() => { setHovered(null); setHoverPos(null); }}
+            onClose={handleClose}
           />
         </div>
       )}
