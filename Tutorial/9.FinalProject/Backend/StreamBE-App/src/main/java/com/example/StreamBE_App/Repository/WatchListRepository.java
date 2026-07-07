@@ -21,4 +21,8 @@ public interface WatchListRepository extends JpaRepository<WatchList, Long> {
     @Query("SELECT new com.example.StreamBE_App.dto.WatchListCountDTO(w.status, COUNT(w)) " +
            "FROM WatchList w WHERE w.userId = :userId GROUP BY w.status")
     List<WatchListCountDTO> countByStatus(@Param("userId") Long userId);
+
+    @Query("SELECT new com.example.StreamBE_App.dto.WatchListCountDTO(w.status, COUNT(w)) " +
+           "FROM WatchList w GROUP BY w.status")
+    List<WatchListCountDTO> countByStatusGrouped();
 }
