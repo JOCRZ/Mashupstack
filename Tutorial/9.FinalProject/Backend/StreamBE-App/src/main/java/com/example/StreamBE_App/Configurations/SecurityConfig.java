@@ -1,8 +1,10 @@
 package com.example.StreamBE_App.Configurations;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.example.StreamBE_App.Service.UserService;
+import com.example.StreamBE_App.security.AdminAuthFilter;
 import com.example.StreamBE_App.security.ApiAuthenticationFilter;
 
 @Configuration
@@ -30,7 +33,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(c -> c.disable())
+        http.securityMatcher("/api/**")
+            .csrf(c -> c.disable())
             .authorizeHttpRequests(request -> request
                 .requestMatchers("/api/register", "/api/login", "/api/movies", "/api/movies/**").permitAll()
                 .anyRequest().authenticated()
@@ -42,5 +46,14 @@ public class SecurityConfig {
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public FilterRegistrationBean<AdminAuthFilter> adminAuthFilter() {
+        FilterRegistrationBean<AdminAuthFilter> bean = new FilterRegistrationBean<>();
+        bean.setFilter(new AdminAuthFilter());
+        bean.addUrlPatterns("/*");
+        bean.setOrder(Ordered.LOWEST_PRECEDENCE - 10);
+        return bean;
     }
 }

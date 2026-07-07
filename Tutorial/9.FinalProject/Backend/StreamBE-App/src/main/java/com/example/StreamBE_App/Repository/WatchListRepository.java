@@ -13,7 +13,7 @@ public interface WatchListRepository extends JpaRepository<WatchList, Long> {
     List<WatchList> findByUserId(Long userId);
     Optional<WatchList> findByUserIdAndMovieId(Long userId, Long movieId);
 
-    @Query("SELECT new com.example.StreamBE_App.dto.WatchListWithMovieDTO(w.id, m.id, m.title, m.year, w.status) " +
+    @Query("SELECT new com.example.StreamBE_App.dto.WatchListWithMovieDTO(w.id, m.id, m.title, m.year, m.rating, m.language, w.status) " +
            "FROM WatchList w JOIN Movies m ON w.movieId = m.id " +
            "WHERE w.userId = :userId ORDER BY w.id DESC")
     List<WatchListWithMovieDTO> findWatchListWithMovie(@Param("userId") Long userId);

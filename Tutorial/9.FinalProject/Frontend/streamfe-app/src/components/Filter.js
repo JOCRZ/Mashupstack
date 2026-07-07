@@ -22,14 +22,14 @@ function FilterCard({ item }) {
         <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#555", fontSize: 12 }}>
           Poster
         </div>
-        {item.score && (
+        {item.rating > 0 && (
           <span style={{
             position: "absolute", top: 8, left: 8,
             background: "rgba(0,0,0,0.75)", color: "#facc15",
             fontSize: 12, fontWeight: 700, padding: "2px 8px",
             borderRadius: 4
           }}>
-            ⭐ {item.score}
+            ⭐ {item.rating}
           </span>
         )}
       </div>
@@ -62,6 +62,8 @@ function Filter() {
   const [filtered, setFiltered] = useState([]);
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const perPage = 20;
 
   useEffect(() => {
     fetch(`${API}/api/movies`)
@@ -88,7 +90,7 @@ function Filter() {
       result = result.filter((m) => m.language === language);
     }
     if (sort === "score") {
-      result.sort((a, b) => (b.score || 0) - (a.score || 0));
+      result.sort((a, b) => (b.rating || 0) - (a.rating || 0));
     } else if (sort === "year") {
       result.sort((a, b) => b.year - a.year);
     } else if (sort === "title_asc") {
@@ -98,12 +100,16 @@ function Filter() {
     }
 
     setFiltered(result);
+    setPage(1);
   };
 
   const selectStyle = {
     padding: "10px 12px", borderRadius: 6, border: "1px solid #333",
     background: "#1a1a1a", color: "#ccc", fontSize: 13, outline: "none", cursor: "pointer"
   };
+
+  const totalPages = Math.ceil(filtered.length / perPage);
+  const paginated = filtered.slice((page - 1) * perPage, page * perPage);
 
   if (loading) return <div style={{ padding: "0 5%", color: "#999" }}>Loading...</div>;
 
@@ -152,15 +158,64 @@ function Filter() {
         {filtered.length === 0 ? (
           <p style={{ color: "#666", textAlign: "center", marginTop: 60 }}>No movies found</p>
         ) : (
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
-            gap: 20
-          }}>
-            {filtered.map((movie) => (
-              <FilterCard key={movie.id} item={movie} />
-            ))}
-          </div>
+          <>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
+              gap: 20
+            }}>
+              {paginated.map((movie) => (
+                <FilterCard key={movie.id} item={movie} />
+              ))}
+            </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div style={{
+                display: "flex", justifyContent: "center", alignItems: "center",
+                gap: 8, marginTop: 32
+              }}>
+                <button
+                  disabled={page === 1}
+                  onClick={() => setPage(page - 1)}
+                  style={{
+                    padding: "8px 16px", borderRadius: 6, border: "1px solid #333",
+                    background: page === 1 ? "#1a1a1a" : "#2a2a2a",
+                    color: page === 1 ? "#555" : "#fff", fontSize: 13,
+                    cursor: page === 1 ? "default" : "pointer"
+                  }}
+                >
+                  Previous
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => setPage(p)}
+                    style={{
+                      width: 32, height: 32, borderRadius: 6, border: "none",
+                      background: page === p ? "#2596be" : "#2a2a2a",
+                      color: "#fff", fontSize: 13, fontWeight: 600,
+                      cursor: "pointer"
+                    }}
+                  >
+                    {p}
+                  </button>
+                ))}
+                <button
+                  disabled={page === totalPages}
+                  onClick={() => setPage(page + 1)}
+                  style={{
+                    padding: "8px 16px", borderRadius: 6, border: "1px solid #333",
+                    background: page === totalPages ? "#1a1a1a" : "#2a2a2a",
+                    color: page === totalPages ? "#555" : "#fff", fontSize: 13,
+                    cursor: page === totalPages ? "default" : "pointer"
+                  }}
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
 

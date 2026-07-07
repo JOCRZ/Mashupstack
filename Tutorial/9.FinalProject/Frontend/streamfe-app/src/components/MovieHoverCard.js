@@ -68,9 +68,21 @@ function MovieHoverCard({ movie, position, onClose }) {
       <p style={{ color: "#999", fontSize: 12, margin: "0 0 4px", lineHeight: 1.4, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
         {movie.description}
       </p>
-      <div style={{ display: "flex", gap: 8, margin: "8px 0" }}>
+      <div style={{ display: "flex", gap: 8, margin: "8px 0", alignItems: "center" }}>
         <span style={{ color: "#94a3b8", fontSize: 12 }}>{movie.year}</span>
-        <span style={{ color: "#94a3b8", fontSize: 12 }}>{movie.duration} min</span>
+        <span style={{ color: "#94a3b8", fontSize: 12 }}>{movie.duration}</span>
+        {movie.rating > 0 && (
+          <span style={{ color: "#facc15", fontSize: 12, fontWeight: 700 }}>⭐ {movie.rating}</span>
+        )}
+        {movie.language && (
+          <span style={{
+            background: "#2596be20", color: "#2596be",
+            fontSize: 10, fontWeight: 600, padding: "1px 6px",
+            borderRadius: 4, border: "1px solid #2596be40"
+          }}>
+            {movie.language}
+          </span>
+        )}
       </div>
 
       <div style={{ display: "flex", gap: 8, marginTop: 10, alignItems: "center" }}>

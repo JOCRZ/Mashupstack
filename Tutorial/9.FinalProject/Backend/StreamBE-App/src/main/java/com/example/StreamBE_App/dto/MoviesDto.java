@@ -6,15 +6,19 @@ public class MoviesDto {
     private String description;
     private int year;
     private String duration;
+    private double rating;
+    private String language;
 
     public MoviesDto() {}
 
-    public MoviesDto(Long id, String title, String description, int year, String duration) {
+    public MoviesDto(Long id, String title, String description, int year, String duration, double rating, String language) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.year = year;
         this.duration = duration;
+        this.rating = rating;
+        this.language = language;
     }
 
     public Long getId() { return id; }
@@ -31,4 +35,10 @@ public class MoviesDto {
 
     public String getDuration() { return duration; }
     public void setDuration(String duration) { this.duration = duration; }
+
+    public double getRating() { return rating; }
+    public void setRating(double rating) { this.rating = rating; }
+
+    public String getLanguage() { return language; }
+    public void setLanguage(String language) { this.language = language; }
 }

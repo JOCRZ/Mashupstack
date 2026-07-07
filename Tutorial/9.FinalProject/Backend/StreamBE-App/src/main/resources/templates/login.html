@@ -20,16 +20,18 @@
 		
 		<h3 class="card-title text-center mb-4">Admin Login</h3>
 		
-	<form action="" method="POST">
+		<p th:if="${param.error}" style="color: red; text-align: center; margin-bottom: 12px;">Invalid email or password</p>
+		
+	<form action="/login" method="POST">
 		
 		<div class="mb-3">
 			<label for="email" class="form-label">Email </label>
-			<input type="text" class="form-control" id="email" name="email" placeholder="name@gmail.com" requried>
+			<input type="text" class="form-control" id="email" name="email" placeholder="name@gmail.com" required>
 		</div>
 		
 		<div class="mb-3">
 			<label for="password" class="form-label">Password </label>
-			<input type="text" class="form-control" id="password" name="password"  placeholder="password" required>
+			<input type="password" class="form-control" id="password" name="password"  placeholder="password" required>
 		</div>
 		
 		<div class="mb-3">

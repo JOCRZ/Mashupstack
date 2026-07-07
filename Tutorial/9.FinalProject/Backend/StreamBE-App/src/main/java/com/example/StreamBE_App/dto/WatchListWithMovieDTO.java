@@ -5,15 +5,19 @@ public class WatchListWithMovieDTO {
     private Long movieId;
     private String title;
     private int year;
+    private double rating;
+    private String language;
     private String status;
 
     public WatchListWithMovieDTO() {}
 
-    public WatchListWithMovieDTO(Long id, Long movieId, String title, int year, String status) {
+    public WatchListWithMovieDTO(Long id, Long movieId, String title, int year, double rating, String language, String status) {
         this.id = id;
         this.movieId = movieId;
         this.title = title;
         this.year = year;
+        this.rating = rating;
+        this.language = language;
         this.status = status;
     }
 
@@ -28,6 +32,12 @@ public class WatchListWithMovieDTO {
 
     public int getYear() { return year; }
     public void setYear(int year) { this.year = year; }
+
+    public double getRating() { return rating; }
+    public void setRating(double rating) { this.rating = rating; }
+
+    public String getLanguage() { return language; }
+    public void setLanguage(String language) { this.language = language; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }

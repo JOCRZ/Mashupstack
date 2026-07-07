@@ -8,24 +8,33 @@ function Card({ item, onHover, onClick }) {
 
   return (
     <div
-      style={{ minWidth: 170, maxWidth: 170, cursor: "pointer" }}
+      style={{ cursor: "pointer" }}
       onMouseEnter={(e) => {
         clearTimeout(timer.current);
         const rect = e.currentTarget.getBoundingClientRect();
-        onHover(item, { top: rect.top, left: rect.right });
+        onHover(item, { top: rect.top, left: rect.right + 20 });
       }}
       onMouseLeave={() => {
         timer.current = setTimeout(() => onHover(null), 200);
       }}
       onClick={(e) => {
         const rect = e.currentTarget.getBoundingClientRect();
-        onClick(item, { top: rect.top, left: rect.right });
+        onClick(item, { top: rect.top, left: rect.right + 20 });
       }}
     >
       <div style={{ position: "relative", borderRadius: 6, overflow: "hidden", aspectRatio: "2/3", background: "#2a2a2a" }}>
         <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#555", fontSize: 12 }}>
           Poster
         </div>
+        {item.rating > 0 && (
+          <span style={{
+            position: "absolute", top: 6, left: 6,
+            background: "rgba(0,0,0,0.75)", color: "#facc15",
+            fontSize: 11, fontWeight: 700, padding: "2px 6px", borderRadius: 4
+          }}>
+            ⭐ {item.rating}
+          </span>
+        )}
       </div>
       <p style={{ color: "#fff", fontSize: 13, fontWeight: 600, margin: "8px 0 0", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
         {item.title}
@@ -33,14 +42,6 @@ function Card({ item, onHover, onClick }) {
       <p style={{ color: "#999", fontSize: 12, margin: "2px 0 0" }}>
         {item.year}
       </p>
-    </div>
-  );
-}
-
-function Row({ data, onHover, onClick }) {
-  return (
-    <div style={{ display: "flex", gap: 16, overflowX: "auto", paddingBottom: 8, scrollbarWidth: "none" }}>
-      {data.map((item) => <Card key={item.id} item={item} onHover={onHover} onClick={onClick} />)}
     </div>
   );
 }
@@ -111,8 +112,14 @@ function ListAll() {
         </h2>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        <Row data={movies} onHover={handleHover} onClick={handleClick} />
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
+        gap: 20
+      }}>
+        {movies.map((item) => (
+          <Card key={item.id} item={item} onHover={handleHover} onClick={handleClick} />
+        ))}
       </div>
 
       {hovered && hoverPos && (

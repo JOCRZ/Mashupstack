@@ -28,6 +28,12 @@ public class ApiAuthenticationFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
+        // Only enforce Bearer token on API routes; admin pages use form login
+        if (!path.startsWith("/api/")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         if (path.equals("/api/register") || path.equals("/api/login") || path.startsWith("/api/movies")) {
             filterChain.doFilter(request, response);
             return;
