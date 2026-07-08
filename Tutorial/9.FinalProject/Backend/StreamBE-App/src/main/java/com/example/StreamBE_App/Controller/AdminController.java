@@ -1,12 +1,15 @@
 package com.example.StreamBE_App.Controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.StreamBE_App.Models.Movies;
 import com.example.StreamBE_App.Models.User;
 import com.example.StreamBE_App.Repository.MovieRepository;
@@ -154,6 +157,7 @@ public class AdminController {
         model.addAttribute("selectedSearch", search);
         model.addAttribute("selectedLanguage", language);
         model.addAttribute("selectedYears", year);
+        model.addAttribute("distinctYears", movieRepository.findDistinctYears());
         return "files";
     }
 
@@ -184,5 +188,42 @@ public class AdminController {
             model.addAttribute("previewMovie", movie);
         }
         return "preview";
+    }
+
+    @PostMapping("/change-password")
+    @ResponseBody
+    public Map<String, String> doChangePassword(@RequestParam String currentPassword,
+                                                 @RequestParam String newPassword,
+                                                 @RequestParam String confirmPassword,
+                                                 HttpSession session) {
+        Map<String, String> response = new HashMap<>();
+        String email = (String) session.getAttribute("adminUser");
+
+        if (email == null) {
+            response.put("error", "Not logged in");
+            return response;
+        }
+
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            response.put("error", "User not found");
+            return response;
+        }
+
+        if (!user.getPassword().equals(currentPassword)) {
+            response.put("error", "Current password is incorrect");
+            return response;
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            response.put("error", "New passwords do not match");
+            return response;
+        }
+
+        user.setPassword(newPassword);
+        userRepository.save(user);
+
+        response.put("success", "Password changed successfully");
+        return response;
     }
 }

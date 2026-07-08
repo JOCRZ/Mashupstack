@@ -24,4 +24,7 @@ public interface MovieRepository extends JpaRepository<Movies, Long> {
     List<Movies> findByFilters(@Param("search") String search,
                                @Param("language") String language,
                                @Param("years") List<Integer> years);
+
+    @Query("SELECT DISTINCT m.year FROM Movies m ORDER BY m.year DESC")
+    List<Integer> findDistinctYears();
 }

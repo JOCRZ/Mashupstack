@@ -16,17 +16,77 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/users">Users</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="/files">Files</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown">
+                            Profile
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="/logout">Logout</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
 
         </div>
     </nav>
+
+    <!-- Change Password Modal -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Change Password</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="passwordAlert"></div>
+                    <form id="changePasswordForm">
+                        <div class="mb-3">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" name="currentPassword" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">New Password</label>
+                            <input type="password" name="newPassword" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Confirm New Password</label>
+                            <input type="password" name="confirmPassword" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Change Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const data = new URLSearchParams(new FormData(this));
+        const alertDiv = document.getElementById('passwordAlert');
+
+        fetch('/change-password', { method: 'POST', body: data, headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+            .then(r => r.json())
+            .then(res => {
+                if (res.success) {
+                    alertDiv.innerHTML = '<div class="alert alert-success">' + res.success + '</div>';
+                    this.reset();
+                } else {
+                    alertDiv.innerHTML = '<div class="alert alert-danger">' + res.error + '</div>';
+                }
+            });
+    });
+    </script>
 </div>
