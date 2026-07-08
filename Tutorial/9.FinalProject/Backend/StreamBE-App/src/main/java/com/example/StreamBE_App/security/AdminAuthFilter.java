@@ -21,7 +21,7 @@ public class AdminAuthFilter implements Filter {
         String path = req.getRequestURI();
 
         // Public paths — always allow
-        if (path.equals("/login") || path.equals("/admin") || path.startsWith("/css/") || path.startsWith("/api/") || path.equals("/error")) {
+        if (path.equals("/login") || path.equals("/admin") || path.equals("/blocked") || path.startsWith("/css/") || path.startsWith("/api/") || path.equals("/error")) {
             chain.doFilter(request, response);
             return;
         }

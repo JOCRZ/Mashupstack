@@ -21,94 +21,25 @@
 
 	<div class="container mt-4">
 
-	    <div class="row g-3 align-items-start">
+<form th:action="@{/files}" method="get" class="row g-3 align-items-start">
 
 	        <!-- Search -->
 	        <div class="col-lg-4">
-	            <input type="text"
+	            <input type="text" name="search"
 	                   class="form-control"
-	                   placeholder="Search Title or Content ID...">
-	        </div>
-
-	        <!-- Status -->
-	        <div class="col-lg-2">
-	            <select class="form-select">
-	                <option selected>Status</option>
-	                <option>Published</option>
-	                <option>Draft</option>
-	                <option>Scheduled</option>
-	                <option>Archived</option>
-	            </select>
-	        </div>
-
-	        <!-- Type -->
-	        <div class="col-lg-2">
-	            <select class="form-select">
-	                <option selected>Type</option>
-	                <option>Anime</option>
-	                <option>Movie</option>
-	                <option>Series</option>
-	            </select>
-	        </div>
-
-	        <!-- Genre Dropdown -->
-	        <div class="col-lg-2">
-	            <div class="dropdown">
-	                <button class="btn btn-outline-secondary dropdown-toggle w-100 text-start"
-	                        type="button"
-	                        data-bs-toggle="dropdown">
-	                    Genre
-	                </button>
-
-	                <div class="dropdown-menu p-3 w-100">
-
-	                    <div class="form-check">
-	                        <input class="form-check-input" type="checkbox" id="action">
-	                        <label class="form-check-label" for="action">Action</label>
-	                    </div>
-
-	                    <div class="form-check">
-	                        <input class="form-check-input" type="checkbox" id="comedy">
-	                        <label class="form-check-label" for="comedy">Comedy</label>
-	                    </div>
-
-	                    <div class="form-check">
-	                        <input class="form-check-input" type="checkbox" id="romance">
-	                        <label class="form-check-label" for="romance">Romance</label>
-	                    </div>
-
-	                    <div class="form-check">
-	                        <input class="form-check-input" type="checkbox" id="school">
-	                        <label class="form-check-label" for="school">School</label>
-	                    </div>
-
-	                    <div class="form-check">
-	                        <input class="form-check-input" type="checkbox" id="adventure">
-	                        <label class="form-check-label" for="adventure">Adventure</label>
-	                    </div>
-
-	                </div>
-	            </div>
+	                   placeholder="Search Title..."
+	                   th:value="${selectedSearch}"
+	                   oninput="autoFilter(this)">
 	        </div>
 
 	        <!-- Language -->
 	        <div class="col-lg-2">
-	            <select class="form-select">
-	                <option selected>Language</option>
-	                <option>English</option>
-	                <option>Malayalam</option>
-	                <option>Japanese</option>
-	                <option>Hindi</option>
-	            </select>
-	        </div>
-
-	        <!-- Rating -->
-	        <div class="col-lg-2">
-	            <select class="form-select">
-	                <option selected>Rating</option>
-	                <option>G</option>
-	                <option>PG-13</option>
-	                <option>R</option>
+	            <select name="language" class="form-select">
+	                <option value="" th:selected="${selectedLanguage == null}">All Languages</option>
+	                <option value="English" th:selected="${selectedLanguage == 'English'}">English</option>
+	                <option value="Malayalam" th:selected="${selectedLanguage == 'Malayalam'}">Malayalam</option>
+	                <option value="Japanese" th:selected="${selectedLanguage == 'Japanese'}">Japanese</option>
+	                <option value="Hindi" th:selected="${selectedLanguage == 'Hindi'}">Hindi</option>
 	            </select>
 	        </div>
 
@@ -122,118 +53,49 @@
 	                </button>
 
 	                <div class="dropdown-menu p-3 w-100">
-
 	                    <div class="form-check">
-	                        <input class="form-check-input" type="checkbox" id="y2026">
+	                        <input class="form-check-input" type="checkbox" name="year" value="2026" id="y2026"
+	                               th:checked="${selectedYears != null and #lists.contains(selectedYears, 2026)}">
 	                        <label class="form-check-label" for="y2026">2026</label>
 	                    </div>
-
 	                    <div class="form-check">
-	                        <input class="form-check-input" type="checkbox" id="y2025">
+	                        <input class="form-check-input" type="checkbox" name="year" value="2025" id="y2025"
+	                               th:checked="${selectedYears != null and #lists.contains(selectedYears, 2025)}">
 	                        <label class="form-check-label" for="y2025">2025</label>
 	                    </div>
-
 	                    <div class="form-check">
-	                        <input class="form-check-input" type="checkbox" id="y2024">
+	                        <input class="form-check-input" type="checkbox" name="year" value="2024" id="y2024"
+	                               th:checked="${selectedYears != null and #lists.contains(selectedYears, 2024)}">
 	                        <label class="form-check-label" for="y2024">2024</label>
 	                    </div>
-
 	                    <div class="form-check">
-	                        <input class="form-check-input" type="checkbox" id="y2023">
+	                        <input class="form-check-input" type="checkbox" name="year" value="2023" id="y2023"
+	                               th:checked="${selectedYears != null and #lists.contains(selectedYears, 2023)}">
 	                        <label class="form-check-label" for="y2023">2023</label>
 	                    </div>
-
 	                    <div class="form-check">
-	                        <input class="form-check-input" type="checkbox" id="y2022">
+	                        <input class="form-check-input" type="checkbox" name="year" value="2022" id="y2022"
+	                               th:checked="${selectedYears != null and #lists.contains(selectedYears, 2022)}">
 	                        <label class="form-check-label" for="y2022">2022</label>
 	                    </div>
-
 	                </div>
 	            </div>
 	        </div>
 
-	        <!-- Country -->
-	        <div class="col-lg-2">
-	            <select class="form-select">
-	                <option selected>Country</option>
-	                <option>Japan</option>
-	                <option>India</option>
-	                <option>USA</option>
-	                <option>South Korea</option>
-	                <option>China</option>
-	            </select>
-	        </div>
-
-	        <!-- Studio -->
-	        <div class="col-lg-3">
-	            <input type="text"
-	                   class="form-control"
-	                   placeholder="Studio / Production House">
-	        </div>
-
-	        <!-- Flagged Content -->
-	        <div class="col-lg-2">
-	            <select class="form-select">
-	                <option selected>Flagged Content</option>
-	                <option>Yes</option>
-	                <option>No</option>
-	            </select>
-	        </div>
-
-	        <!-- Streaming Status -->
-	        <div class="col-lg-2">
-	            <select class="form-select">
-	                <option selected>Streaming Status</option>
-	                <option>Available</option>
-	                <option>Removed</option>
-	                <option>Coming Soon</option>
-	            </select>
-	        </div>
-
-	        <!-- Completion Status -->
-	        <div class="col-lg-2">
-	            <select class="form-select">
-	                <option selected>Completion Status</option>
-	                <option>Completed</option>
-	                <option>Ongoing</option>
-	            </select>
-	        </div>
-
-	        <!-- Sort By -->
-	        <div class="col-lg-3">
-	            <select class="form-select">
-	                <option selected>Sort By</option>
-	                <option>Recently Updated</option>
-	                <option>Most Viewed</option>
-	                <option>Highest Rated</option>
-	                <option>Most In Watchlist</option>
-	                <option>Most Liked</option>
-	                <option>Title A-Z</option>
-	                <option>Title Z-A</option>
-	                <option>Release Date</option>
-	            </select>
-	        </div>
-
 	        <!-- Buttons -->
 	        <div class="col-auto">
-	            <button class="btn btn-primary px-4">
-	                Filter
-	            </button>
+	            <button type="submit" class="btn btn-primary px-4">Filter</button>
 	        </div>
 
 	        <div class="col-auto">
-	            <button class="btn btn-outline-secondary px-4">
-	                Reset
-	            </button>
+	            <a th:href="@{/files}" class="btn btn-outline-secondary px-4">Reset</a>
 	        </div>
-			
+
 			<div class="col-auto">
-			    <a th:href="@{/upload}" class="btn btn-outline-secondary px-4">
-			        Upload
-			    </a>
+			    <a th:href="@{/upload}" class="btn btn-outline-secondary px-4">Upload</a>
 			</div>
 
-	    </div>
+	    </form>
 
 	
 		
@@ -250,72 +112,34 @@
 		                <tr>
 		                    <th>Content ID</th>
 		                    <th>Title</th>
-		                    <th>Views</th>
-		       
 		                    <th>Preview</th>
 		                    <th>Edit</th>
-		     
 		                    <th>Delete</th>
 		                </tr>
 		            </thead>
 
 		            <tbody>
-
-		                <tr>
-		                    <td>1001</td>
-		                    <td>Attack on Titan</td>
-		                    <td>1,250,000</td>
-		                 
-
-							<td>
-							    <button class="btn btn-info btn-sm"
-							            onclick="window.location.href='/preview'">
-							        Preview
-							    </button>
-							</td>
+		                <tr th:each="movie : ${movies}">
+		                    <td th:text="${movie.id}">1001</td>
+		                    <td th:text="${movie.title}">Movie Title</td>
 
 		                    <td>
-		                        <button class="btn btn-warning btn-sm">
-		                            Edit
-		                        </button>
+		                        <a th:href="@{/preview(movieId=${movie.id})}" class="btn btn-info btn-sm">Preview</a>
 		                    </td>
 
-		   
+		                    <td>
+		                        <a th:href="@{/upload}" class="btn btn-warning btn-sm">Edit</a>
+		                    </td>
 
 		                    <td>
-		                        <button class="btn btn-danger btn-sm">
-		                            Delete
-		                        </button>
+		                        <form th:action="@{/files/delete}" method="post" style="display:inline;"
+		                              th:data-movie-title="${movie.title}"
+		                              onsubmit="return confirm('Delete movie &quot;' + this.dataset.movieTitle + '&quot;?');">
+		                            <input type="hidden" name="movieId" th:value="${movie.id}"/>
+		                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+		                        </form>
 		                    </td>
 		                </tr>
-
-		                <tr>
-		                    <td>1002</td>
-		                    <td>Demon Slayer</td>
-		                    <td>950,000</td>
-		                    
-
-		                    <td>
-		                        <button class="btn btn-info btn-sm">
-		                            Preview
-		                        </button>
-		                    </td>
-
-		                    <td>
-		                        <button class="btn btn-warning btn-sm">
-		                            Edit
-		                        </button>
-		                    </td>
-
-		                
-
-		                    <td>
-		                        <button class="btn btn-danger btn-sm">
-		                            Delete
-		                        </button>
-		                    </td>
-		                </tr>
-
 		            </tbody>
 
 		        </table>
@@ -328,6 +152,18 @@
 	</div>
 	
 	<script>
+	let filterTimer;
+
+	function autoFilter(el) {
+	    clearTimeout(filterTimer);
+	    const form = el.closest('form');
+	    if (el.name === 'search') {
+	        filterTimer = setTimeout(() => form.submit(), 500);
+	    } else {
+	        form.submit();
+	    }
+	}
+
 	document.querySelectorAll('.dropdown-menu').forEach(menu => {
 	    menu.addEventListener('click', function(e) {
 	        e.stopPropagation();

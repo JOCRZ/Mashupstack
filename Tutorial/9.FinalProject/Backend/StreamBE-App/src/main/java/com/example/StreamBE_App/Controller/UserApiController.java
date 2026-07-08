@@ -30,6 +30,10 @@ public class UserApiController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDto userDto) {
+        User user = userService.findByEmail(userDto.getEmail());
+        if (user != null && user.isBlock_status()) {
+            return ResponseEntity.status(403).body("Account is blocked");
+        }
         String token = tokenGenerator.generateToken(userDto.getEmail(), userDto.getPassword());
         if (token != null) {
             return ResponseEntity.ok(Map.of("token", token));

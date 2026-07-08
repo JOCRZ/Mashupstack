@@ -60,6 +60,13 @@ public class ApiAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
+        if (user.isBlock_status()) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"error\":\"Account is blocked\"}");
+            return;
+        }
+
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(user.getEmail(), null, null);
         SecurityContextHolder.getContext().setAuthentication(authentication);

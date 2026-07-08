@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.example.StreamBE_App.Models.Movies;
 import com.example.StreamBE_App.Models.User;
 import com.example.StreamBE_App.Repository.MovieRepository;
 import com.example.StreamBE_App.Repository.UserRepository;
@@ -42,10 +43,18 @@ public class AdminController {
                           HttpServletRequest request) {
         User user = userRepository.findByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
+            if (user.isBlock_status()) {
+                return "redirect:/blocked";
+            }
             request.getSession().setAttribute("adminUser", email);
             return "redirect:/dashboard";
         }
         return "redirect:/login?error";
+    }
+
+    @GetMapping("/blocked")
+    public String blockedPage() {
+        return "blocked";
     }
 
     @GetMapping("/logout")
@@ -81,13 +90,77 @@ public class AdminController {
     }
     
     @GetMapping("/users")
-    public String usersPage() {
+    public String usersPage(@RequestParam(required = false) String search,
+                            @RequestParam(required = false) String role,
+                            @RequestParam(required = false) String blockStatus,
+                            Model model) {
+        if (search != null && search.isEmpty()) search = null;
+
+        Boolean roleFilter = null;
+        if (role != null && !role.isEmpty()) {
+            roleFilter = "admin".equalsIgnoreCase(role);
+        }
+
+        Boolean blockFilter = null;
+        if (blockStatus != null && !blockStatus.isEmpty()) {
+            blockFilter = "blocked".equalsIgnoreCase(blockStatus);
+        }
+
+        List<User> users;
+        if (search != null || roleFilter != null || blockFilter != null) {
+            users = userRepository.findByFilters(search, roleFilter, blockFilter);
+        } else {
+            users = userRepository.findAll();
+        }
+
+        model.addAttribute("users", users);
+        model.addAttribute("selectedSearch", search);
+        model.addAttribute("selectedRole", role);
+        model.addAttribute("selectedBlockStatus", blockStatus);
         return "users";
+    }
+
+    @PostMapping("/users/block")
+    public String blockUser(@RequestParam Long userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            user.setBlock_status(!user.isBlock_status());
+            userRepository.save(user);
+        }
+        return "redirect:/users";
+    }
+
+    @PostMapping("/users/delete")
+    public String deleteUser(@RequestParam Long userId) {
+        userRepository.deleteById(userId);
+        return "redirect:/users";
     }
     
     @GetMapping("/files")
-    public String filesPage() {
+    public String filesPage(@RequestParam(required = false) String search,
+                            @RequestParam(required = false) String language,
+                            @RequestParam(required = false) List<Integer> year,
+                            Model model) {
+        if (search != null && search.isEmpty()) search = null;
+        if (language != null && language.isEmpty()) language = null;
+
+        List<Movies> movies;
+        if (search != null || language != null || (year != null && !year.isEmpty())) {
+            movies = movieRepository.findByFilters(search, language, year);
+        } else {
+            movies = movieRepository.findAll();
+        }
+        model.addAttribute("movies", movies);
+        model.addAttribute("selectedSearch", search);
+        model.addAttribute("selectedLanguage", language);
+        model.addAttribute("selectedYears", year);
         return "files";
+    }
+
+    @PostMapping("/files/delete")
+    public String deleteMovie(@RequestParam Long movieId) {
+        movieRepository.deleteById(movieId);
+        return "redirect:/files";
     }
     
     @GetMapping("/upload")
@@ -96,12 +169,20 @@ public class AdminController {
     }
     
     @GetMapping("/view")
-    public String viewPage() {
+    public String viewPage(@RequestParam(required = false) Long userId, Model model) {
+        if (userId != null) {
+            User user = userRepository.findById(userId).orElse(null);
+            model.addAttribute("viewUser", user);
+        }
         return "view";
     }
     
     @GetMapping("/preview")
-    public String previewPage() {
-    	return "preview";
+    public String previewPage(@RequestParam(required = false) Long movieId, Model model) {
+        if (movieId != null) {
+            Movies movie = movieRepository.findById(movieId).orElse(null);
+            model.addAttribute("previewMovie", movie);
+        }
+        return "preview";
     }
 }

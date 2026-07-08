@@ -62,116 +62,44 @@ body{
 
         <div class="card-body">
 
-            <!-- Content Type -->
-            <div class="mb-4">
-                <label class="form-label">Content Type</label>
-                <select class="form-select" id="contentType">
-                    <option value="">Select</option>
-                    <option value="movie">Movie</option>
-                    <option value="series">Series</option>
-                </select>
+            <div class="mb-3">
+                <label class="form-label">Movie Title</label>
+                <input type="text" class="form-control">
             </div>
 
-            <!-- Common Fields -->
-            <div id="commonFields" style="display:none;">
-
-                <div class="mb-3">
-                    <label class="form-label">Movie / Series Title</label>
-                    <input type="text" class="form-control">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <textarea class="form-control" rows="5"></textarea>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-lg-6">
-                        <label class="form-label">
-                            Thumbnail (322 × 230)
-                        </label>
-
-                        <input type="file" class="form-control">
-
-                        <div class="preview-box mt-3">
-                            <div class="preview-small">
-                                322 × 230 Preview
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <label class="form-label">
-                            Thumbnail (615 × 415)
-                        </label>
-
-                        <input type="file" class="form-control">
-
-                        <div class="preview-box mt-3">
-                            <div class="preview-large">
-                                615 × 415 Preview
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" rows="5"></textarea>
             </div>
 
-            <!-- Movie Section -->
-            <div id="movieSection" style="display:none;">
-
-                <hr>
-
-                <h5>Movie Upload</h5>
-
-                <div class="mb-3">
-                    <label class="form-label">Movie File</label>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label class="form-label">Thumbnail (322 × 230)</label>
                     <input type="file" class="form-control">
+                    <div class="preview-box mt-3">
+                        <div class="preview-small">322 × 230 Preview</div>
+                    </div>
                 </div>
-
+                <div class="col-lg-6">
+                    <label class="form-label">Thumbnail (615 × 415)</label>
+                    <input type="file" class="form-control">
+                    <div class="preview-box mt-3">
+                        <div class="preview-large">615 × 415 Preview</div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Series Section -->
-            <div id="seriesSection" style="display:none;">
+            <hr>
 
-                <hr>
+            <h5>Movie Upload</h5>
 
-                <h5>Series Upload</h5>
-
-                <div class="row">
-
-                    <div class="col-md-4">
-                        <label class="form-label">Season No</label>
-                        <input type="number" class="form-control">
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="form-label">Total Episodes</label>
-                        <input type="number"
-                               class="form-control"
-                               id="episodeCount">
-                    </div>
-
-                    <div class="col-md-4 d-flex align-items-end">
-                        <button class="btn btn-primary"
-                                type="button"
-                                onclick="generateEpisodes()">
-                            Generate Episodes
-                        </button>
-                    </div>
-
-                </div>
-
-                <div id="episodeUploads" class="mt-4"></div>
-
+            <div class="mb-3">
+                <label class="form-label">Movie File</label>
+                <input type="file" class="form-control">
             </div>
 
             <div class="mt-4">
-                <button class="btn btn-success">
-                    Submit
-                </button>
+                <button class="btn btn-success">Submit</button>
             </div>
 
         </div>
@@ -179,47 +107,6 @@ body{
     </div>
 
 </div>
-
-<script>
-
-document.getElementById('contentType').addEventListener('change', function(){
-
-    document.getElementById('commonFields').style.display = 'block';
-
-    if(this.value === 'movie'){
-        document.getElementById('movieSection').style.display = 'block';
-        document.getElementById('seriesSection').style.display = 'none';
-    }
-
-    if(this.value === 'series'){
-        document.getElementById('movieSection').style.display = 'none';
-        document.getElementById('seriesSection').style.display = 'block';
-    }
-
-});
-
-function generateEpisodes(){
-
-    let count = document.getElementById('episodeCount').value;
-
-    let container = document.getElementById('episodeUploads');
-
-    container.innerHTML = '';
-
-    for(let i = 1; i <= count; i++){
-
-        container.innerHTML += `
-            <div class="mb-3">
-                <label class="form-label">Episode ${i}</label>
-                <input type="file" class="form-control">
-            </div>
-        `;
-
-    }
-
-}
-
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

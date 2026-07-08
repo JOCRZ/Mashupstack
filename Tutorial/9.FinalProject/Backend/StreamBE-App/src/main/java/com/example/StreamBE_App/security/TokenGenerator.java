@@ -31,6 +31,9 @@ public class TokenGenerator {
     public String generateToken(String email, String password) {
         User user = userRepository.findByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            if (user.isBlock_status()) {
+                return null;
+            }
             String token;
             do {
                 token = generateRandomString();
