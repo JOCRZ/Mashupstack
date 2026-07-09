@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Upload Content</title>
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
 <style>
 body{
@@ -26,7 +26,7 @@ body{
     background:white;
 }
 
-.preview-medium{
+.preview-image{
     width:306px;
     height:460px;
     border:1px solid #dee2e6;
@@ -36,17 +36,6 @@ body{
     margin:auto;
     font-size:12px;
 }
-
-.preview-banner{
-    width:100%;
-    height:135px;
-    border:1px solid #dee2e6;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:auto;
-}
-
 .field-wrapper{
     position:relative;
 }
@@ -95,37 +84,48 @@ body{
 
             <form th:action="@{/upload}" method="post" enctype="multipart/form-data" id="uploadForm">
 
-                <div class="mb-3 field-wrapper">
-                    <label class="form-label">Title</label>
-                    <input type="text" name="title" class="form-control" required oninput="toggleClear(this)">
-                    <button type="button" class="btn-clear" onclick="clearField(this)" tabindex="-1">×</button>
+                <div th:if="${param.error}" class="alert alert-danger">Upload failed. Please try again.</div>
+                <div th:if="${param.success}" class="alert alert-success">Movie uploaded successfully!</div>
+
+                <div class="row">
+                    <div class="col-lg-5 field-wrapper">
+                        <label class="form-label">Title</label>
+                        <input type="text" name="title" class="form-control" id="fetchTitle" required oninput="toggleClear(this)">
+                        <button type="button" class="btn-clear" onclick="clearField(this)" tabindex="-1">×</button>
+                    </div>
+                    <div class="col-lg-3 field-wrapper">
+                        <label class="form-label">Year</label>
+                        <input type="number" name="year" class="form-control" id="fetchYear" min="1900" max="2099" required oninput="toggleClear(this)">
+                        <button type="button" class="btn-clear" onclick="clearField(this)" tabindex="-1">×</button>
+                    </div>
+                    <div class="col-lg-2 d-flex align-items-end">
+                        <button type="button" class="btn btn-primary w-100" id="fetchBtn" onclick="fetchMovie()">Fetch</button>
+                    </div>
+                    <div class="col-lg-2 d-flex align-items-end">
+                        <button type="button" class="btn btn-outline-secondary w-100" onclick="clearAll()">Clear All</button>
+                    </div>
                 </div>
 
-                <div class="mb-3 field-wrapper">
+                <div class="mb-3 mt-3 field-wrapper">
                     <label class="form-label">Description</label>
-                    <textarea name="description" class="form-control" rows="5" required oninput="toggleClear(this)"></textarea>
+                    <textarea name="description" class="form-control" id="fetchDescription" rows="5" required oninput="toggleClear(this)"></textarea>
                     <button type="button" class="btn-clear" onclick="clearField(this)" style="top:42px;transform:none;" tabindex="-1">×</button>
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-3 field-wrapper">
-                        <label class="form-label">Year</label>
-                        <input type="number" name="year" class="form-control" min="1900" max="2099" required oninput="toggleClear(this)">
-                        <button type="button" class="btn-clear" onclick="clearField(this)" tabindex="-1">×</button>
-                    </div>
-                    <div class="col-lg-3 field-wrapper">
+                    <div class="col-lg-4 field-wrapper">
                         <label class="form-label">Rating</label>
-                        <input type="number" name="rating" class="form-control" step="0.1" min="0" max="10" required oninput="toggleClear(this)">
+                        <input type="number" name="rating" class="form-control" id="fetchRating" step="0.1" min="0" max="10" required oninput="toggleClear(this)">
                         <button type="button" class="btn-clear" onclick="clearField(this)" tabindex="-1">×</button>
                     </div>
-                    <div class="col-lg-3 field-wrapper">
+                    <div class="col-lg-4 field-wrapper">
                         <label class="form-label">Duration</label>
-                        <input type="text" name="duration" class="form-control" placeholder="e.g. 2h 30m" required oninput="toggleClear(this)">
+                        <input type="text" name="duration" class="form-control" id="fetchDuration" placeholder="e.g. 2h 30m" required oninput="toggleClear(this)">
                         <button type="button" class="btn-clear" onclick="clearField(this)" tabindex="-1">×</button>
                     </div>
-                    <div class="col-lg-3 field-wrapper">
+                    <div class="col-lg-4 field-wrapper">
                         <label class="form-label">Language</label>
-                        <select name="language" class="form-select" required onchange="toggleClear(this)">
+                        <select name="language" class="form-select" id="fetchLanguage" required onchange="toggleClear(this)">
                             <option value="">Select</option>
                             <option>English</option>
                             <option>Malayalam</option>
@@ -141,23 +141,26 @@ body{
                 <h5>Images</h5>
                 <div class="row mt-3">
                     <div class="col-lg-6 field-wrapper">
-                        <label class="form-label">Medium (460 × 690)</label>
-                        <input type="file" name="mediumImage" class="form-control" accept="image/*" onchange="previewImage(this, 'mediumPreview');toggleClear(this)">
-                        <button type="button" class="btn-clear" onclick="clearFileField(this, 'mediumPreview', '460 × 690 Preview')" tabindex="-1">×</button>
+                        <label class="form-label">Image</label>
+                        <input type="file" name="image" class="form-control" accept="image/*" id="imageInput" onchange="previewImage(this, 'imagePreview');toggleClear(this);document.getElementById('imageUrl').value=''">
+                        <input type="hidden" name="imageUrl" id="imageUrl">
+                        <button type="button" class="btn-clear" onclick="clearFileField(this, 'imagePreview', 'Image Preview');document.getElementById('imageUrl').value=''" tabindex="-1">×</button>
                         <div class="preview-box mt-3">
-                            <div class="preview-medium" id="mediumPreview">460 × 690 Preview</div>
+                            <div class="preview-image" id="imagePreview">Image Preview</div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="mb-3 field-wrapper">
-                            <label class="form-label">Banner (1200 × 675)</label>
-                            <input type="file" name="bannerImage" class="form-control" accept="image/*" onchange="previewImage(this, 'bannerPreview');toggleClear(this)">
-                            <button type="button" class="btn-clear" onclick="clearFileField(this, 'bannerPreview', '1200 × 675 Preview')" tabindex="-1">×</button>
-                            <div class="preview-box mt-3">
-                                <div class="preview-banner" id="bannerPreview">1200 × 675 Preview</div>
-                            </div>
+                        <div class="field-wrapper">
+                            <label class="form-label">Video File</label>
+                            <input type="file" name="videoFile" class="form-control" accept="video/*" id="videoFileInput" required onchange="toggleClear(this)">
+                            <button type="button" class="btn-clear" onclick="clearVideoField(this)" tabindex="-1">×</button>
                         </div>
-                        <div id="videoPreviewContainer" style="display:none;">
+                        <div class="field-wrapper mt-3">
+                            <label class="form-label">Rename Video</label>
+                            <input type="text" name="videoName" class="form-control" placeholder="Enter custom filename (no extension)" id="videoNameInput" required oninput="toggleClear(this)">
+                            <button type="button" class="btn-clear" onclick="clearField(this)" tabindex="-1">×</button>
+                        </div>
+                        <div id="videoPreviewContainer" style="display:none;" class="mt-3">
                             <label class="form-label">Video Preview</label>
                             <video id="videoPreview" controls style="width:100%;max-height:300px;background:#000;border-radius:8px;"></video>
                         </div>
@@ -166,24 +169,8 @@ body{
 
                 <hr class="mt-4">
 
-                <h5>Video Upload</h5>
-
-                <div class="row mt-3">
-                    <div class="col-lg-6 field-wrapper">
-                        <label class="form-label">Video File</label>
-                        <input type="file" name="videoFile" class="form-control" accept="video/*" id="videoFileInput" required onchange="toggleClear(this)">
-                        <button type="button" class="btn-clear" onclick="clearVideoField(this)" tabindex="-1">×</button>
-                    </div>
-                    <div class="col-lg-6 field-wrapper">
-                        <label class="form-label">Rename Video</label>
-                        <input type="text" name="videoName" class="form-control" placeholder="Enter custom filename (no extension)" id="videoNameInput" required oninput="toggleClear(this)">
-                        <button type="button" class="btn-clear" onclick="clearField(this)" tabindex="-1">×</button>
-                    </div>
-                </div>
-
-                <div class="mt-4 d-flex gap-2">
-                    <button type="submit" class="btn btn-success flex-fill">Upload Movie</button>
-                    <button type="button" class="btn btn-outline-secondary" onclick="clearAll()">Clear All</button>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success w-100">Upload Movie</button>
                 </div>
 
             </form>
@@ -255,14 +242,70 @@ function clearVideoField(btn) {
 
 function clearAll() {
     document.getElementById('uploadForm').reset();
-    document.querySelectorAll('.preview-medium, .preview-banner').forEach(el => {
-        el.textContent = el.id === 'mediumPreview' ? '460 × 690 Preview' : '1200 × 675 Preview';
+    document.querySelectorAll('.preview-image').forEach(el => {
+        el.textContent = 'Image Preview';
     });
     const container = document.getElementById('videoPreviewContainer');
     const video = document.getElementById('videoPreview');
     if (video) video.src = '';
     if (container) container.style.display = 'none';
     document.querySelectorAll('.btn-clear').forEach(btn => btn.style.display = 'none');
+}
+
+async function fetchMovie() {
+    const title = document.getElementById('fetchTitle').value.trim();
+    const year = document.getElementById('fetchYear').value.trim();
+    if (!title || !year) {
+        alert('Enter both title and year');
+        return;
+    }
+
+    const btn = document.getElementById('fetchBtn');
+    btn.disabled = true;
+    btn.textContent = 'Fetching...';
+
+    try {
+        const res = await fetch('/fetch-movie?title=' + encodeURIComponent(title) + '&year=' + year);
+        const data = await res.json();
+
+        if (data.error) {
+            alert(data.error);
+            return;
+        }
+
+        document.getElementById('fetchDescription').value = data.description || '';
+
+        const rating = document.getElementById('fetchRating');
+        rating.value = data.rating || '';
+        rating.dispatchEvent(new Event('input', { bubbles: true }));
+
+        const duration = document.getElementById('fetchDuration');
+        duration.value = data.duration || '';
+        duration.dispatchEvent(new Event('input', { bubbles: true }));
+
+        const lang = document.getElementById('fetchLanguage');
+        if (data.language) {
+            const options = lang.options;
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].value.toUpperCase() === data.language.toUpperCase()) {
+                    lang.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+        lang.dispatchEvent(new Event('change', { bubbles: true }));
+
+        if (data.poster) {
+            document.getElementById('imagePreview').innerHTML = '<img src="' + data.poster + '" style="max-width:100%;max-height:100%;object-fit:contain">';
+            document.getElementById('imageUrl').value = data.poster;
+            document.getElementById('imageInput').value = '';
+        }
+    } catch (e) {
+        alert('Failed to fetch movie details');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Fetch';
+    }
 }
 
 document.getElementById('videoFileInput').addEventListener('change', function() {

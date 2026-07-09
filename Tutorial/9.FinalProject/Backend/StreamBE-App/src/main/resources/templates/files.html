@@ -21,6 +21,11 @@
 
 	<div class="container mt-4">
 
+		<div th:if="${param.uploadSuccess}" class="alert alert-success alert-dismissible fade show">
+			Movie uploaded successfully!
+			<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+		</div>
+
 <form th:action="@{/files}" method="get" class="row g-3 align-items-start">
 
 	        <!-- Search -->

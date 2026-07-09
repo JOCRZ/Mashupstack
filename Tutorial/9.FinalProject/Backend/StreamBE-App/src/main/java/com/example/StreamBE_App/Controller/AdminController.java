@@ -23,6 +23,7 @@ import com.example.StreamBE_App.Models.User;
 import com.example.StreamBE_App.Repository.MovieRepository;
 import com.example.StreamBE_App.Repository.UserRepository;
 import com.example.StreamBE_App.Repository.WatchListRepository;
+import com.example.StreamBE_App.Service.TmdbService;
 import com.example.StreamBE_App.dto.LanguageCountDTO;
 import com.example.StreamBE_App.dto.WatchListCountDTO;
 import com.example.StreamBE_App.dto.YearCountDTO;
@@ -43,6 +44,9 @@ public class AdminController {
 
     @Autowired
     private WatchListRepository watchListRepository;
+
+    @Autowired
+    private TmdbService tmdbService;
 
     @GetMapping({"/login", "/admin"})
     public String loginPage(HttpSession session) {
@@ -191,9 +195,8 @@ public class AdminController {
                            @RequestParam String language,
                            @RequestParam("videoName") String videoName,
                            @RequestParam("videoFile") MultipartFile videoFile,
-                           @RequestParam(value = "smallImage", required = false) MultipartFile smallImage,
-                           @RequestParam(value = "mediumImage", required = false) MultipartFile mediumImage,
-                           @RequestParam(value = "bannerImage", required = false) MultipartFile bannerImage) {
+                           @RequestParam(value = "imageUrl", required = false) String imageUrl,
+                           @RequestParam(value = "image", required = false) MultipartFile image) {
         try {
             java.nio.file.Path uploadPath = java.nio.file.Paths.get(uploadDir).toAbsolutePath().normalize();
             if (!uploadPath.toFile().exists()) uploadPath.toFile().mkdirs();
@@ -209,9 +212,20 @@ public class AdminController {
 
             Movies movie = new Movies(title, description, year, duration, rating, language);
             movie.setFilePath(fileName);
+
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                movie.setImage(imageUrl);
+            } else if (image != null && !image.isEmpty()) {
+                java.nio.file.Path thumbDir = uploadPath.resolve("thumbnails");
+                if (!thumbDir.toFile().exists()) thumbDir.toFile().mkdirs();
+                String thumbName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+                image.transferTo(thumbDir.resolve(thumbName).toFile());
+                movie.setImage("thumbnails/" + thumbName);
+            }
+
             movieRepository.save(movie);
 
-            return "redirect:/files";
+            return "redirect:/files?uploadSuccess";
         } catch (Exception e) {
             return "redirect:/upload?error";
         }
@@ -237,7 +251,13 @@ public class AdminController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + movie.getFilePath() + "\"")
                 .body(resource);
     }
-    
+
+    @GetMapping("/fetch-movie")
+    @ResponseBody
+    public Map<String, Object> fetchMovie(@RequestParam String title, @RequestParam int year) {
+        return tmdbService.fetchMovie(title, year);
+    }
+
     @GetMapping("/view")
     public String viewPage(@RequestParam(required = false) Long userId, Model model) {
         if (userId != null) {

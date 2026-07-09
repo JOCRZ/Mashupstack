@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,15 +16,14 @@ public class Movies {
     private Long id;
    
     private String title;
+    @Lob
     private String description;
     private int year;
     private String duration;
     private double rating;
     private String language;
     private String filePath;
-    private String smallImage;
-    private String mediumImage;
-    private String bannerImage;
+    private String image;
 
     public Movies() {}
 
@@ -60,12 +60,6 @@ public class Movies {
     public String getFilePath() { return filePath; }
     public void setFilePath(String filePath) { this.filePath = filePath; }
 
-    public String getSmallImage() { return smallImage; }
-    public void setSmallImage(String smallImage) { this.smallImage = smallImage; }
-
-    public String getMediumImage() { return mediumImage; }
-    public void setMediumImage(String mediumImage) { this.mediumImage = mediumImage; }
-
-    public String getBannerImage() { return bannerImage; }
-    public void setBannerImage(String bannerImage) { this.bannerImage = bannerImage; }
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
 }
