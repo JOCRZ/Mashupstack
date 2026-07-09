@@ -4,12 +4,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import com.example.StreamBE_App.Models.Movies;
 import com.example.StreamBE_App.Models.User;
 import com.example.StreamBE_App.Repository.MovieRepository;
@@ -23,6 +31,9 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AdminController {
+
+    @Value("${app.upload.dir}")
+    private String uploadDir;
 
     @Autowired
     private UserRepository userRepository;
@@ -68,8 +79,8 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        long totalUsers = userRepository.count();
-        long blockedUsers = userRepository.countByBlockStatus(true);
+        long totalUsers = userRepository.countByRole(false);
+        long blockedUsers = userRepository.countByBlockStatusForUsers(true);
         long totalMovies = movieRepository.count();
 
         List<LanguageCountDTO> moviesByLanguage = movieRepository.countByLanguage();
@@ -78,7 +89,6 @@ public class AdminController {
 
         model.addAttribute("totalUsers", totalUsers);
         model.addAttribute("blockedUsers", blockedUsers);
-        model.addAttribute("activeUsers", totalUsers - blockedUsers);
         model.addAttribute("totalMovies", totalMovies);
         model.addAttribute("moviesByLanguage", moviesByLanguage);
         model.addAttribute("moviesByYear", moviesByYear);
@@ -170,6 +180,62 @@ public class AdminController {
     @GetMapping("/upload")
     public String uploadPage() {
         return "edit";
+    }
+
+    @PostMapping("/upload")
+    public String doUpload(@RequestParam String title,
+                           @RequestParam String description,
+                           @RequestParam int year,
+                           @RequestParam double rating,
+                           @RequestParam String duration,
+                           @RequestParam String language,
+                           @RequestParam("videoName") String videoName,
+                           @RequestParam("videoFile") MultipartFile videoFile,
+                           @RequestParam(value = "smallImage", required = false) MultipartFile smallImage,
+                           @RequestParam(value = "mediumImage", required = false) MultipartFile mediumImage,
+                           @RequestParam(value = "bannerImage", required = false) MultipartFile bannerImage) {
+        try {
+            java.nio.file.Path uploadPath = java.nio.file.Paths.get(uploadDir).toAbsolutePath().normalize();
+            if (!uploadPath.toFile().exists()) uploadPath.toFile().mkdirs();
+
+            String ext = "";
+            String original = videoFile.getOriginalFilename();
+            if (original != null && original.contains(".")) {
+                ext = original.substring(original.lastIndexOf("."));
+            }
+            String fileName = videoName.replaceAll("[^a-zA-Z0-9_\\-]", "_") + ext;
+            java.nio.file.Path filePath = uploadPath.resolve(fileName);
+            videoFile.transferTo(filePath.toFile());
+
+            Movies movie = new Movies(title, description, year, duration, rating, language);
+            movie.setFilePath(fileName);
+            movieRepository.save(movie);
+
+            return "redirect:/files";
+        } catch (Exception e) {
+            return "redirect:/upload?error";
+        }
+    }
+
+    @GetMapping("/videos/{id}")
+    public ResponseEntity<Resource> streamVideo(@PathVariable Long id) {
+        Movies movie = movieRepository.findById(id).orElse(null);
+        if (movie == null || movie.getFilePath() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        java.nio.file.Path filePath = java.nio.file.Paths.get(uploadDir).toAbsolutePath().normalize().resolve(movie.getFilePath());
+        if (!filePath.toFile().exists()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        FileSystemResource resource = new FileSystemResource(filePath.toFile());
+        String contentType = "video/mp4";
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + movie.getFilePath() + "\"")
+                .body(resource);
     }
     
     @GetMapping("/view")

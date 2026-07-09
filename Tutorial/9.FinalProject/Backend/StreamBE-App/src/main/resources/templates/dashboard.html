@@ -54,19 +54,6 @@
                 </div>
             </div>
             <div class="col-xl-3 col-md-6">
-                <div class="card border-success border-start border-4 shadow-sm h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="text-muted mb-1 small">Active Users</p>
-                                <h2 class="mb-0 fw-bold text-success" th:text="${activeUsers}">0</h2>
-                            </div>
-                            <span class="fs-1 text-success opacity-25">&#9783;</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
                 <div class="card border-danger border-start border-4 shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -94,38 +81,8 @@
             </div>
         </div>
 
-        <!-- First row: User Status + Movies by Language -->
+        <!-- Movies by Language -->
         <div class="row g-4">
-
-            <!-- User Status -->
-            <div class="col-lg-6">
-                <div class="card shadow-sm h-100">
-                    <div class="card-header bg-dark text-white">
-                        <h5 class="mb-0">User Status</h5>
-                    </div>
-                    <div class="card-body chart-bar-wrapper">
-                        <table id="user-chart" class="charts-css bar show-labels show-data data-spacing-5"
-                               th:if="${totalUsers > 0}">
-                            <caption>User Status</caption>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">Active</th>
-                                    <td th:style="${'--size: ' + (activeUsers * 1.0 / totalUsers) + ';'}"
-                                        th:text="${activeUsers}">0</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Blocked</th>
-                                    <td th:style="${'--size: ' + (blockedUsers * 1.0 / totalUsers) + ';'}"
-                                        th:text="${blockedUsers}">0</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <p class="text-muted mb-0" th:if="${totalUsers == 0}">No users yet.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Movies by Language -->
             <div class="col-lg-6" th:with="isEmpty=${moviesByLanguage == null or #lists.isEmpty(moviesByLanguage)}">
                 <div class="card shadow-sm h-100">
                     <div class="card-header bg-dark text-white">

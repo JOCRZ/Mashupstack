@@ -20,7 +20,11 @@ public class Movies {
     private String duration;
     private double rating;
     private String language;
-    
+    private String filePath;
+    private String smallImage;
+    private String mediumImage;
+    private String bannerImage;
+
     public Movies() {}
 
     public Movies(String title, String description, int year, String duration, double rating, String language) {
@@ -53,4 +57,15 @@ public class Movies {
     public String getLanguage() { return language; }
     public void setLanguage(String language) { this.language = language; }
 
+    public String getFilePath() { return filePath; }
+    public void setFilePath(String filePath) { this.filePath = filePath; }
+
+    public String getSmallImage() { return smallImage; }
+    public void setSmallImage(String smallImage) { this.smallImage = smallImage; }
+
+    public String getMediumImage() { return mediumImage; }
+    public void setMediumImage(String mediumImage) { this.mediumImage = mediumImage; }
+
+    public String getBannerImage() { return bannerImage; }
+    public void setBannerImage(String bannerImage) { this.bannerImage = bannerImage; }
 }

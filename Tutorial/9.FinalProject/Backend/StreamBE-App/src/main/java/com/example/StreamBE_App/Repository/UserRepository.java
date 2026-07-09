@@ -14,6 +14,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT COUNT(u) FROM User u WHERE u.block_status = :status")
     long countByBlockStatus(@Param("status") boolean status);
 
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role = :role")
+    long countByRole(@Param("role") boolean role);
+
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role = false AND u.block_status = :status")
+    long countByBlockStatusForUsers(@Param("status") boolean status);
+
     @Query("SELECT u FROM User u WHERE " +
            "(:search IS NULL OR LOWER(u.name) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(u.email) LIKE LOWER(CONCAT('%', :search, '%'))) AND " +
            "(:role IS NULL OR u.role = :role) AND " +
