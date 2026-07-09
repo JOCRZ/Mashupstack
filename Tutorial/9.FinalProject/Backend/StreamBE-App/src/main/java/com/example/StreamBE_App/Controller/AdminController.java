@@ -186,6 +186,15 @@ public class AdminController {
         return "edit";
     }
 
+    @GetMapping("/edit")
+    public String editPage(@RequestParam(value = "movieId", required = false) Long movieId, Model model) {
+        if (movieId == null) return "redirect:/files";
+        Movies movie = movieRepository.findById(movieId).orElse(null);
+        if (movie == null) return "redirect:/files";
+        model.addAttribute("movie", movie);
+        return "edit";
+    }
+
     @PostMapping("/upload")
     public String doUpload(@RequestParam String title,
                            @RequestParam String description,
@@ -231,6 +240,60 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/update")
+    public String doUpdate(@RequestParam Long movieId,
+                           @RequestParam String title,
+                           @RequestParam String description,
+                           @RequestParam int year,
+                           @RequestParam double rating,
+                           @RequestParam String duration,
+                           @RequestParam String language,
+                           @RequestParam(value = "videoName", required = false) String videoName,
+                           @RequestParam(value = "videoFile", required = false) MultipartFile videoFile,
+                           @RequestParam(value = "imageUrl", required = false) String imageUrl,
+                           @RequestParam(value = "image", required = false) MultipartFile image) {
+        try {
+            Movies movie = movieRepository.findById(movieId).orElse(null);
+            if (movie == null) return "redirect:/files?error=notfound";
+
+            movie.setTitle(title);
+            movie.setDescription(description);
+            movie.setYear(year);
+            movie.setRating(rating);
+            movie.setDuration(duration);
+            movie.setLanguage(language);
+
+            if (videoFile != null && !videoFile.isEmpty() && videoName != null && !videoName.isEmpty()) {
+                java.nio.file.Path uploadPath = java.nio.file.Paths.get(uploadDir).toAbsolutePath().normalize();
+                if (!uploadPath.toFile().exists()) uploadPath.toFile().mkdirs();
+                String ext = "";
+                String original = videoFile.getOriginalFilename();
+                if (original != null && original.contains(".")) {
+                    ext = original.substring(original.lastIndexOf("."));
+                }
+                String fileName = videoName.replaceAll("[^a-zA-Z0-9_\\-]", "_") + ext;
+                videoFile.transferTo(uploadPath.resolve(fileName).toFile());
+                movie.setFilePath(fileName);
+            }
+
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                movie.setImage(imageUrl);
+            } else if (image != null && !image.isEmpty()) {
+                java.nio.file.Path uploadPath = java.nio.file.Paths.get(uploadDir).toAbsolutePath().normalize();
+                java.nio.file.Path thumbDir = uploadPath.resolve("thumbnails");
+                if (!thumbDir.toFile().exists()) thumbDir.toFile().mkdirs();
+                String thumbName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+                image.transferTo(thumbDir.resolve(thumbName).toFile());
+                movie.setImage("thumbnails/" + thumbName);
+            }
+
+            movieRepository.save(movie);
+            return "redirect:/files?updateSuccess";
+        } catch (Exception e) {
+            return "redirect:/edit?movieId=" + movieId + "&error";
+        }
+    }
+
     @GetMapping("/videos/{id}")
     public ResponseEntity<Resource> streamVideo(@PathVariable Long id) {
         Movies movie = movieRepository.findById(id).orElse(null);
@@ -250,6 +313,24 @@ public class AdminController {
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + movie.getFilePath() + "\"")
                 .body(resource);
+    }
+
+    @GetMapping("/thumbnails/{filename}")
+    public ResponseEntity<Resource> serveThumbnail(@PathVariable String filename) {
+        try {
+            java.nio.file.Path thumbDir = java.nio.file.Paths.get(uploadDir).toAbsolutePath().normalize().resolve("thumbnails");
+            java.nio.file.Path filePath = thumbDir.resolve(filename).normalize();
+            if (!filePath.startsWith(thumbDir) || !filePath.toFile().exists()) {
+                return ResponseEntity.notFound().build();
+            }
+            FileSystemResource resource = new FileSystemResource(filePath.toFile());
+            String contentType = "image/png";
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(contentType))
+                    .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/fetch-movie")

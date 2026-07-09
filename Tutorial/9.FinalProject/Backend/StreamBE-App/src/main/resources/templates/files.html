@@ -25,6 +25,10 @@
 			Movie uploaded successfully!
 			<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 		</div>
+		<div th:if="${param.updateSuccess}" class="alert alert-success alert-dismissible fade show">
+			Movie updated successfully!
+			<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+		</div>
 
 <form th:action="@{/files}" method="get" class="row g-3 align-items-start">
 
@@ -99,7 +103,6 @@
 		                    <th>Content ID</th>
 		                    <th>Title</th>
 		                    <th>Play</th>
-		                    <th>Preview</th>
 		                    <th>Edit</th>
 		                    <th>Delete</th>
 		                </tr>
@@ -116,11 +119,7 @@
 		                    </td>
 
 		                    <td>
-		                        <a th:href="@{/preview(movieId=${movie.id})}" class="btn btn-info btn-sm">Preview</a>
-		                    </td>
-
-		                    <td>
-		                        <a th:href="@{/upload}" class="btn btn-warning btn-sm">Edit</a>
+		                        <a th:href="@{/edit(movieId=${movie.id})}" class="btn btn-warning btn-sm">Edit</a>
 		                    </td>
 
 		                    <td>

@@ -28,7 +28,7 @@ public class AdminAuthFilter implements Filter {
 
         // Protected admin pages
         if (path.equals("/dashboard") || path.equals("/users") || path.equals("/files") || path.equals("/upload")
-                || path.equals("/view") || path.equals("/preview") || path.equals("/create")) {
+                || path.equals("/update") || path.equals("/edit") || path.equals("/view") || path.equals("/preview") || path.equals("/create")) {
 
             HttpSession session = req.getSession(false);
             if (session == null || session.getAttribute("adminUser") == null) {
