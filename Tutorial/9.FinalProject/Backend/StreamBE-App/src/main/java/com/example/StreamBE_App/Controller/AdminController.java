@@ -315,7 +315,7 @@ public class AdminController {
                 .body(resource);
     }
 
-    @GetMapping("/thumbnails/{filename}")
+    @GetMapping("/thumbnails/{filename:.+}")
     public ResponseEntity<Resource> serveThumbnail(@PathVariable String filename) {
         try {
             java.nio.file.Path thumbDir = java.nio.file.Paths.get(uploadDir).toAbsolutePath().normalize().resolve("thumbnails");
@@ -324,7 +324,11 @@ public class AdminController {
                 return ResponseEntity.notFound().build();
             }
             FileSystemResource resource = new FileSystemResource(filePath.toFile());
-            String contentType = "image/png";
+            String fileName = filename.toLowerCase();
+            String contentType = fileName.endsWith(".png") ? "image/png" :
+                                 fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") ? "image/jpeg" :
+                                 fileName.endsWith(".gif") ? "image/gif" :
+                                 fileName.endsWith(".webp") ? "image/webp" : "image/png";
             return ResponseEntity.ok()
                     .contentType(MediaType.parseMediaType(contentType))
                     .body(resource);

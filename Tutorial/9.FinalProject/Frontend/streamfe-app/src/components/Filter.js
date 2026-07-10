@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "./navbar";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
@@ -16,12 +17,20 @@ const sorts = [
 ];
 
 function FilterCard({ item }) {
+  const navigate = useNavigate();
   return (
     <div style={{ cursor: "pointer" }}>
-      <div style={{ position: "relative", borderRadius: 8, overflow: "hidden", aspectRatio: "2/3", background: "#2a2a2a" }}>
-        <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#555", fontSize: 12 }}>
-          Poster
-        </div>
+      <div
+        onClick={() => navigate(`/movie/${item.id}`)}
+        style={{ position: "relative", borderRadius: 8, overflow: "hidden", aspectRatio: "2/3", background: "#2a2a2a", cursor: "pointer" }}
+      >
+        {item.image ? (
+          <img src={item.image} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+        ) : (
+          <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#555", fontSize: 12 }}>
+            Poster
+          </div>
+        )}
         {item.rating > 0 && (
           <span style={{
             position: "absolute", top: 8, left: 8,

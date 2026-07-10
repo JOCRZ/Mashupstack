@@ -5,12 +5,20 @@ import { useAuth } from "../context/AuthContext";
 const API = process.env.REACT_APP_API_URL || "";
 
 function Card({ item }) {
+  const navigate = useNavigate();
   return (
     <div style={{ minWidth: 170, maxWidth: 170 }}>
-      <div style={{ position: "relative", borderRadius: 6, overflow: "hidden", aspectRatio: "2/3", background: "#2a2a2a" }}>
-        <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#555", fontSize: 12 }}>
-          Poster
-        </div>
+      <div
+        onClick={() => navigate(`/movie/${item.movieId}`)}
+        style={{ position: "relative", borderRadius: 6, overflow: "hidden", aspectRatio: "2/3", background: "#2a2a2a", cursor: "pointer" }}
+      >
+        {item.image ? (
+          <img src={item.image} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+        ) : (
+          <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#555", fontSize: 12 }}>
+            Poster
+          </div>
+        )}
       </div>
       <p style={{ color: "#fff", fontSize: 13, fontWeight: 600, margin: "8px 0 0", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
         {item.title}

@@ -7,6 +7,7 @@ import Home from "./pages/home";
 import ProfileSection from "./components/ProfileSection";
 import Resumelist from "./pages/resumelist";
 import Filter from "./components/Filter";
+import Content from "./pages/content";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/profile" element={<ProtectedRoute><ProfileSection /></ProtectedRoute>} />
           <Route path="/history" element={<ProtectedRoute><Resumelist /></ProtectedRoute>} />
           <Route path="/filter" element={<ProtectedRoute><Filter /></ProtectedRoute>} />
+          <Route path="/movie/:id" element={<Content />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
