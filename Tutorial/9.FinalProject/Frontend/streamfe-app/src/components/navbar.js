@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 function Navbar({ onOpenLogin, onOpenRegister }) {
   const { user, logout } = useAuth();
   const [open, setOpen] = useState(false);
+  const [searchVal, setSearchVal] = useState("");
   const menuRef = useRef(null);
   const navigate = useNavigate();
 
@@ -92,6 +93,13 @@ function Navbar({ onOpenLogin, onOpenRegister }) {
           <input
             type="text"
             placeholder="Search anime..."
+            value={searchVal}
+            onChange={(e) => setSearchVal(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && searchVal.trim()) {
+                navigate(`/filter?q=${encodeURIComponent(searchVal.trim())}`);
+              }
+            }}
             style={{
               width: "100%",
               padding: "10px 14px 10px 36px",

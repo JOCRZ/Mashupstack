@@ -1,56 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import LeaderboardRow from "./LeaderboardRow";
 
-const tabs = ["Day", "Week", "Month"];
-
-const topData = [
-  { title: "Tensei shitara Slime Datta Ken 4th Season", format: "TV" },
-  { title: "One Piece", format: "TV" },
-  { title: "Solo Leveling Season 2", format: "TV" },
-  { title: "Dandadan", format: "TV" },
-  { title: "Blue Lock vs. U-20 Japan", format: "TV" }
-];
+const API = process.env.REACT_APP_API_URL || "";
 
 function Top5() {
-  const [timeframe, setTimeframe] = useState("Day");
+  const navigate = useNavigate();
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    fetch(`${API}/api/movies`)
+      .then((r) => r.json())
+      .then((data) => {
+        const sorted = [...data].sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 5);
+        setMovies(sorted);
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <div>
-      <div style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 16
-      }}>
-        <h2 style={{ color: "#fff", fontSize: 20, fontWeight: 700, margin: 0 }}>
-          Top anime
-        </h2>
-        <div style={{ display: "flex", gap: 4 }}>
-          {tabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setTimeframe(tab)}
-              style={{
-                background: timeframe === tab ? "#2596be" : "#2a2a2a",
-                color: "#fff",
-                border: "none",
-                padding: "4px 14px",
-                fontSize: 12,
-                fontWeight: 600,
-                borderRadius: 4,
-                cursor: "pointer",
-                transition: "background 0.2s"
-              }}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-      </div>
-
+      <h2 style={{ color: "#fff", fontSize: 20, fontWeight: 700, margin: "0 0 16px" }}>
+        Top Rated
+      </h2>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {topData.map((item, i) => (
-          <LeaderboardRow key={i} item={item} rank={i + 1} />
+        {movies.map((item, i) => (
+          <div key={item.id} onClick={() => navigate(`/movie/${item.id}`)} style={{ cursor: "pointer" }}>
+            <LeaderboardRow item={item} rank={i + 1} />
+          </div>
         ))}
       </div>
     </div>

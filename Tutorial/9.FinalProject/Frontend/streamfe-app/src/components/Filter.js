@@ -1,13 +1,17 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "./navbar";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 
 const API = process.env.REACT_APP_API_URL || "";
 
-const years = Array.from({ length: 31 }, (_, i) => 2026 - i);
-const languages = ["English", "Hindi", "Malayalam", "Tamil", "Telugu", "Kannada", "Spanish", "French", "Japanese", "Korean"];
+const langMap = {
+  "EN": "English", "HI": "Hindi", "ML": "Malayalam",
+  "TA": "Tamil", "TE": "Telugu", "KN": "Kannada",
+  "ES": "Spanish", "FR": "French", "JA": "Japanese", "KO": "Korean"
+};
+
 const sorts = [
   { value: "", label: "Default" },
   { value: "score", label: "Score" },
@@ -53,7 +57,7 @@ function FilterCard({ item }) {
             fontSize: 10, fontWeight: 600, padding: "1px 6px",
             borderRadius: 4, border: "1px solid #2596be40"
           }}>
-            {item.language}
+            {langMap[item.language] || item.language}
           </span>
         )}
       </div>
@@ -64,7 +68,8 @@ function FilterCard({ item }) {
 function Filter() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
+  const [searchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("q") || "");
   const [year, setYear] = useState("");
   const [language, setLanguage] = useState("");
   const [sort, setSort] = useState("");
@@ -72,44 +77,66 @@ function Filter() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const [page, setPage] = useState(1);
+  const debounceRef = useRef(null);
   const perPage = 20;
+
+  const yearOptions = [...new Set(movies.map((m) => m.year).filter(Boolean))].sort((a, b) => b - a);
+  const langOptions = [...new Set(movies.map((m) => m.language).filter(Boolean))].sort();
 
   useEffect(() => {
     fetch(`${API}/api/movies`)
       .then((r) => r.json())
       .then((data) => {
         setMovies(data);
-        setFiltered(data);
         setLoading(false);
+        const q = searchParams.get("q");
+        if (q) {
+          const filtered = data.filter((m) => m.title.toLowerCase().includes(q.toLowerCase()));
+          setFiltered(filtered);
+        } else {
+          setFiltered(data);
+        }
       })
       .catch(() => setLoading(false));
   }, []);
 
-  const applyFilter = () => {
+  const applyFilter = (searchVal, yearVal, langVal, sortVal) => {
     let result = [...movies];
 
-    if (search.trim()) {
-      const q = search.toLowerCase();
+    const s = searchVal ?? search;
+    const y = yearVal ?? year;
+    const l = langVal ?? language;
+    const so = sortVal ?? sort;
+
+    if (s.trim()) {
+      const q = s.toLowerCase();
       result = result.filter((m) => m.title.toLowerCase().includes(q));
     }
-    if (year) {
-      result = result.filter((m) => String(m.year) === year);
+    if (y) {
+      result = result.filter((m) => String(m.year) === y);
     }
-    if (language) {
-      result = result.filter((m) => m.language === language);
+    if (l) {
+      result = result.filter((m) => m.language === l);
     }
-    if (sort === "score") {
+    if (so === "score") {
       result.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-    } else if (sort === "year") {
+    } else if (so === "year") {
       result.sort((a, b) => b.year - a.year);
-    } else if (sort === "title_asc") {
+    } else if (so === "title_asc") {
       result.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (sort === "title_desc") {
+    } else if (so === "title_desc") {
       result.sort((a, b) => b.title.localeCompare(a.title));
     }
 
     setFiltered(result);
     setPage(1);
+  };
+
+  const onSearchChange = (e) => {
+    const val = e.target.value;
+    setSearch(val);
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => applyFilter(val, year, language, sort), 400);
   };
 
   const selectStyle = {
@@ -129,7 +156,6 @@ function Filter() {
         onOpenRegister={() => setRegisterOpen(true)}
       />
       <div style={{ padding: "24px 5% 60px" }}>
-        {/* Filter Bar */}
         <div style={{
           display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap",
           padding: "14px 18px", background: "#1a1a1a", borderRadius: 10,
@@ -137,33 +163,25 @@ function Filter() {
         }}>
           <input
             type="text" placeholder="🔍 Search movies..." value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={onSearchChange}
             style={{
               flex: "1 1 180px", padding: "10px 14px", borderRadius: 6, border: "1px solid #333",
               background: "#141414", color: "#fff", fontSize: 13, outline: "none"
             }}
           />
-          <select value={year} onChange={(e) => setYear(e.target.value)} style={selectStyle}>
-            <option value="">Select Year</option>
-            {years.map((y) => <option key={y} value={y}>{y}</option>)}
+          <select value={year} onChange={(e) => { setYear(e.target.value); applyFilter(search, e.target.value, language, sort); }} style={selectStyle}>
+            <option value="">All Years</option>
+            {yearOptions.map((y) => <option key={y} value={y}>{y}</option>)}
           </select>
-          <select value={language} onChange={(e) => setLanguage(e.target.value)} style={selectStyle}>
-            <option value="">Select Language</option>
-            {languages.map((l) => <option key={l} value={l}>{l}</option>)}
+          <select value={language} onChange={(e) => { setLanguage(e.target.value); applyFilter(search, year, e.target.value, sort); }} style={selectStyle}>
+            <option value="">All Languages</option>
+            {langOptions.map((l) => <option key={l} value={l}>{langMap[l] || l}</option>)}
           </select>
-          <select value={sort} onChange={(e) => setSort(e.target.value)} style={selectStyle}>
+          <select value={sort} onChange={(e) => { setSort(e.target.value); applyFilter(search, year, language, e.target.value); }} style={selectStyle}>
             {sorts.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
           </select>
-          <button onClick={applyFilter} style={{
-            padding: "10px 24px", borderRadius: 6, border: "none",
-            background: "#2596be", color: "#fff", fontSize: 13,
-            fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap"
-          }}>
-            Filter
-          </button>
         </div>
 
-        {/* Grid */}
         {filtered.length === 0 ? (
           <p style={{ color: "#666", textAlign: "center", marginTop: 60 }}>No movies found</p>
         ) : (
@@ -178,7 +196,6 @@ function Filter() {
               ))}
             </div>
 
-            {/* Pagination */}
             {totalPages > 1 && (
               <div style={{
                 display: "flex", justifyContent: "center", alignItems: "center",
