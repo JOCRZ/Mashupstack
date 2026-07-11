@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/navbar";
 import LoginModal from "../components/LoginModal";
 import RegisterModal from "../components/RegisterModal";
@@ -23,9 +24,11 @@ const controlBtn = {
 function Content() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const videoRef = useRef(null);
   const playerRef = useRef(null);
   const srcRef = useRef(`${API}/videos/${id}`);
+  const loggedRef = useRef(false);
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [synopsisExpanded, setSynopsisExpanded] = useState(false);
@@ -63,7 +66,16 @@ function Content() {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    const onPlay = () => setPlaying(true);
+    const onPlay = () => {
+      setPlaying(true);
+      if (user && !loggedRef.current) {
+        loggedRef.current = true;
+        fetch(`${API}/api/history/${id}`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${user.token}` }
+        }).catch(() => {});
+      }
+    };
     const onPause = () => setPlaying(false);
     v.addEventListener("play", onPlay);
     v.addEventListener("pause", onPause);
@@ -71,7 +83,7 @@ function Content() {
       v.removeEventListener("play", onPlay);
       v.removeEventListener("pause", onPause);
     };
-  }, [movie]);
+  }, [movie, user, id]);
 
   const toggleFullscreen = () => {
     const el = playerRef.current;

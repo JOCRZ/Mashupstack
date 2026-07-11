@@ -12,7 +12,7 @@ public interface WatchHistoryRepository extends JpaRepository<WatchHistory, Long
     WatchHistory findByUserIdAndMovieId(Long userId, Long movieId);
     void deleteByUserIdAndMovieId(Long userId, Long movieId);
 
-    @Query("SELECT new com.example.StreamBE_App.dto.HistoryWithMovieDTO(h.id, m.id, m.title, m.year, m.rating, m.language, h.watchedAt) " +
+    @Query("SELECT new com.example.StreamBE_App.dto.HistoryWithMovieDTO(h.id, m.id, m.title, m.year, m.rating, m.language, m.image, h.watchedAt) " +
            "FROM WatchHistory h JOIN Movies m ON h.movieId = m.id " +
            "WHERE h.userId = :userId ORDER BY h.watchedAt DESC")
     List<HistoryWithMovieDTO> findHistoryWithMovie(@Param("userId") Long userId);

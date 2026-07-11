@@ -22,10 +22,13 @@ import com.example.StreamBE_App.Models.Movies;
 import com.example.StreamBE_App.Models.User;
 import com.example.StreamBE_App.Repository.MovieRepository;
 import com.example.StreamBE_App.Repository.UserRepository;
+import com.example.StreamBE_App.Repository.WatchHistoryRepository;
 import com.example.StreamBE_App.Repository.WatchListRepository;
 import com.example.StreamBE_App.Service.TmdbService;
+import com.example.StreamBE_App.dto.HistoryWithMovieDTO;
 import com.example.StreamBE_App.dto.LanguageCountDTO;
 import com.example.StreamBE_App.dto.WatchListCountDTO;
+import com.example.StreamBE_App.dto.WatchListWithMovieDTO;
 import com.example.StreamBE_App.dto.YearCountDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -44,6 +47,9 @@ public class AdminController {
 
     @Autowired
     private WatchListRepository watchListRepository;
+
+    @Autowired
+    private WatchHistoryRepository watchHistoryRepository;
 
     @Autowired
     private TmdbService tmdbService;
@@ -348,6 +354,8 @@ public class AdminController {
         if (userId != null) {
             User user = userRepository.findById(userId).orElse(null);
             model.addAttribute("viewUser", user);
+            model.addAttribute("watchHistory", watchHistoryRepository.findHistoryWithMovie(userId));
+            model.addAttribute("watchList", watchListRepository.findWatchListWithMovie(userId));
         }
         return "view";
     }

@@ -9,17 +9,19 @@ public class HistoryWithMovieDTO {
     private int year;
     private double rating;
     private String language;
+    private String image;
     private LocalDateTime watchedAt;
 
     public HistoryWithMovieDTO() {}
 
-    public HistoryWithMovieDTO(Long id, Long movieId, String title, int year, double rating, String language, LocalDateTime watchedAt) {
+    public HistoryWithMovieDTO(Long id, Long movieId, String title, int year, double rating, String language, String image, LocalDateTime watchedAt) {
         this.id = id;
         this.movieId = movieId;
         this.title = title;
         this.year = year;
         this.rating = rating;
         this.language = language;
+        this.image = image;
         this.watchedAt = watchedAt;
     }
 
@@ -40,6 +42,9 @@ public class HistoryWithMovieDTO {
 
     public String getLanguage() { return language; }
     public void setLanguage(String language) { this.language = language; }
+
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
 
     public LocalDateTime getWatchedAt() { return watchedAt; }
     public void setWatchedAt(LocalDateTime watchedAt) { this.watchedAt = watchedAt; }

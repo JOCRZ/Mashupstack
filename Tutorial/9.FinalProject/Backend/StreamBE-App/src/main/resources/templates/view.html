@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>User Analytics</title>
+<title>User Details</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -18,236 +18,124 @@ body{
     box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
-.user-avatar{
+.profile-img{
     width:100px;
     height:100px;
     border-radius:50%;
     background:#dee2e6;
-}
-
-.table th{
-    white-space:nowrap;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:36px;
+    color:#6c757d;
+    font-weight:700;
 }
 </style>
 
 </head>
 <body>
 
-<div th:replace="~{/navbar :: admin-navbar('User Analytics')}"></div>
+<div th:replace="~{/navbar :: admin-navbar('User Details')}"></div>
 
 <div class="container mt-4">
 
-    <!-- User Details -->
-
     <div class="card mb-4">
-
         <div class="card-header">
-            <h4 class="mb-0">User Analytics</h4>
+            <h4 class="mb-0">User Details</h4>
         </div>
-
         <div class="card-body">
-
             <div class="row">
-
                 <div class="col-md-2 text-center">
-                    <div class="user-avatar mx-auto"></div>
+                    <div class="profile-img mx-auto" th:text="${viewUser.name != null ? #strings.substring(viewUser.name, 0, 1) : '?'}"></div>
                 </div>
-
                 <div class="col-md-10">
-
                     <div class="row">
-
                         <div class="col-md-4 mb-3">
                             <label class="fw-bold">User ID</label>
-                            <p>USR001</p>
+                            <p th:text="${viewUser.id}">USR001</p>
                         </div>
-
                         <div class="col-md-4 mb-3">
                             <label class="fw-bold">Name</label>
-                            <p>John Doe</p>
+                            <p th:text="${viewUser.name}">John Doe</p>
                         </div>
-
                         <div class="col-md-4 mb-3">
                             <label class="fw-bold">Email</label>
-                            <p>john@example.com</p>
+                            <p th:text="${viewUser.email}">john@example.com</p>
                         </div>
-
                         <div class="col-md-4 mb-3">
-                            <label class="fw-bold">Account Type</label>
-                            <p>Premium</p>
+                            <label class="fw-bold">Block Status</label>
+                            <p th:text="${viewUser.block_status ? 'Blocked' : 'Active'}" th:classappend="${viewUser.block_status ? 'text-danger fw-bold' : 'text-success fw-bold'}">Active</p>
                         </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label class="fw-bold">Country</label>
-                            <p>India</p>
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label class="fw-bold">Joined Date</label>
-                            <p>15-Jan-2025</p>
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label class="fw-bold">Email Verified</label>
-                            <p>Yes</p>
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label class="fw-bold">Status</label>
-                            <p>Active</p>
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label class="fw-bold">Last Login</label>
-                            <p>18-Jun-2026</p>
-                        </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
-    <!-- Filters -->
 
     <div class="card mb-4">
-
-        <div class="card-body">
-
-            <div class="row g-3">
-
-                <div class="col-lg-3">
-                    <select class="form-select">
-                        <option selected>List Type</option>
-                        <option>Watching</option>
-                        <option>Planning</option>
-                        <option>Completed</option>
-                        <option>Paused</option>
-                        <option>Dropped</option>
-                    </select>
-                </div>
-
-                <div class="col-lg-2">
-                    <select class="form-select">
-                        <option selected>Year</option>
-                        <option>2026</option>
-                        <option>2025</option>
-                        <option>2024</option>
-                        <option>2023</option>
-                    </select>
-                </div>
-
-                <div class="col-lg-2">
-                    <select class="form-select">
-                        <option selected>Status</option>
-                        <option>Watching</option>
-                        <option>Planning</option>
-                        <option>Completed</option>
-                        <option>Paused</option>
-                        <option>Dropped</option>
-                    </select>
-                </div>
-
-                <div class="col-lg-2">
-                    <select class="form-select">
-                        <option selected>Type</option>
-                        <option>Anime</option>
-                        <option>Movie</option>
-                        <option>Series</option>
-                    </select>
-                </div>
-
-                <div class="col-lg-2">
-                    <select class="form-select">
-                        <option selected>Sort By</option>
-                        <option>Recently Added</option>
-                        <option>Title A-Z</option>
-                        <option>Title Z-A</option>
-                        <option>Highest Rated</option>
-                        <option>Most Viewed</option>
-                    </select>
-                </div>
-
-                <div class="col-auto">
-                    <button class="btn btn-primary">
-                        Filter
-                    </button>
-                </div>
-
-            </div>
-
+        <div class="card-header">
+            <h5 class="mb-0">Watch History</h5>
         </div>
-
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Movie ID</th>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Rating</th>
+                        <th>Language</th>
+                        <th>Watched At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="h : ${watchHistory}">
+                        <td th:text="${h.movieId}">1001</td>
+                        <td th:text="${h.title}">Movie Title</td>
+                        <td th:text="${h.year}">2026</td>
+                        <td th:text="${h.rating}">8.5</td>
+                        <td th:text="${h.language}">EN</td>
+                        <td th:text="${h.watchedAt}">15-Jun-2026</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(watchHistory)}">
+                        <td colspan="6" class="text-center text-muted">No watch history</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <!-- User Content History -->
-
-    <div class="card">
-
+    <div class="card mb-4">
         <div class="card-header">
-            <h5 class="mb-0">Content Activity</h5>
+            <h5 class="mb-0">Watch List</h5>
         </div>
-
         <div class="card-body p-0">
-
             <table class="table table-hover mb-0">
-
                 <thead class="table-dark">
-
                     <tr>
-                        <th>Content ID</th>
+                        <th>Movie ID</th>
                         <th>Title</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Progress</th>
+                        <th>Year</th>
                         <th>Rating</th>
-                        <th>Added Date</th>
+                        <th>Language</th>
+                        <th>Status</th>
                     </tr>
-
                 </thead>
-
                 <tbody>
-
-                    <tr>
-                        <td>1001</td>
-                        <td>Attack on Titan</td>
-                        <td>Anime</td>
-                        <td>Watching</td>
-                        <td>75%</td>
-                        <td>9.5</td>
-                        <td>15-Jun-2026</td>
+                    <tr th:each="w : ${watchList}">
+                        <td th:text="${w.movieId}">1001</td>
+                        <td th:text="${w.title}">Movie Title</td>
+                        <td th:text="${w.year}">2026</td>
+                        <td th:text="${w.rating}">8.5</td>
+                        <td th:text="${w.language}">EN</td>
+                        <td th:text="${w.status}">WATCHING</td>
                     </tr>
-
-                    <tr>
-                        <td>1002</td>
-                        <td>Interstellar</td>
-                        <td>Movie</td>
-                        <td>Completed</td>
-                        <td>100%</td>
-                        <td>10</td>
-                        <td>12-Jun-2026</td>
+                    <tr th:if="${#lists.isEmpty(watchList)}">
+                        <td colspan="6" class="text-center text-muted">No items in watch list</td>
                     </tr>
-
-                    <tr>
-                        <td>1003</td>
-                        <td>One Piece</td>
-                        <td>Anime</td>
-                        <td>Paused</td>
-                        <td>42%</td>
-                        <td>8.5</td>
-                        <td>01-Jun-2026</td>
-                    </tr>
-
                 </tbody>
-
             </table>
-
         </div>
-
     </div>
 
 </div>
