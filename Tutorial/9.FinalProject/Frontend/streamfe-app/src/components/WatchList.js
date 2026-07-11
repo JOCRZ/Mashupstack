@@ -78,13 +78,22 @@ function WatchList() {
                 justifyContent: "space-between",
                 alignItems: "center",
                 background: "#1f1f1f",
-                padding: "12px 16px",
-                borderRadius: 8
+                padding: "8px 16px",
+                borderRadius: 8,
+                gap: 12
               }}
             >
-              <div>
-                <p style={{ margin: 0, fontWeight: 600, fontSize: 15, color: "#fff" }}>{item.title}</p>
-                <p style={{ margin: "4px 0 0", color: "#999", fontSize: 13 }}>{item.year}</p>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                {item.image ? (
+                  <img src={item.image} alt={item.title}
+                    style={{ width: 40, height: 60, objectFit: "cover", borderRadius: 4 }} />
+                ) : (
+                  <div style={{ width: 40, height: 60, background: "#333", borderRadius: 4 }} />
+                )}
+                <div>
+                  <p style={{ margin: 0, fontWeight: 600, fontSize: 15, color: "#fff" }}>{item.title}</p>
+                  <p style={{ margin: "4px 0 0", color: "#999", fontSize: 13 }}>{item.year}</p>
+                </div>
               </div>
               <span style={{
                 background: "#2596be",

@@ -54,6 +54,9 @@ public class AdminController {
     @Autowired
     private TmdbService tmdbService;
 
+    @Autowired
+    private HttpServletRequest request;
+
     @GetMapping({"/login", "/admin"})
     public String loginPage(HttpSession session) {
         if (session.getAttribute("adminUser") != null) {
@@ -355,9 +358,19 @@ public class AdminController {
             User user = userRepository.findById(userId).orElse(null);
             model.addAttribute("viewUser", user);
             model.addAttribute("watchHistory", watchHistoryRepository.findHistoryWithMovie(userId));
-            model.addAttribute("watchList", watchListRepository.findWatchListWithMovie(userId));
+
+            List<WatchListWithMovieDTO> wl = watchListRepository.findWatchListWithMovie(userId);
+            wl.forEach(w -> w.setImage(resolveImage(w.getImage())));
+            model.addAttribute("watchList", wl);
         }
         return "view";
+    }
+
+    private String resolveImage(String image) {
+        if (image == null) return null;
+        if (image.startsWith("http")) return image;
+        String base = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        return base + "/thumbnails/" + image.replace("thumbnails/", "");
     }
     
     @GetMapping("/preview")

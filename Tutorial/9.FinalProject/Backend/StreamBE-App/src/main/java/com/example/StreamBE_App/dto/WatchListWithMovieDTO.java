@@ -8,10 +8,11 @@ public class WatchListWithMovieDTO {
     private double rating;
     private String language;
     private String status;
+    private String image;
 
     public WatchListWithMovieDTO() {}
 
-    public WatchListWithMovieDTO(Long id, Long movieId, String title, int year, double rating, String language, String status) {
+    public WatchListWithMovieDTO(Long id, Long movieId, String title, int year, double rating, String language, String status, String image) {
         this.id = id;
         this.movieId = movieId;
         this.title = title;
@@ -19,6 +20,7 @@ public class WatchListWithMovieDTO {
         this.rating = rating;
         this.language = language;
         this.status = status;
+        this.image = image;
     }
 
     public Long getId() { return id; }
@@ -41,4 +43,7 @@ public class WatchListWithMovieDTO {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
 }

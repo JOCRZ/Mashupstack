@@ -2,28 +2,36 @@ import { useState, useEffect, useCallback } from "react";
 
 const banners = [
   {
-    title: "Classroom of the Elite 4th Season",
-    rating: "7.8",
+    title: "Chainsaw Man : Reze Arc",
+    rating: "8.3",
     format: "TV",
-    year: "2026",
-    desc: "The fourth season of Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e...",
-    image: "https://picsum.photos/seed/classroom/800/600"
+    year: "2025",
+    desc: "In a brutal war between devils, hunters, and secret enemies, a mysterious girl named Reze has stepped into Denji’s world, and he faces his deadliest battle yet, fueled by love in a world where survival knows no rules.",
+    image: "/images/banner/cs.png"
   },
   {
-    title: "Attack on Tital Final ",
+    title: "Attack on Titan : Last Attack",
     rating: "9.1",
     format: "TV",
     year: "2023",
     desc: "The epic conclusion to the battle between Eldia and Marley reaches its devastating climax as Eren unleashes the Rumbling...",
-    image: "https://picsum.photos/seed/aot/800/600"
+    image: "/images/banner/aot.png"
   },
   {
-    title: "Demon Slayer: Infinity Castel ",
+    title: "Demon Slayer : Infinity Castle",
     rating: "8.9",
     format: "Movie",
     year: "2025",
     desc: "Tanjiro and his comrades face the most powerful Upper Moon demons in the Infinity Castle...",
-    image: "https://picsum.photos/seed/demonslayer/800/600"
+    image: "/images/banner/ds.png"
+  },
+  {
+    title: "Solo Leveling : Beyond the System",
+    rating: "8.7",
+    format: "TV",
+    year: "2025",
+    desc: "Jin-Woo continues his rise as the Shadow Monarch, facing increasingly powerful foes...",
+    image: "/images/banner/sl.png"
   }
 ];
 

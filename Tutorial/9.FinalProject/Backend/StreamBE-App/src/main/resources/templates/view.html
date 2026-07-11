@@ -114,6 +114,7 @@ body{
                 <thead class="table-dark">
                     <tr>
                         <th>Movie ID</th>
+                        <th>Poster</th>
                         <th>Title</th>
                         <th>Year</th>
                         <th>Rating</th>
@@ -124,6 +125,10 @@ body{
                 <tbody>
                     <tr th:each="w : ${watchList}">
                         <td th:text="${w.movieId}">1001</td>
+                        <td>
+                            <img th:if="${w.image != null}" th:src="${w.image}" alt="poster" style="width:45px;height:67px;object-fit:cover;border-radius:4px;">
+                            <span th:unless="${w.image != null}" style="color:#999">N/A</span>
+                        </td>
                         <td th:text="${w.title}">Movie Title</td>
                         <td th:text="${w.year}">2026</td>
                         <td th:text="${w.rating}">8.5</td>
@@ -131,7 +136,7 @@ body{
                         <td th:text="${w.status}">WATCHING</td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(watchList)}">
-                        <td colspan="6" class="text-center text-muted">No items in watch list</td>
+                        <td colspan="7" class="text-center text-muted">No items in watch list</td>
                     </tr>
                 </tbody>
             </table>
