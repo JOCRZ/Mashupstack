@@ -1,15 +1,18 @@
 import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 const banners = [
   {
+    movieId: 202,
     title: "Chainsaw Man : Reze Arc",
     rating: "8.3",
     format: "TV",
     year: "2025",
-    desc: "In a brutal war between devils, hunters, and secret enemies, a mysterious girl named Reze has stepped into Denji’s world, and he faces his deadliest battle yet, fueled by love in a world where survival knows no rules.",
+    desc: "In a brutal war between devils, hunters, and secret enemies, a mysterious girl named Reze has stepped into Denji's world, and he faces his deadliest battle yet, fueled by love in a world where survival knows no rules.",
     image: "/images/banner/cs.png"
   },
   {
+    movieId: 204,
     title: "Attack on Titan : Last Attack",
     rating: "9.1",
     format: "TV",
@@ -18,6 +21,7 @@ const banners = [
     image: "/images/banner/aot.png"
   },
   {
+    movieId: 203,
     title: "Demon Slayer : Infinity Castle",
     rating: "8.9",
     format: "Movie",
@@ -26,6 +30,7 @@ const banners = [
     image: "/images/banner/ds.png"
   },
   {
+    movieId: 205,
     title: "Solo Leveling : Beyond the System",
     rating: "8.7",
     format: "TV",
@@ -36,6 +41,7 @@ const banners = [
 ];
 
 function HeroBanner() {
+  const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
 
   const next = useCallback(() => {
@@ -144,7 +150,7 @@ function HeroBanner() {
           </p>
 
           <div style={{ display: "flex", gap: 14 }}>
-            <button style={{
+            <button onClick={() => navigate(`/movie/${banner.movieId}`)} style={{
               background: "#4ade80",
               color: "#000",
               border: "none",
@@ -162,7 +168,7 @@ function HeroBanner() {
                 <span style={{ fontSize: 18 }}>&#9654;</span> WATCH NOW
               </span>
             </button>
-            <button style={{
+            <button onClick={() => navigate(`/movie/${banner.movieId}`)} style={{
               background: "rgba(0,0,0,0.5)",
               color: "#fff",
               border: "1px solid rgba(255,255,255,0.4)",

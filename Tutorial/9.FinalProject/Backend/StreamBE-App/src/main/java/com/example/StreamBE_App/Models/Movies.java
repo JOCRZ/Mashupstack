@@ -24,6 +24,7 @@ public class Movies {
     private String language;
     private String filePath;
     private String image;
+    private int views;
 
     public Movies() {}
 
@@ -62,4 +63,7 @@ public class Movies {
 
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
+
+    public int getViews() { return views; }
+    public void setViews(int views) { this.views = views; }
 }

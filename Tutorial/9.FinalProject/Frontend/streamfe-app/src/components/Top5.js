@@ -17,7 +17,7 @@ function Top5() {
     fetch(`${API}/api/movies`)
       .then((r) => r.json())
       .then((data) => {
-        const sorted = [...data].sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 3);
+        const sorted = [...data].sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 10);
         setMovies(sorted);
       })
       .catch(() => {});
@@ -28,7 +28,8 @@ function Top5() {
       <h2 style={{ color: "#fff", fontSize: 20, fontWeight: 700, margin: "0 0 16px" }}>
         Top Rated
       </h2>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ maxHeight: 278, overflowY: "auto", scrollbarWidth: "thin", scrollbarColor: "#333 transparent" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {movies.map((item, i) => {
           const rank = i + 1;
           const accent = rankColors[rank] || "#555";
@@ -86,8 +87,9 @@ function Top5() {
             </div>
           );
         })}
+        </div>
+        </div>
       </div>
-    </div>
   );
 }
 

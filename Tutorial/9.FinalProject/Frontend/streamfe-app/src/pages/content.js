@@ -325,15 +325,24 @@ function Content() {
       </div>
 
       <div style={{ padding: "24px 5% 60px" }}>
-        <button
-          onClick={() => navigate(-1)}
-          style={{
-            background: "transparent", border: "none", color: "#94a3b8",
-            fontSize: 14, cursor: "pointer", padding: 0, marginBottom: 20, display: "block"
-          }}
-        >
-          &larr; Back
-        </button>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+          <button
+            onClick={() => navigate(-1)}
+            style={{
+              background: "transparent", border: "none", color: "#94a3b8",
+              fontSize: 14, cursor: "pointer", padding: 0, display: "block"
+            }}
+          >
+            &larr; Back
+          </button>
+          <span style={{ color: "#777", fontSize: 13, display: "flex", alignItems: "center", gap: 4 }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#777" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            {movie.views || 0} views
+          </span>
+        </div>
 
         <div style={{ display: "flex", gap: 32, alignItems: "flex-start" }}>
           <div style={{ flexShrink: 0, width: 220 }}>

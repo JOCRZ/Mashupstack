@@ -1,7 +1,11 @@
 package com.example.StreamBE_App.Controller;
 
+import com.example.StreamBE_App.Models.MovieViews;
+import com.example.StreamBE_App.Models.Movies;
 import com.example.StreamBE_App.Models.User;
 import com.example.StreamBE_App.Models.WatchHistory;
+import com.example.StreamBE_App.Repository.MovieRepository;
+import com.example.StreamBE_App.Repository.MovieViewsRepository;
 import com.example.StreamBE_App.Repository.UserRepository;
 import com.example.StreamBE_App.Repository.WatchHistoryRepository;
 import com.example.StreamBE_App.dto.HistoryWithMovieDTO;
@@ -13,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/history")
@@ -23,6 +28,12 @@ public class WatchHistoryController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MovieRepository movieRepository;
+
+    @Autowired
+    private MovieViewsRepository movieViewsRepository;
 
     @Autowired
     private HttpServletRequest request;
@@ -51,6 +62,23 @@ public class WatchHistoryController {
         } else {
             watchHistoryRepository.save(new WatchHistory(userId, movieId));
         }
+
+        Optional<MovieViews> lastView = movieViewsRepository.findTopByMovieIdAndUserIdOrderByViewedAtDesc(movieId, userId);
+        boolean shouldCount = true;
+        if (lastView.isPresent()) {
+            LocalDateTime last = lastView.get().getViewedAt();
+            if (last.plusHours(24).isAfter(LocalDateTime.now())) {
+                shouldCount = false;
+            }
+        }
+        if (shouldCount) {
+            movieViewsRepository.save(new MovieViews(movieId, userId));
+            movieRepository.findById(movieId).ifPresent(m -> {
+                m.setViews(m.getViews() + 1);
+                movieRepository.save(m);
+            });
+        }
+
         return ResponseEntity.ok("Logged");
     }
 

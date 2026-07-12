@@ -21,12 +21,15 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.StreamBE_App.Models.Movies;
 import com.example.StreamBE_App.Models.User;
 import com.example.StreamBE_App.Repository.MovieRepository;
+import com.example.StreamBE_App.Repository.MovieViewsRepository;
 import com.example.StreamBE_App.Repository.UserRepository;
 import com.example.StreamBE_App.Repository.WatchHistoryRepository;
 import com.example.StreamBE_App.Repository.WatchListRepository;
 import com.example.StreamBE_App.Service.TmdbService;
 import com.example.StreamBE_App.dto.HistoryWithMovieDTO;
 import com.example.StreamBE_App.dto.LanguageCountDTO;
+import com.example.StreamBE_App.dto.WatchListCountDTO;
+import com.example.StreamBE_App.dto.MovieViewStatsDTO;
 import com.example.StreamBE_App.dto.WatchListCountDTO;
 import com.example.StreamBE_App.dto.WatchListWithMovieDTO;
 import com.example.StreamBE_App.dto.YearCountDTO;
@@ -53,6 +56,9 @@ public class AdminController {
 
     @Autowired
     private TmdbService tmdbService;
+
+    @Autowired
+    private MovieViewsRepository movieViewsRepository;
 
     @Autowired
     private HttpServletRequest request;
@@ -95,6 +101,8 @@ public class AdminController {
         long totalUsers = userRepository.countByRole(false);
         long blockedUsers = userRepository.countByBlockStatusForUsers(true);
         long totalMovies = movieRepository.count();
+        long totalViews = movieViewsRepository.countTotalViews();
+        List<MovieViewStatsDTO> movieViewStats = movieViewsRepository.getMovieViewStats();
 
         List<LanguageCountDTO> moviesByLanguage = movieRepository.countByLanguage();
         List<YearCountDTO> moviesByYear = movieRepository.countByYear();
@@ -103,6 +111,8 @@ public class AdminController {
         model.addAttribute("totalUsers", totalUsers);
         model.addAttribute("blockedUsers", blockedUsers);
         model.addAttribute("totalMovies", totalMovies);
+        model.addAttribute("totalViews", totalViews);
+        model.addAttribute("movieViewStats", movieViewStats);
         model.addAttribute("moviesByLanguage", moviesByLanguage);
         model.addAttribute("moviesByYear", moviesByYear);
         model.addAttribute("watchlistByStatus", watchlistByStatus);

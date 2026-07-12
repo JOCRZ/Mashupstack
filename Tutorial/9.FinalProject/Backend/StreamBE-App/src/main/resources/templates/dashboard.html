@@ -79,7 +79,19 @@
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card border-success border-start border-4 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="text-muted mb-1 small">Total Views</p>
+                                <h2 class="mb-0 fw-bold text-success" th:text="${totalViews}">0</h2>
+                            </div>
+                            <span class="fs-1 text-success opacity-25">&#9654;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <!-- Movies by Language -->
         <div class="row g-4">
@@ -102,6 +114,37 @@
                     </div>
                     <div class="card-body" th:if="${isEmpty}">
                         <p class="text-muted mb-0">No movies found.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6" th:with="isEmpty=${movieViewStats == null or #lists.isEmpty(movieViewStats)}">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">Views per Movie</h5>
+                    </div>
+                    <div class="card-body p-0" th:if="${not isEmpty}">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Movie</th>
+                                    <th>Views</th>
+                                    <th>Unique</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="entry, iter : ${movieViewStats}">
+                                    <td th:text="${iter.index + 1}">1</td>
+                                    <td th:text="${entry.title}">Movie</td>
+                                    <td><span class="badge bg-success" th:text="${entry.views}">0</span></td>
+                                    <td><span class="badge bg-info" th:text="${entry.uniqueViewers}">0</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-body" th:if="${isEmpty}">
+                        <p class="text-muted mb-0">No views recorded yet.</p>
                     </div>
                 </div>
             </div>
@@ -160,8 +203,6 @@
             </div>
 
         </div>
-
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
