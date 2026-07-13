@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import MovieDetailPopup from "./MovieDetailPopup";
+
+const API = process.env.REACT_APP_API_URL || "";
 
 const banners = [
   {
@@ -43,6 +46,16 @@ const banners = [
 function HeroBanner() {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
+  const [detailMovie, setDetailMovie] = useState(null);
+
+  const openDetail = async (movieId) => {
+    try {
+      const res = await fetch(`${API}/api/movies/${movieId}`);
+      if (res.ok) setDetailMovie(await res.json());
+    } catch {}
+  };
+
+  const closeDetail = () => setDetailMovie(null);
 
   const next = useCallback(() => {
     setCurrent((prev) => (prev + 1) % banners.length);
@@ -168,7 +181,7 @@ function HeroBanner() {
                 <span style={{ fontSize: 18 }}>&#9654;</span> WATCH NOW
               </span>
             </button>
-            <button onClick={() => navigate(`/movie/${banner.movieId}`)} style={{
+            <button onClick={() => openDetail(banner.movieId)} style={{
               background: "rgba(0,0,0,0.5)",
               color: "#fff",
               border: "1px solid rgba(255,255,255,0.4)",
@@ -242,6 +255,10 @@ function HeroBanner() {
           ))}
         </div>
       </div>
+
+      {detailMovie && (
+        <MovieDetailPopup movie={detailMovie} onClose={closeDetail} />
+      )}
     </div>
   );
 }
